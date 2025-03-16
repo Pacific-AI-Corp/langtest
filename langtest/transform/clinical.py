@@ -814,3 +814,77 @@ class FQT(BaseClincial):
                 progress_bar.update(1)
 
         return sample_list
+
+
+class AMEGA(BaseClincial):
+    """
+    AMEGA class for the clinical tests
+    """
+
+    alias_name = "amega"
+    supported_tasks = ["question-answering", "text-generation"]
+
+    @staticmethod
+    def transform(sample_list: List[Sample], *args, **kwargs):
+        """Transform method for the AMEGA class"""
+
+        return []
+
+    @staticmethod
+    async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
+        """Run method for the AMEGA class"""
+
+        results = AMEGA.generate_responses(model)
+
+        return results
+
+    @staticmethod
+    def generate_responses(model: ModelAPI):
+        from langtest.transform.utils import DataRetriever, ResponseGenerator
+
+        model_name = model.model.model if hasattr(model.model, "model") else model.model
+
+        data_retriever = DataRetriever()
+        generator = ResponseGenerator(model.model)
+        results = []
+        for case_id in data_retriever.get_cases()[:1]:
+            response_list, reask_list = generator.generate_all_responses(
+                data_retriever, case_id
+            )
+
+            case_eval_df = AMEGA.evaluate_responses(
+                case_id,
+                data_retriever,
+                response_list,
+                reask_list,
+                model_name,
+            )
+
+            results.append(case_eval_df)
+
+        return results
+
+    @staticmethod
+    def evaluate_responses(
+        case_id: int,
+        data_retriever,
+        response_list: List[str],
+        reask_list: List[str],
+        generator_model_name_or_path: str,
+        eval_model: str = "gpt-4o-mini",
+    ):
+
+        from langtest.transform.utils import ResponseEvaluator
+
+        evaluator = ResponseEvaluator(
+            model=eval_model,
+            case_id=case_id,
+            generator_model_name_or_path=generator_model_name_or_path,
+            generator_type="chat",
+        )
+
+        results = evaluator.evaluate_responses(
+            data_retriever, responses=response_list, reask_responses=reask_list
+        )
+
+        return evaluator.aggregate_results(data_retriever, results)

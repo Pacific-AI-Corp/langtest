@@ -492,3 +492,81 @@ def get_default_font(font_size=20):
             )
         except OSError:
             return ImageFont.load_default()
+
+
+# AMEGA Benchmark utils
+# inspired by https://github.com/DATEXIS/AMEGA-benchmark/blob/main/main.py
+
+
+# Data Object Component
+class DataRetriever:
+    """
+    DataRetriever class to load and filter data from csv files
+
+    Attributes:
+        cases (pd.DataFrame): Dataframe containing case data
+        questions (pd.DataFrame): Dataframe containing question data
+        sections (pd.DataFrame): Dataframe containing section data
+        criteria (pd.DataFrame): Dataframe containing criteria
+
+    Methods:
+        filter(df: pd.DataFrame, **conditions) -> pd.DataFrame:
+            Filter the dataframe based on conditions
+        get_case_data(case_id) -> Tuple[pd.Series, pd.DataFrame]:
+            Get case data based on case_id
+        get_question_data(case_id, question_id) -> Tuple[pd.Series, pd.DataFrame]:
+            Get question data based on case_id and question_id
+        get_criteria(case_id, question_id, section_id=None) -> List[str]:
+            Get criteria based on case_id, question_id and section_id
+        get_criteria_scores(case_id, question_id, section_id=None) -> List[float]:
+            Get criteria scores based on case_id, question_id and section_id
+        load_csv(filename) -> pd.DataFrame:
+            Load csv file from github
+    """
+
+    def __init__(self):
+        self.cases = self.load_csv("cases.csv")
+        self.questions = self.load_csv("questions.csv")
+        self.sections = self.load_csv("sections.csv")
+        self.criteria = self.load_csv("criteria.csv")
+
+    def filter(self, df: pd.DataFrame, **conditions) -> pd.DataFrame:
+        for key, value in conditions.items():
+            df = df[df[key] == value]
+        return df
+
+    def get_case_data(self, case_id):
+        return self.filter(self.cases, case_id=case_id).squeeze(), self.filter(
+            self.questions, case_id=case_id
+        )
+
+    def get_question_data(self, case_id, question_id):
+        return self.filter(
+            self.questions, case_id=case_id, question_id=question_id
+        ).squeeze(), self.filter(self.sections, case_id=case_id, question_id=question_id)
+
+    def get_criteria(self, case_id, question_id, section_id=None):
+        df = self.filter(self.criteria, case_id=case_id, question_id=question_id)
+        if section_id:
+            df = df[df["section_id"] == section_id]
+        return df["criteria_str"].tolist()
+
+    def get_criteria_scores(self, case_id, question_id, section_id=None):
+        df = self.filter(self.criteria, case_id=case_id, question_id=question_id)
+        if section_id:
+            df = df[df["section_id"] == section_id]
+        return [float(score.replace(",", ".")) for score in df["criteria_score_possible"]]
+
+    def load_csv(self, filename) -> pd.DataFrame:
+        filepath = (
+            "https://raw.githubusercontent.com/DATEXIS/AMEGA-benchmark/refs/heads/main/data/"
+            f"{filename}"
+        )
+        try:
+            return pd.read_csv(filepath, delimiter=";")
+        except (FileNotFoundError, pd.errors.ParserError) as e:
+            print(f"Error loading {filename}: {e}")
+            return pd.DataFrame()
+    
+    def get_cases(self) -> List[int]:
+        return self.cases["case_id"].tolist()

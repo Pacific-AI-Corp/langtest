@@ -816,7 +816,7 @@ class FQT(BaseClincial):
         return sample_list
 
 
-class AMEGA(BaseClincial):
+class AMEGA(BaseClinical):
     """
     AMEGA class for the clinical tests
     """

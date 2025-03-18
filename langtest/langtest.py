@@ -539,6 +539,7 @@ class Harness:
         if self.task.category == "ideology":
             self.df_report = report.political_report(self._generated_results)
             return self.df_report
+
         elif self.is_multi_dataset and isinstance(self.model, dict):
             self.df_report = report.multi_dataset_multi_model_report(
                 summary,

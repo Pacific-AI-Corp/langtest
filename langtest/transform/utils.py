@@ -577,6 +577,46 @@ class DataRetriever:
     def get_cases(self) -> List[int]:
         return self.cases["case_id"].tolist()
 
+    def dataset_info(self) -> pd.DataFrame:
+        """
+        Get dataset information
+
+        Returns:
+            pd.DataFrame: Dataset information
+        """
+        cases_ids = self.get_cases()
+        data = []
+
+        for case_id in cases_ids:
+
+            case_branch = self.cases[self.cases["case_id"] == case_id][
+                "case_brunch"
+            ].values[0]
+            case_title = self.cases[self.cases["case_id"] == case_id][
+                "case_title"
+            ].values[0]
+
+            n_questions = len(self.questions[self.questions["case_id"] == case_id])
+            n_sections = len(self.sections[self.sections["case_id"] == case_id])
+            n_criteria = len(self.criteria[self.criteria["case_id"] == case_id])
+
+            # Append data
+            data.append(
+                [case_id, case_branch, case_title, n_questions, n_sections, n_criteria]
+            )
+
+        return pd.DataFrame(
+            data,
+            columns=[
+                "Case Id",
+                "Case Branch",
+                "Title",
+                "n_questions",
+                "n_sections",
+                "n_criteria",
+            ],
+        )
+
 
 # Generator Component
 class ResponseGenerator:

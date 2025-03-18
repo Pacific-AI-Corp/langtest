@@ -61,7 +61,7 @@ class ClinicalTestFactory(ITests):
             data_handler_copy = [sample.copy() for sample in self.data_handler]
             transformed_samples = test_func(data_handler_copy, **params)
 
-            if test_name == "demographic-bias":
+            if test_name in ("demographic-bias", "amega"):
                 all_samples.extend(transformed_samples)
             else:
                 new_transformed_samples, removed_samples_tests = filter_unique_samples(
@@ -831,36 +831,55 @@ class AMEGA(BaseClinical):
         from langtest.utils.custom_types.sample import AMEGASample
 
         eval_model = kwargs.get("eval_model", "gpt-4o-mini")
-        no_of_cases = kwargs.get("no_of_cases", 5)
-        cases_ids = kwargs.get("cases_ids", [1, 2, 3, 4, 5])  # range from 1 to 20
+        no_of_cases = kwargs.get("no_of_cases", 20)
+        case_ids = kwargs.get("no_of_cases", [1, 2, 3, 4, 5])  # range from 1 to 20
 
-        sample = AMEGASample(
-            category="clinical",
-            test_type="amega",
-            eval_model=eval_model,
-            no_of_cases=no_of_cases,
-            cases_ids=cases_ids,
-        )
+        if isinstance(no_of_cases, int) and no_of_cases < 0 and no_of_cases > 21:
+            case_ids = list(range(1, no_of_cases + 1))
+
+        sample = AMEGASample()
+        sample.case_ids = case_ids
+        sample.eval_model = eval_model
+        sample.category = "clinical"
+        sample.test_type = "amega"
+
         return [sample]
 
     @staticmethod
     async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
         """Run method for the AMEGA class"""
 
-        results = AMEGA.generate_responses(model)
+        sample = sample_list[0]
 
-        return results
+        progress_bar = kwargs.get("progress_bar", False)
+
+        results = AMEGA.generate_responses(model, sample, *args, **kwargs)
+
+        sample.actual_results = results
+
+        progress_bar.update(1)
+
+        return [sample]
 
     @staticmethod
-    def generate_responses(model: ModelAPI):
+    def generate_responses(model: ModelAPI, sample, *args, **kwargs):
         from langtest.transform.utils import DataRetriever, ResponseGenerator
+        from tqdm.notebook import tqdm
 
         model_name = model.model.model if hasattr(model.model, "model") else model.model
+
+        # parameters from sample_list
+        tqdm_case_ids = tqdm(
+            sample.case_ids,
+            desc="AMEGA Benchmark",
+            unit="cases",
+            position=1,
+        )
 
         data_retriever = DataRetriever()
         generator = ResponseGenerator(model.model)
         results = []
-        for case_id in data_retriever.get_cases()[:1]:
+        for case_id in tqdm_case_ids:
             response_list, reask_list = generator.generate_all_responses(
                 data_retriever, case_id
             )

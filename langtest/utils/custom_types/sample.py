@@ -3151,8 +3151,9 @@ class DegradationSample(BaseModel):
 class AMEGASample(BaseModel):
     category: str = None
     test_type: str = None
+    case_ids: List[int] = None
     state: str = None
-    acutal_scores: List[List[float]] = None
+    actual_results: List[List[float]] = None
 
     eval_model: str = None
 

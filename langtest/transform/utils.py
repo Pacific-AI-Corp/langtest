@@ -6,7 +6,7 @@ import re
 import numpy as np
 from openai import OpenAI
 import pandas as pd
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 from ..errors import Errors
 from langtest.utils.custom_types import (
     NERPrediction,
@@ -644,6 +644,9 @@ class ResponseGenerator:
             questions.iterrows(),
             total=len(questions),
             desc=f"Processing Questions from {case_id} case",
+            position=2,
+            leave=False,
+            unit="question",
         )
 
         for _, question_row in questions_tqdm:
@@ -716,6 +719,9 @@ class ResponseEvaluator:
             responses,
             total=len(responses),
             desc=f"Evaluating Responses from {self.case_id} case",
+            position=2,
+            unit="response",
+            leave=False,
         )
 
         evaluation_results = []

@@ -83,23 +83,23 @@ class ClinicalTestFactory(ITests):
         return all_samples
 
     @classmethod
-    def available_tests(cls) -> Dict[str, Union["BaseClincial", "ClinicalTestFactory"]]:
+    def available_tests(cls) -> Dict[str, Union["BaseClinical", "ClinicalTestFactory"]]:
         """Returns the empty dict, no clinical tests
 
         Returns:
             Dict[str, str]: Empty dict, no clinical tests
         """
-        test_types = BaseClincial.available_tests()
+        test_types = BaseClinical.available_tests()
         # test_types.update({"demographic-bias": cls})
         return test_types
 
 
-class BaseClincial(ABC):
+class BaseClinical(ABC):
     """
     Baseclass for the clinical tests
     """
 
-    test_types = defaultdict(lambda: BaseClincial)
+    test_types = defaultdict(lambda: BaseClinical)
     alias_name = None
     supported_tasks = [
         "question-answering",
@@ -141,7 +141,7 @@ class BaseClincial(ABC):
         return await created_task
 
     @classmethod
-    def available_tests(cls) -> Dict[str, "BaseClincial"]:
+    def available_tests(cls) -> Dict[str, "BaseClinical"]:
         """Available tests for the clinical tests"""
 
         return cls.test_types
@@ -150,10 +150,10 @@ class BaseClincial(ABC):
         """Initializes the subclass for the clinical tests"""
         alias = cls.alias_name if isinstance(cls.alias_name, list) else [cls.alias_name]
         for name in alias:
-            BaseClincial.test_types[name] = cls
+            BaseClinical.test_types[name] = cls
 
 
-class DemographicBias(BaseClincial):
+class DemographicBias(BaseClinical):
     """
     DemographicBias class for the clinical tests
     """
@@ -186,7 +186,7 @@ class DemographicBias(BaseClincial):
         return sample_list
 
 
-class Generic2Brand(BaseClincial):
+class Generic2Brand(BaseClinical):
     """
     GenericBrand class for the clinical tests
     """
@@ -316,7 +316,7 @@ class Generic2Brand(BaseClincial):
         return sample_list
 
 
-class Brand2Generic(BaseClincial):
+class Brand2Generic(BaseClinical):
     """
     BrandGeneric class for the clinical tests
     """
@@ -596,7 +596,7 @@ class Posology:
         return text
 
 
-class FCT(BaseClincial):
+class FCT(BaseClinical):
     """
     FCT class for the clinical tests
     False Confidence Test
@@ -668,7 +668,7 @@ class FCT(BaseClincial):
         return sample_list
 
 
-class NOTA(BaseClincial):
+class NOTA(BaseClinical):
     """
     NOTA class for the clinical tests
     """
@@ -750,7 +750,7 @@ class NOTA(BaseClincial):
         return sample_list
 
 
-class FQT(BaseClincial):
+class FQT(BaseClinical):
     """
     FQT class for the clinical tests
     """

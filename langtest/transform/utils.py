@@ -962,6 +962,7 @@ class ResponseEvaluator:
 
             results_list.append(
                 [
+                    aggregated_data["case_id"],
                     aggregated_data["case_brunch"],
                     q_id,
                     question_possible,
@@ -986,6 +987,7 @@ class ResponseEvaluator:
         # Add totals row to DataFrame
         results_list.append(
             [
+                self.case_id,
                 aggregated_data["case_brunch"],
                 "total",
                 aggregated_data["case_possible_score"],
@@ -996,6 +998,7 @@ class ResponseEvaluator:
 
         # Create DataFrame
         col_names = [
+            "Case Id",
             "Case Branch",
             "Question",
             "Possible Score",

@@ -3148,6 +3148,15 @@ class DegradationSample(BaseModel):
         return "not_validated"
 
 
+class AMEGASample(BaseModel):
+    category: str = None
+    test_type: str = None
+    state: str = None
+    acutal_scores: List[List[float]] = None
+
+    eval_model: str = None
+
+
 Sample = TypeVar(
     "Sample",
     MaxScoreSample,

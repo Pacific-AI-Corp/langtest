@@ -6,6 +6,7 @@ import re
 import numpy as np
 from openai import OpenAI
 import pandas as pd
+from tqdm import tqdm
 from ..errors import Errors
 from langtest.utils.custom_types import (
     NERPrediction,
@@ -637,9 +638,17 @@ class ResponseGenerator:
         case_str = case_row.get("case_str", "")
         first_qid = questions.iloc[0]["question_id"] if not questions.empty else None
 
-        for _, question_row in questions.iterrows():
+        # tqdm on questions df
+
+        questions_tqdm = tqdm(
+            questions.iterrows(),
+            total=len(questions),
+            desc=f"Processing Questions from {case_id} case",
+        )
+
+        for _, question_row in questions_tqdm:
             qid = question_row["question_id"]
-            print(f"Processing Question {qid}/{len(questions)}")
+            # print(f"Processing Question {qid}/{len(questions)}")
             response, reask_responses = self.generate_responses_for_question(
                 benchmark_data,
                 case_id,
@@ -662,7 +671,7 @@ class ResponseEvaluator:
           - benchmark:        An object providing criteria and case data (e.g., benchmark.get_criteria_scores).
           - case_id:          The specific ID of the case to evaluate.
           - generator_model_name_or_path, generator_type, evaluator_model_name_or_path:
-                              Tracking info for the aggregator’s output.
+                              Tracking info for the aggregator's output.
           - n:                Number of parallel responses requested from the OpenAI chat completion.
         """
         self.model = model
@@ -700,12 +709,21 @@ class ResponseEvaluator:
         Main entry point for evaluating initial responses and any
         corresponding re-asks, then combining results.
         """
+
+        # tqdm on responses
+
+        tqdm_responses = tqdm(
+            responses,
+            total=len(responses),
+            desc=f"Evaluating Responses from {self.case_id} case",
+        )
+
         evaluation_results = []
-        for response in responses:
+        for response in tqdm_responses:
             case_id, question_id = response["case_id"], response["question_id"]
             criteria = benchmark_data.get_criteria(case_id, question_id)
 
-            print(f"Evaluating Question {question_id} ...")
+            # print(f"Evaluating Question {question_id} ...")
             # Evaluate initial response
             initial_eval = self.run(
                 generator_response_str=response["generator_response_str"],

@@ -827,8 +827,21 @@ class AMEGA(BaseClinical):
     @staticmethod
     def transform(sample_list: List[Sample], *args, **kwargs):
         """Transform method for the AMEGA class"""
+        # Sample Class
+        from langtest.utils.custom_types.sample import AMEGASample
 
-        return []
+        eval_model = kwargs.get("eval_model", "gpt-4o-mini")
+        no_of_cases = kwargs.get("no_of_cases", 5)
+        cases_ids = kwargs.get("cases_ids", [1, 2, 3, 4, 5])  # range from 1 to 20
+
+        sample = AMEGASample(
+            category="clinical",
+            test_type="amega",
+            eval_model=eval_model,
+            no_of_cases=no_of_cases,
+            cases_ids=cases_ids,
+        )
+        return [sample]
 
     @staticmethod
     async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):

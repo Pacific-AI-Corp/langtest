@@ -1,6 +1,6 @@
 from typing import List, Dict, Type, Union
 from abc import ABC, abstractmethod
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import asyncio
 import nest_asyncio
 from langtest.modelhandler.modelhandler import ModelAPI

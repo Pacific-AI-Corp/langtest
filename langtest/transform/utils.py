@@ -6,7 +6,7 @@ import re
 import numpy as np
 from openai import OpenAI
 import pandas as pd
-from tqdm.notebook import tqdm
+from tqdm.auto import tqdm
 from ..errors import Errors
 from langtest.utils.custom_types import (
     NERPrediction,

@@ -864,7 +864,7 @@ class AMEGA(BaseClinical):
     @staticmethod
     def generate_responses(model: ModelAPI, sample, *args, **kwargs):
         from langtest.transform.utils import DataRetriever, ResponseGenerator
-        from tqdm.notebook import tqdm
+        from tqdm.auto import tqdm
 
         model_name = model.model.model if hasattr(model.model, "model") else model.model
 

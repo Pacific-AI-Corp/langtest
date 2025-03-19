@@ -621,9 +621,9 @@ def amega_report_summary(
     # for report
     if report:
         df = df[df["Question"] == "total"]
-        cols.insert(2, "n_questions")
+        cols.insert(3, "n_questions")
     else:
         df = df[df["Question"] != "total"]
-        cols.insert(2, "Question")
+        cols.insert(3, "Question")
 
     return df[cols]

@@ -831,10 +831,10 @@ class AMEGA(BaseClinical):
         from langtest.utils.custom_types.sample import AMEGASample
 
         eval_model = kwargs.get("eval_model", "gpt-4o-mini")
-        no_of_cases = kwargs.get("no_of_cases", 20)
+        no_of_cases = min(kwargs.get("no_of_cases", 20), 20)
         case_ids = kwargs.get("no_of_cases", [1, 2, 3, 4, 5])  # range from 1 to 20
 
-        if isinstance(no_of_cases, int) and 0 < no_of_cases <= 21:
+        if isinstance(no_of_cases, int) and 0 < no_of_cases < 21:
             case_ids = list(range(1, no_of_cases + 1))
 
         sample = AMEGASample()

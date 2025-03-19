@@ -3157,6 +3157,15 @@ class AMEGASample(BaseModel):
 
     eval_model: str = None
 
+    def to_dict(self) -> Dict[str, Any]:
+        result = {
+            "category": self.category,
+            "test_type": self.test_type,
+            "case_ids": self.case_ids,
+            "actual_results": self.actual_results,
+        }
+        return result
+
 
 Sample = TypeVar(
     "Sample",

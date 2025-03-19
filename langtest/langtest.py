@@ -767,11 +767,9 @@ class Harness:
         columns = [c for c in column_order if c in generated_results_df.columns]
         generated_results_df = generated_results_df[columns]
 
-        if "degradation_analysis" in generated_results_df["test_type"].unique():
-            # drop the rows with test_type as 'degradation_analysis'
-            generated_results_df = generated_results_df[
-                generated_results_df["test_type"] != "degradation_analysis"
-            ]
+        generated_results_df = generated_results_df[
+            ~generated_results_df["test_type"].isin(["degradation_analysis", "amega"])
+        ]
 
         return generated_results_df.fillna("-")
 
@@ -1023,11 +1021,9 @@ class Harness:
         columns = [c for c in column_order if c in testcases_df.columns]
         testcases_df = testcases_df[columns]
 
-        if "degradation_analysis" in testcases_df["test_type"].unique():
-            # drop the rows with test_type as 'degradation_analysis'
-            testcases_df = testcases_df[
-                testcases_df["test_type"] != "degradation_analysis"
-            ]
+        testcases_df = testcases_df[
+            ~testcases_df["test_type"].isin(["degradation_analysis", "amega"])
+        ]
 
         return testcases_df.fillna("-")
 

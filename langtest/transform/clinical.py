@@ -834,7 +834,7 @@ class AMEGA(BaseClinical):
         no_of_cases = kwargs.get("no_of_cases", 20)
         case_ids = kwargs.get("no_of_cases", [1, 2, 3, 4, 5])  # range from 1 to 20
 
-        if isinstance(no_of_cases, int) and no_of_cases < 0 and no_of_cases > 21:
+        if isinstance(no_of_cases, int) and 0 < no_of_cases <= 21:
             case_ids = list(range(1, no_of_cases + 1))
 
         sample = AMEGASample()

@@ -61,7 +61,7 @@ class ClinicalTestFactory(ITests):
             data_handler_copy = [sample.copy() for sample in self.data_handler]
             transformed_samples = test_func(data_handler_copy, **params)
 
-            if test_name == "demographic-bias":
+            if test_name in ("demographic-bias", "amega"):
                 all_samples.extend(transformed_samples)
             else:
                 new_transformed_samples, removed_samples_tests = filter_unique_samples(
@@ -83,23 +83,23 @@ class ClinicalTestFactory(ITests):
         return all_samples
 
     @classmethod
-    def available_tests(cls) -> Dict[str, Union["BaseClincial", "ClinicalTestFactory"]]:
+    def available_tests(cls) -> Dict[str, Union["BaseClinical", "ClinicalTestFactory"]]:
         """Returns the empty dict, no clinical tests
 
         Returns:
             Dict[str, str]: Empty dict, no clinical tests
         """
-        test_types = BaseClincial.available_tests()
+        test_types = BaseClinical.available_tests()
         # test_types.update({"demographic-bias": cls})
         return test_types
 
 
-class BaseClincial(ABC):
+class BaseClinical(ABC):
     """
     Baseclass for the clinical tests
     """
 
-    test_types = defaultdict(lambda: BaseClincial)
+    test_types = defaultdict(lambda: BaseClinical)
     alias_name = None
     supported_tasks = [
         "question-answering",
@@ -141,7 +141,7 @@ class BaseClincial(ABC):
         return await created_task
 
     @classmethod
-    def available_tests(cls) -> Dict[str, "BaseClincial"]:
+    def available_tests(cls) -> Dict[str, "BaseClinical"]:
         """Available tests for the clinical tests"""
 
         return cls.test_types
@@ -150,10 +150,10 @@ class BaseClincial(ABC):
         """Initializes the subclass for the clinical tests"""
         alias = cls.alias_name if isinstance(cls.alias_name, list) else [cls.alias_name]
         for name in alias:
-            BaseClincial.test_types[name] = cls
+            BaseClinical.test_types[name] = cls
 
 
-class DemographicBias(BaseClincial):
+class DemographicBias(BaseClinical):
     """
     DemographicBias class for the clinical tests
     """
@@ -186,7 +186,7 @@ class DemographicBias(BaseClincial):
         return sample_list
 
 
-class Generic2Brand(BaseClincial):
+class Generic2Brand(BaseClinical):
     """
     GenericBrand class for the clinical tests
     """
@@ -316,7 +316,7 @@ class Generic2Brand(BaseClincial):
         return sample_list
 
 
-class Brand2Generic(BaseClincial):
+class Brand2Generic(BaseClinical):
     """
     BrandGeneric class for the clinical tests
     """
@@ -596,7 +596,7 @@ class Posology:
         return text
 
 
-class FCT(BaseClincial):
+class FCT(BaseClinical):
     """
     FCT class for the clinical tests
     False Confidence Test
@@ -668,7 +668,7 @@ class FCT(BaseClincial):
         return sample_list
 
 
-class NOTA(BaseClincial):
+class NOTA(BaseClinical):
     """
     NOTA class for the clinical tests
     """
@@ -750,7 +750,7 @@ class NOTA(BaseClincial):
         return sample_list
 
 
-class FQT(BaseClincial):
+class FQT(BaseClinical):
     """
     FQT class for the clinical tests
     """
@@ -814,3 +814,113 @@ class FQT(BaseClincial):
                 progress_bar.update(1)
 
         return sample_list
+
+
+class AMEGA(BaseClinical):
+    """
+    AMEGA class for the clinical tests
+    """
+
+    alias_name = "amega"
+    supported_tasks = ["question-answering", "text-generation"]
+
+    @staticmethod
+    def transform(sample_list: List[Sample], *args, **kwargs):
+        """Transform method for the AMEGA class"""
+        # Sample Class
+        from langtest.utils.custom_types.sample import AMEGASample
+
+        eval_model = kwargs.get("eval_model", "gpt-4o-mini")
+        no_of_cases = kwargs.get("no_of_cases", 20)
+        case_ids = kwargs.get("no_of_cases", [1, 2, 3, 4, 5])  # range from 1 to 20
+
+        if isinstance(no_of_cases, int) and 0 < no_of_cases:
+            # limit the number of cases to 20
+            no_of_cases = min(no_of_cases, 20)
+
+            # generate the case ids
+            case_ids = list(range(1, no_of_cases + 1))
+
+        sample = AMEGASample()
+        sample.case_ids = case_ids
+        sample.eval_model = eval_model
+        sample.category = "clinical"
+        sample.test_type = "amega"
+
+        return [sample]
+
+    @staticmethod
+    async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
+        """Run method for the AMEGA class"""
+
+        sample = sample_list[0]
+
+        progress_bar = kwargs.get("progress_bar", False)
+
+        results = AMEGA.generate_responses(model, sample, *args, **kwargs)
+
+        sample.actual_results = results
+
+        progress_bar.update(1)
+
+        return [sample]
+
+    @staticmethod
+    def generate_responses(model: ModelAPI, sample, *args, **kwargs):
+        from langtest.transform.utils import DataRetriever, ResponseGenerator
+        from tqdm.auto import tqdm
+
+        model_name = model.model.model if hasattr(model.model, "model") else model.model
+
+        # parameters from sample_list
+        tqdm_case_ids = tqdm(
+            sample.case_ids,
+            desc="AMEGA Benchmark",
+            unit="cases",
+            position=1,
+        )
+
+        data_retriever = DataRetriever()
+        generator = ResponseGenerator(model.model)
+        results = []
+        for case_id in tqdm_case_ids:
+            response_list, reask_list = generator.generate_all_responses(
+                data_retriever, case_id
+            )
+
+            case_eval_df = AMEGA.evaluate_responses(
+                case_id,
+                data_retriever,
+                response_list,
+                reask_list,
+                model_name,
+            )
+
+            results.append(case_eval_df)
+
+        return results
+
+    @staticmethod
+    def evaluate_responses(
+        case_id: int,
+        data_retriever,
+        response_list: List[str],
+        reask_list: List[str],
+        generator_model_name_or_path: str,
+        eval_model: str = "gpt-4o-mini",
+    ):
+
+        from langtest.transform.utils import ResponseEvaluator
+
+        evaluator = ResponseEvaluator(
+            model=eval_model,
+            case_id=case_id,
+            generator_model_name_or_path=generator_model_name_or_path,
+            generator_type="chat",
+        )
+
+        results = evaluator.evaluate_responses(
+            data_retriever, responses=response_list, reask_responses=reask_list
+        )
+
+        return evaluator.aggregate_results(data_retriever, results)

@@ -539,6 +539,7 @@ class Harness:
         if self.task.category == "ideology":
             self.df_report = report.political_report(self._generated_results)
             return self.df_report
+
         elif self.is_multi_dataset and isinstance(self.model, dict):
             self.df_report = report.multi_dataset_multi_model_report(
                 summary,
@@ -766,11 +767,9 @@ class Harness:
         columns = [c for c in column_order if c in generated_results_df.columns]
         generated_results_df = generated_results_df[columns]
 
-        if "degradation_analysis" in generated_results_df["test_type"].unique():
-            # drop the rows with test_type as 'degradation_analysis'
-            generated_results_df = generated_results_df[
-                generated_results_df["test_type"] != "degradation_analysis"
-            ]
+        generated_results_df = generated_results_df[
+            ~generated_results_df["test_type"].isin(["degradation_analysis", "amega"])
+        ]
 
         return generated_results_df.fillna("-")
 
@@ -1022,11 +1021,9 @@ class Harness:
         columns = [c for c in column_order if c in testcases_df.columns]
         testcases_df = testcases_df[columns]
 
-        if "degradation_analysis" in testcases_df["test_type"].unique():
-            # drop the rows with test_type as 'degradation_analysis'
-            testcases_df = testcases_df[
-                testcases_df["test_type"] != "degradation_analysis"
-            ]
+        testcases_df = testcases_df[
+            ~testcases_df["test_type"].isin(["degradation_analysis", "amega"])
+        ]
 
         return testcases_df.fillna("-")
 

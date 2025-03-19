@@ -1,8 +1,12 @@
 from collections import defaultdict
+import json
 from typing import Dict, List
 from typing import Union
 import re
+import numpy as np
+from openai import OpenAI
 import pandas as pd
+from tqdm.auto import tqdm
 from ..errors import Errors
 from langtest.utils.custom_types import (
     NERPrediction,
@@ -25,6 +29,7 @@ from .custom_data import add_custom_data
 from PIL import ImageFont
 import os
 import sys
+from functools import lru_cache
 
 
 class RepresentationOperation:
@@ -492,3 +497,517 @@ def get_default_font(font_size=20):
             )
         except OSError:
             return ImageFont.load_default()
+
+
+# AMEGA Benchmark utils
+# inspired by https://github.com/DATEXIS/AMEGA-benchmark/blob/main/main.py
+
+
+# Data Object Component
+class DataRetriever:
+    """
+    DataRetriever class to load and filter data from csv files
+
+    Attributes:
+        cases (pd.DataFrame): Dataframe containing case data
+        questions (pd.DataFrame): Dataframe containing question data
+        sections (pd.DataFrame): Dataframe containing section data
+        criteria (pd.DataFrame): Dataframe containing criteria
+
+    Methods:
+        filter(df: pd.DataFrame, **conditions) -> pd.DataFrame:
+            Filter the dataframe based on conditions
+        get_case_data(case_id) -> Tuple[pd.Series, pd.DataFrame]:
+            Get case data based on case_id
+        get_question_data(case_id, question_id) -> Tuple[pd.Series, pd.DataFrame]:
+            Get question data based on case_id and question_id
+        get_criteria(case_id, question_id, section_id=None) -> List[str]:
+            Get criteria based on case_id, question_id and section_id
+        get_criteria_scores(case_id, question_id, section_id=None) -> List[float]:
+            Get criteria scores based on case_id, question_id and section_id
+        load_csv(filename) -> pd.DataFrame:
+            Load csv file from github
+    """
+
+    def __init__(self):
+        self.cases = self.load_csv("cases.csv")
+        self.questions = self.load_csv("questions.csv")
+        self.sections = self.load_csv("sections.csv")
+        self.criteria = self.load_csv("criteria.csv")
+
+    def filter(self, df: pd.DataFrame, **conditions) -> pd.DataFrame:
+        for key, value in conditions.items():
+            df = df[df[key] == value]
+        return df
+
+    def get_case_data(self, case_id):
+        return self.filter(self.cases, case_id=case_id).squeeze(), self.filter(
+            self.questions, case_id=case_id
+        )
+
+    def get_question_data(self, case_id, question_id):
+        return self.filter(
+            self.questions, case_id=case_id, question_id=question_id
+        ).squeeze(), self.filter(self.sections, case_id=case_id, question_id=question_id)
+
+    def get_criteria(self, case_id, question_id, section_id=None):
+        df = self.filter(self.criteria, case_id=case_id, question_id=question_id)
+        if section_id:
+            df = df[df["section_id"] == section_id]
+        return df["criteria_str"].tolist()
+
+    def get_criteria_scores(self, case_id, question_id, section_id=None):
+        df = self.filter(self.criteria, case_id=case_id, question_id=question_id)
+        if section_id:
+            df = df[df["section_id"] == section_id]
+        return [float(score.replace(",", ".")) for score in df["criteria_score_possible"]]
+
+    @lru_cache(maxsize=4)
+    def load_csv(self, filename) -> pd.DataFrame:
+        filepath = (
+            "https://raw.githubusercontent.com/DATEXIS/AMEGA-benchmark/refs/heads/main/data/"
+            f"{filename}"
+        )
+        try:
+            return pd.read_csv(filepath, delimiter=";")
+        except (FileNotFoundError, pd.errors.ParserError) as e:
+            print(f"Error loading {filename}: {e}")
+            return pd.DataFrame()
+
+    def get_cases(self) -> List[int]:
+        return self.cases["case_id"].tolist()
+
+    def dataset_info(self) -> pd.DataFrame:
+        """
+        Get dataset information
+
+        Returns:
+            pd.DataFrame: Dataset information
+        """
+        cases_ids = self.get_cases()
+        data = []
+
+        for case_id in cases_ids:
+
+            case_branch = self.cases[self.cases["case_id"] == case_id][
+                "case_brunch"
+            ].values[0]
+            case_title = self.cases[self.cases["case_id"] == case_id][
+                "case_title"
+            ].values[0]
+
+            n_questions = len(self.questions[self.questions["case_id"] == case_id])
+            n_sections = len(self.sections[self.sections["case_id"] == case_id])
+            n_criteria = len(self.criteria[self.criteria["case_id"] == case_id])
+
+            # Append data
+            data.append(
+                [case_id, case_branch, case_title, n_questions, n_sections, n_criteria]
+            )
+
+        return pd.DataFrame(
+            data,
+            columns=[
+                "Case Id",
+                "Case Branch",
+                "Title",
+                "n_questions",
+                "n_sections",
+                "n_criteria",
+            ],
+        )
+
+
+# Generator Component
+class ResponseGenerator:
+    def __init__(self, model):
+        self.model = model
+        self.messages = []
+
+    def generate_response(self, case_str, question_str):
+        prompt = f"Initial Case: {case_str}\nQuestion: {question_str}"
+        self.add_message(prompt, "user")
+
+        response = self.model.invoke(self.messages)
+        self.add_message(response.content, "assistant")
+        return response.content
+
+    def generate_reask_response(
+        self, case_id, case_str, question_id, section_row, generator_response_str
+    ):
+        section_id, reask_str = (
+            section_row["section_id"],
+            section_row["section_reask_str"],
+        )
+        self.add_message(reask_str, "user")
+        reask_response = (
+            self.model.invoke(self.messages).content if reask_str != "FALSE" else ""
+        )
+        # reask_response = self.model.invoke(case_str, reask_str) if reask_str != 'FALSE' else ''
+        return {
+            "case_id": case_id,
+            "question_id": question_id,
+            "section_id": section_id,
+            "section_reask_str": reask_str,
+            "reask_generator_response_str": reask_response,
+        }
+
+    def generate_responses_for_question(
+        self, benchmark_data, case_id, case_str, question_row
+    ):
+        question_id, question_str = (
+            question_row["question_id"],
+            question_row["question_str"],
+        )
+        response_str = self.generate_response(case_str, question_str)
+        _, sections = benchmark_data.get_question_data(case_id, question_id)
+        reask_responses = [
+            self.generate_reask_response(case_id, "", question_id, row, response_str)
+            for _, row in sections.iterrows()
+        ]
+        return {
+            "case_id": case_id,
+            "question_id": question_id,
+            "question_str": question_str,
+            "generator_response_str": response_str,
+        }, reask_responses
+
+    def generate_all_responses(self, benchmark_data, case_id):
+        response_list, reask_list = [], []
+        case_row, questions = benchmark_data.get_case_data(case_id)
+        case_str = case_row.get("case_str", "")
+        first_qid = questions.iloc[0]["question_id"] if not questions.empty else None
+
+        # tqdm on questions df
+
+        questions_tqdm = tqdm(
+            questions.iterrows(),
+            total=len(questions),
+            desc=f"Processing Questions from {case_id} case",
+            position=2,
+            leave=False,
+            unit="question",
+        )
+
+        for _, question_row in questions_tqdm:
+            qid = question_row["question_id"]
+            # print(f"Processing Question {qid}/{len(questions)}")
+            response, reask_responses = self.generate_responses_for_question(
+                benchmark_data,
+                case_id,
+                case_str if qid == first_qid else "",
+                question_row,
+            )
+            response_list.append(response)
+            reask_list.extend(reask_responses)
+        return response_list, reask_list
+
+    def add_message(self, content, role):
+        self.messages.append({"content": content, "role": role})
+
+
+class ResponseEvaluator:
+    def __init__(self, model, case_id, generator_model_name_or_path, generator_type, n=2):
+        """
+        Minimal constructor for the evaluator:
+          - model:            The OpenAI model name or ID to use.
+          - benchmark:        An object providing criteria and case data (e.g., benchmark.get_criteria_scores).
+          - case_id:          The specific ID of the case to evaluate.
+          - generator_model_name_or_path, generator_type, evaluator_model_name_or_path:
+                              Tracking info for the aggregator's output.
+          - n:                Number of parallel responses requested from the OpenAI chat completion.
+        """
+        self.model = model
+        self.case_id = case_id
+        self.generator_model_name_or_path = generator_model_name_or_path
+        self.generator_type = generator_type
+
+        self.n = n
+        self.client = OpenAI()
+
+        # Track token usage if desired
+        self.prompt_tokens = 0
+        self.completion_tokens = 0
+        self.total_tokens = 0
+
+    def evaluate_reask_responses(self, benchmark_data, reask_responses):
+        """Evaluate re-asks (follow-up prompts) for a list of responses."""
+        results = []
+        for response in reask_responses:
+            criteria = benchmark_data.get_criteria(
+                response["case_id"], response["question_id"], response["section_id"]
+            )
+            bool_list = self.run(
+                generator_response_str=response["reask_generator_response_str"],
+                criteria_list=criteria,
+            )[
+                0
+            ]  # [0] is the list of booleans
+            results.extend(bool_list)
+        return results
+
+    # @lru_cache(maxsize=1024)
+    def evaluate_responses(self, benchmark_data, responses, reask_responses):
+        """
+        Main entry point for evaluating initial responses and any
+        corresponding re-asks, then combining results.
+        """
+
+        # tqdm on responses
+
+        tqdm_responses = tqdm(
+            responses,
+            total=len(responses),
+            desc=f"Evaluating Responses from {self.case_id} case",
+            position=2,
+            unit="response",
+            leave=False,
+        )
+
+        evaluation_results = []
+        for response in tqdm_responses:
+            case_id, question_id = response["case_id"], response["question_id"]
+            criteria = benchmark_data.get_criteria(case_id, question_id)
+
+            # print(f"Evaluating Question {question_id} ...")
+            # Evaluate initial response
+            initial_eval = self.run(
+                generator_response_str=response["generator_response_str"],
+                criteria_list=criteria,
+            )[0]
+            # Evaluate any re-asks related to this question
+            related_reasks = [
+                r for r in reask_responses if r["question_id"] == question_id
+            ]
+            reask_eval = self.evaluate_reask_responses(benchmark_data, related_reasks)
+
+            # Combine initial and re-ask evaluations (logical OR)
+            final_eval = [bool(i) or bool(r) for i, r in zip(initial_eval, reask_eval)]
+            evaluation_results.append(
+                {
+                    "case_id": case_id,
+                    "question_id": question_id,
+                    "initial_evaluation": initial_eval,
+                    "reask_evaluation": reask_eval,
+                    "final_evaluation": final_eval,
+                }
+            )
+        return evaluation_results
+
+    def run(self, generator_response_str, criteria_list):
+        """
+        Evaluates the generator_response_str against a list of criteria,
+        returning booleans indicating pass/fail for each criterion.
+        Includes logic to split the criteria list if too many evaluations fail.
+        """
+        fail_rate = 1.0
+        while fail_rate > 0.5:
+            criteria_json = json.dumps(criteria_list)
+            prompt_str = (
+                f"Given the criteria below, return a list of True or False in number for each "
+                f"criterion (size {len(criteria_list)}), depending on whether the text meets the "
+                f"criteria. Do not justify, only output True/False.\nCriteria: {criteria_json}\n"
+                f"Text: {generator_response_str}"
+            )
+
+            # Build messages locally (no need to store them in the class)
+            messages = [{"role": "user", "content": prompt_str}]
+
+            response = self.client.chat.completions.create(
+                model=self.model, messages=messages, n=self.n
+            )
+
+            # Update token usage
+            self.prompt_tokens += response.usage.prompt_tokens
+            self.completion_tokens += response.usage.completion_tokens
+            self.total_tokens += response.usage.total_tokens
+
+            # Convert each choice into a list of booleans
+            bool_lists = [
+                self.extract_booleans(choice.message.content)
+                for choice in response.choices
+                if len(self.extract_booleans(choice.message.content))
+                == len(criteria_list)
+            ]
+
+            if not bool_lists:
+                print("No valid evaluations! Retrying...")
+                continue
+
+            res_matrix = np.array(bool_lists)
+            valid_evals_len = res_matrix.shape[0]
+            fail_rate = self.calculate_fail_rate(valid_evals_len)
+
+            # If too many failures and multiple criteria remain,
+            # split the criteria list recursively
+            if fail_rate > 0.5 and len(criteria_list) > 1:
+                mid_index = len(criteria_list) // 2
+                left_vals = self.run(generator_response_str, criteria_list[:mid_index])
+                right_vals = self.run(generator_response_str, criteria_list[mid_index:])
+
+                # Combine partial results
+                res_booleans = np.concatenate([left_vals[0], right_vals[0]])
+                res_mean = np.concatenate([left_vals[1], right_vals[1]])
+                res_confidence = (left_vals[2] + right_vals[2]) / 2
+                fail_rate = (left_vals[3] + right_vals[3]) / 2
+
+                return (
+                    res_booleans.tolist(),
+                    res_mean.tolist(),
+                    res_confidence,
+                    np.round(fail_rate, 2),
+                )
+
+            # If pass/fail rate is acceptable, finalize
+            if fail_rate <= 0.5:
+                major_vote, mean_vals, conf_rate = self.calculate_major_vote(res_matrix)
+                return (
+                    major_vote.tolist(),
+                    mean_vals.tolist(),
+                    conf_rate,
+                    np.round(fail_rate, 2),
+                )
+
+        # If we exit the loop unexpectedly
+        print("Unexpected failure!")
+        return (
+            [np.nan] * len(criteria_list),
+            [np.nan] * len(criteria_list),
+            np.nan,
+            np.nan,
+        )
+
+    def extract_booleans(self, text):
+        """
+        Extracts 'true'/'false' from a string and converts to boolean values.
+        """
+        return [
+            bool(re.match("true", val))
+            for val in re.findall(r"(true|false)", text.lower())
+        ]
+
+    def calculate_major_vote(self, res_matrix):
+        """
+        Returns a majority-vote boolean vector, average pass rates,
+        and an overall confidence measure.
+        """
+        res_mean = np.nansum(res_matrix, axis=0) / res_matrix.shape[0]
+        major_vote = res_mean >= 0.5
+        return major_vote, res_mean, np.round(self.calculate_confidence_rate(res_mean), 4)
+
+    def calculate_fail_rate(self, valid_evals_len):
+        """Proportion of attempts that returned no valid evaluation."""
+        return 1 - valid_evals_len / self.n
+
+    def calculate_confidence_rate(self, res_mean):
+        """
+        Measures how strongly the average pass rate deviates from 0 or 1.
+        The closer each criterion is to an integer (0 or 1), the higher the confidence.
+        """
+        return 1 - 2 * sum(abs(np.round(res_mean) - res_mean)) / len(res_mean)
+
+    def calculate_score(self, criteria_scores, evaluation_bools):
+        """
+        Given a list of numeric criteria_scores and corresponding True/False evaluations,
+        sum the scores where the evaluation is True.
+        """
+        return sum(
+            score for score, passed in zip(criteria_scores, evaluation_bools) if passed
+        )
+
+    def aggregate_results(self, benchmark_data, evaluation_results):
+        """
+        Aggregates scores for each question in evaluation_results and computes overall totals.
+        Returns:
+            results_df (pd.DataFrame): Per-question scores plus a final totals row
+            aggregated_data (dict): Dictionary of all case-level and question-level scores
+        """
+        # Get case info
+        case_data = benchmark_data.get_case_data(case_id=self.case_id)[0]
+        case_brunch = case_data["case_brunch"]
+
+        # Prepare base aggregated data
+        aggregated_data = {
+            "generator_model_name_or_path": self.generator_model_name_or_path,
+            "generator_type": self.generator_type,
+            "evaluator_model_name_or_path": self.model,
+            "case_id": self.case_id,
+            "case_brunch": case_brunch,
+        }
+
+        # Initialize per-question fields
+        all_questions = benchmark_data.questions.question_id.unique()
+        for q_id in all_questions:
+            aggregated_data[f"q_{q_id}_possible"] = 0
+            aggregated_data[f"q_{q_id}_initial"] = 0
+            aggregated_data[f"q_{q_id}_final"] = 0
+
+        # Counters for totals
+        total_possible = 0
+        total_initial = 0
+        total_final = 0
+
+        # Container for DataFrame rows
+        results_list = []
+
+        # Calculate scores for each question
+        for row in evaluation_results:
+            c_id, q_id = row["case_id"], row["question_id"]
+            init_eval, final_eval = row["initial_evaluation"], row["final_evaluation"]
+
+            criteria_scores = benchmark_data.get_criteria_scores(c_id, q_id)
+            question_possible = sum(s for s in criteria_scores if s > 0)
+            question_initial = self.calculate_score(criteria_scores, init_eval)
+            question_final = self.calculate_score(criteria_scores, final_eval)
+
+            results_list.append(
+                [
+                    aggregated_data["case_id"],
+                    aggregated_data["case_brunch"],
+                    q_id,
+                    question_possible,
+                    question_initial,
+                    question_final,
+                ]
+            )
+
+            aggregated_data[f"q_{q_id}_possible"] = round(question_possible, 1)
+            aggregated_data[f"q_{q_id}_initial"] = round(question_initial, 1)
+            aggregated_data[f"q_{q_id}_final"] = round(question_final, 1)
+
+            total_possible += question_possible
+            total_initial += question_initial
+            total_final += question_final
+
+        # Store total scores
+        aggregated_data["case_possible_score"] = round(total_possible, 1)
+        aggregated_data["case_initial_score"] = round(total_initial, 1)
+        aggregated_data["case_final_score"] = round(total_final, 1)
+
+        # Add totals row to DataFrame
+        results_list.append(
+            [
+                self.case_id,
+                aggregated_data["case_brunch"],
+                "total",
+                aggregated_data["case_possible_score"],
+                aggregated_data["case_initial_score"],
+                aggregated_data["case_final_score"],
+            ]
+        )
+
+        # Create DataFrame
+        col_names = [
+            "Case Id",
+            "Case Branch",
+            "Question",
+            "Possible Score",
+            "Initial Score",
+            "Final Score",
+        ]
+        results_df = pd.DataFrame(results_list, columns=col_names)
+
+        # You can optionally print the table:
+        # print(tabulate(results_df, headers='keys', tablefmt='pipe', showindex=False))
+
+        return results_df, aggregated_data

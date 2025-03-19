@@ -3,6 +3,8 @@ import importlib
 import pandas as pd
 from collections import defaultdict
 from typing import Dict, List, Union
+
+from langtest.utils.custom_types.sample import AMEGASample
 from ..errors import Errors
 from langtest.tasks import TaskManager
 from langtest.utils.lib_manager import try_import_lib
@@ -123,9 +125,13 @@ def model_report(
 
     report = {}
     unique_labels = []
+    amega_samples = []
 
     for sample in generated_results:
         if sample.test_type in ["degradation_analysis"]:
+            continue
+        if sample.test_type in ["amega"]:
+            amega_samples.append(sample)
             continue
         pass_value = str(sample.is_pass()).lower()
         summary[sample.test_type]["category"] = sample.category
@@ -242,6 +248,10 @@ def model_report(
         [col for col in columns if col.endswith("_count")]
     ].fillna(0)
     df_report = df_report.fillna("-")
+
+    if amega_samples:
+        amega_report = amega_report_summary(amega_samples)
+        return (df_report, amega_report) if not df_report.empty else amega_report
 
     return df_report
 
@@ -576,3 +586,44 @@ def multi_dataset_multi_model_report(
     df_report_final = pd.DataFrame(df_report.values, columns=cols, index=df_report.index)
 
     return df_report_final
+
+
+def amega_report_summary(
+    samples: List,
+    report: bool = True,
+) -> pd.DataFrame:
+    """ " """
+    from langtest.transform.utils import DataRetriever
+    import pandas as pd
+
+    if isinstance(samples, AMEGASample):
+        samples = [samples]
+    sample = samples[0].actual_results
+
+    data_retriever = DataRetriever()
+
+    # join all results df into one
+    list_df = [df for df, _ in sample]
+    df = pd.concat(list_df)
+
+    df = df.merge(
+        data_retriever.dataset_info(), on=["Case Id", "Case Branch"], how="left"
+    )
+
+    cols = [
+        "Case Id",
+        "Case Branch",
+        "Title",
+        "Possible Score",
+        "Initial Score",
+        "Final Score",
+    ]
+    # for report
+    if report:
+        df = df[df["Question"] == "total"]
+        cols.insert(3, "n_questions")
+    else:
+        df = df[df["Question"] != "total"]
+        cols.insert(3, "Question")
+
+    return df[cols]

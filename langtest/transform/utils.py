@@ -569,7 +569,18 @@ class DataRetriever:
             f"{filename}"
         )
         try:
-            return pd.read_csv(filepath, delimiter=";")
+            # save the csv file into `~/.langtest/` directory
+            location_path = os.path.expanduser(f"~/.langtest/amgea/{filename}")
+            os.makedirs(os.path.dirname(location_path), exist_ok=True)
+            if not os.path.exists(location_path):
+                import requests
+
+                response = requests.get(filepath)
+                response.raise_for_status()  # ensure the request was successful
+                with open(location_path, "wb") as f:
+                    f.write(response.content)
+
+            return pd.read_csv(location_path, delimiter=";")
         except (FileNotFoundError, pd.errors.ParserError) as e:
             print(f"Error loading {filename}: {e}")
             return pd.DataFrame()

@@ -924,3 +924,21 @@ class AMEGA(BaseClinical):
         )
 
         return evaluator.aggregate_results(data_retriever, results)
+
+
+class MedFuzz(BaseClinical):
+    alias_name = "medfuzz"
+    supported_tasks = ["question-answering", "text-generation"]
+
+    @staticmethod
+    def transform(sample_list: List[Sample], *args, **kwargs):
+        # return super().transform(*args, **kwargs)
+        pass
+
+    @staticmethod
+    async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
+        # return super().run(*args, **kwargs)
+        pass
+
+    def llm_attacker(self, model_name: str):
+        pass

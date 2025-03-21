@@ -1022,3 +1022,80 @@ class ResponseEvaluator:
         # print(tabulate(results_df, headers='keys', tablefmt='pipe', showindex=False))
 
         return results_df, aggregated_data
+
+
+from textwrap import wrap
+
+
+class AttackerLLM:
+    def __init__(self, client, model="gpt-4o-mini"):
+        self.client = client  # Initialize the OpenAI client
+        self.model = model
+        self.messages = [
+            {
+                "role": "system",
+                "content": "You are an AI researcher using adversarial learning to iteratively improve exam questions.",
+            }
+        ]
+
+    def send_message(self, prompt: str) -> str:
+        """
+        Appends the prompt as a user message, sends it to the LLM, and stores the assistant's reply.
+        Returns the assistant's response as a string.
+        """
+        self.messages.append({"role": "user", "content": prompt})
+        response = self.client(model=self.model, messages=self.messages)
+        # Assume response is a string.
+        self.messages.append({"role": "assistant", "content": response})
+        return response
+
+    @staticmethod
+    def build_attack_plan_prompt(
+        benchmark_item: str, correct_answer: str, reasoning: str, confidence: str
+    ) -> str:
+        """
+        Constructs the prompt for generating an attack plan.
+        """
+        return (
+            "You received the following details about a medical exam question:\n\n"
+            f"Question: {benchmark_item}\n"
+            f"Correct Answer: {correct_answer}\n"
+            f"Test taker's rationale: {reasoning}\n"
+            f"Test taker's confidence: {confidence}\n\n"
+            "Based on this information, provide a brief (one-paragraph) plan detailing how to modify the question "
+            "to trick the test taker into selecting a distractor. Do not include the modified question yet. "
+            "Remember, your modifications must not change the correct answer."
+        )
+
+    def generate_attack_plan(
+        self, benchmark_item: str, correct_answer: str, reasoning: str, confidence: str
+    ) -> str:
+        """
+        Generates and returns an attack plan based on the provided benchmark details.
+        """
+        prompt = self.build_attack_plan_prompt(
+            benchmark_item, correct_answer, reasoning, confidence
+        )
+        attack_plan = self.send_message(prompt)
+        return attack_plan
+
+    @staticmethod
+    def build_modified_question_prompt(benchmark_item: str) -> str:
+        """
+        Constructs the prompt for generating a modified question.
+        """
+        return (
+            "Now, using the attack plan you devised, generate a modified version of the following medical exam question.\n\n"
+            f"Original Question: {benchmark_item}\n\n"
+            "The modified question must include the same answer options and the same correct answer as the original. "
+            "It should only differ by the addition of patient characteristics that could mislead the test taker into choosing an incorrect answer. "
+            "Provide only the modified question along with the original answer options, with no additional commentary."
+        )
+
+    def generate_modified_question(self, benchmark_item: str) -> str:
+        """
+        Generates and returns the modified question based on the original benchmark item.
+        """
+        prompt = self.build_modified_question_prompt(benchmark_item)
+        modified_question = self.send_message(prompt)
+        return modified_question

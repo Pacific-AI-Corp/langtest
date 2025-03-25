@@ -935,12 +935,22 @@ class MedFuzz(BaseClinical):
         # return super().transform(*args, **kwargs)
         from langtest.transform.utils import AttackerLLM, TargetLLM
         from langtest.utils.custom_types.sample import MedFuzzSample
+        from tqdm.auto import tqdm
 
-        llm_attacker = AttackerLLM(MedFuzz.ollama_model_client, "llama3.2")
-        llm_target = TargetLLM(MedFuzz.ollama_model_client, "llama3.2")
+        samples = tqdm(
+            sample_list,
+            desc="Transforming the samples",
+            unit="samples",
+            position=1,
+        )
 
         transformed_samples = []
-        for sample in sample_list:
+        for sample in samples:
+            # llms
+            llm_attacker = AttackerLLM(MedFuzz.ollama_model_client, "llama3.2")
+            llm_target = TargetLLM(MedFuzz.ollama_model_client, "llama3.2")
+
+            # sample
             med_sample = MedFuzzSample(**sample.dict())
             med_sample.test_type = "medfuzz"
             med_sample.category = "clinical"
@@ -968,7 +978,9 @@ class MedFuzz(BaseClinical):
                 med_sample.original_question
             )
 
-            med_sample.expected_results = "".join(map(str, med_sample.expected_results))
+            med_sample.expected_results = "".join(map(str, med_sample.expected_results))[
+                :1
+            ]
 
             transformed_samples.append(med_sample)
 
@@ -983,21 +995,28 @@ class MedFuzz(BaseClinical):
 
         for sample in sample_list:
             if sample.state != "done":
-                original_text_input = build_qa_input(
-                    context=sample.original_context,
-                    question=sample.perturbed_question,
-                    options="",
-                )
-                prompt = build_qa_prompt(
-                    original_text_input, "default_question_answering_prompt", **kwargs
-                )
+                target_llm = TargetLLM(model)
+                # original_text_input = build_qa_input(
+                #     context=sample.original_context,
+                #     question=sample.perturbed_question,
+                #     options="",
+                # )
+                # prompt = build_qa_prompt(
+                #     original_text_input, "default_question_answering_prompt", **kwargs
+                # )
 
                 # sample.expected_results = model(
                 #     text={
                 #         "question": sample.original_question,
                 #     }
                 # )
-                sample.actual_results = model(original_text_input, prompt=prompt)
+                response = target_llm.process_user_text(sample.perturbed_question)
+
+                sample.actual_results = response.get("final_answer", "")
+
+                # del
+                del target_llm
+
                 sample.state = "done"
 
             if progress_bar:

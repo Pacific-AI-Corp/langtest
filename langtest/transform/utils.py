@@ -1044,7 +1044,12 @@ class TargetLLM:
         """
         self.messages.append({"role": "user", "content": prompt})
         if isinstance(self.client, ModelAPI):
-            response = self.client(self.messages)
+            if self.client.__module__.endswith("llm_modelhandler"):
+                response = self.client.model.invoke(self.messages)
+                if hasattr(response, "content"):
+                    response = response.content
+            else:
+                raise TypeError("Unsupported hub and model and Only LLM")
         else:
             response = self.client(model=self.model, messages=self.messages)
 
@@ -1084,7 +1089,11 @@ class TargetLLM:
         confidence_scores = self.send_message(confidence_prompt)
 
         # Step 3: Get the final answer (the letter choice)
-        final_prompt = "Now provide your final answer based confidence scores. Return only the letter (A, B, C, D, or E) of your choice and nothing else."
+        final_prompt = (
+            "Based on your confidence scores, provide your final answer. "
+            "Return only the choice (A: <choice>, B. <choice>, C. <choice>, D. <choice>, or E. <choice>) corresponding to your choice, with no additional text."
+            # "Note: A: Heart Disease"
+        )
         final_answer = self.send_message(final_prompt)
 
         return {

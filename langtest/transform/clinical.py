@@ -933,12 +933,105 @@ class MedFuzz(BaseClinical):
     @staticmethod
     def transform(sample_list: List[Sample], *args, **kwargs):
         # return super().transform(*args, **kwargs)
-        pass
+        from langtest.transform.utils import AttackerLLM, TargetLLM
+        from langtest.utils.custom_types.sample import MedFuzzSample
+
+        llm_attacker = AttackerLLM(MedFuzz.ollama_model_client, "llama3.2")
+        llm_target = TargetLLM(MedFuzz.ollama_model_client, "llama3.2")
+
+        transformed_samples = []
+        for sample in sample_list:
+            med_sample = MedFuzzSample(**sample.dict())
+            med_sample.test_type = "medfuzz"
+            med_sample.category = "clinical"
+
+            med_sample.original_question = (
+                f"{med_sample.original_question}\n{med_sample.options}"
+            )
+            med_sample.options = None
+
+            # ot = llm_target.process_user_text(f"{med_sample.original_question}\n{med_sample.options}")
+            ot = llm_target.process_user_text(med_sample.original_question)
+
+            # generate the attack plan
+            llm_attacker.generate_attack_plan(
+                benchmark_item=med_sample.original_question,
+                correct_answer="".join(med_sample.expected_results),
+                reasoning=ot["reasoning"],
+                confidence=ot["confidence_scores"],
+            )
+
+            # med_sample.perturbed_context = llm_attacker.generate_modified_question(
+            #     med_sample.original_question
+            # )
+            med_sample.perturbed_question = llm_attacker.generate_modified_question(
+                med_sample.original_question
+            )
+
+            med_sample.expected_results = "".join(map(str, med_sample.expected_results))
+
+            transformed_samples.append(med_sample)
+
+        return transformed_samples
 
     @staticmethod
     async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
         # return super().run(*args, **kwargs)
-        pass
+        from langtest.transform.utils import TargetLLM
+
+        progress_bar = kwargs.get("progress_bar", False)
+
+        for sample in sample_list:
+            if sample.state != "done":
+                original_text_input = build_qa_input(
+                    context=sample.original_context,
+                    question=sample.perturbed_question,
+                    options="",
+                )
+                prompt = build_qa_prompt(
+                    original_text_input, "default_question_answering_prompt", **kwargs
+                )
+
+                # sample.expected_results = model(
+                #     text={
+                #         "question": sample.original_question,
+                #     }
+                # )
+                sample.actual_results = model(original_text_input, prompt=prompt)
+                sample.state = "done"
+
+            if progress_bar:
+                progress_bar.update(1)
+
+        return sample_list
 
     def llm_attacker(self, model_name: str):
         pass
+
+    @staticmethod
+    def ollama_model_client(model, messages):
+        from ollama import Client
+
+        client = Client()
+
+        res = client.chat(
+            model=model,
+            messages=messages,
+            options={
+                "temperature": 0.9,
+            },
+        )
+        return res.message.content
+
+    @staticmethod
+    def openai_model_client(model, messages):
+        import openai
+
+        client = openai.Client()
+
+        res = (
+            client.chat.completions.create(model=model, messages=messages)
+            .choices[0]
+            .message.content
+        )
+        return res

@@ -7,6 +7,8 @@ import numpy as np
 from openai import OpenAI
 import pandas as pd
 from tqdm.auto import tqdm
+
+from langtest.modelhandler.modelhandler import ModelAPI
 from ..errors import Errors
 from langtest.utils.custom_types import (
     NERPrediction,
@@ -1041,7 +1043,10 @@ class TargetLLM:
         Returns the assistant's response.
         """
         self.messages.append({"role": "user", "content": prompt})
-        response = self.client(model=self.model, messages=self.messages)
+        if isinstance(self.client, ModelAPI):
+            response = self.client(self.messages)
+        else:
+            response = self.client(model=self.model, messages=self.messages)
 
         self.messages.append({"role": "assistant", "content": response})
         return response

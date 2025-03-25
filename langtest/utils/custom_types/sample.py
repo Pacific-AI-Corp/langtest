@@ -3167,6 +3167,23 @@ class AMEGASample(BaseModel):
         return result
 
 
+class MedFuzzSample(QASample):
+
+    def to_dict(self):
+        o_dict = super().to_dict()
+
+        from .helpers import highlight_differences_both
+
+        h1, h2 = highlight_differences_both(
+            self.original_question, self.perturbed_question
+        )
+
+        o_dict["original_question"] = h1
+        o_dict["perturbed_question"] = h2
+
+        return o_dict
+
+
 Sample = TypeVar(
     "Sample",
     MaxScoreSample,

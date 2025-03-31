@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 from typing import Union
 from functools import lru_cache
+from typing import Any, Type, TypeVar
 from langtest.utils.lib_manager import try_import_lib
 
 RENAME_HUBS = {
@@ -34,10 +35,13 @@ class ModelAPI(ABC):
     Implementations should inherit from this class and override load_model() and predict() methods.
     """
 
-    model_registry = defaultdict(lambda: defaultdict(lambda: ModelAPI))
+    _T = TypeVar("_T", bound="ModelAPI")
 
+    model_registry: defaultdict[str, dict[str, Type[_T]]] = defaultdict(dict)
+
+    @classmethod
     @abstractmethod
-    def load_model(cls, *args, **kwargs):
+    def load_model(cls: Type[_T], *args: Any, **kwargs: Any) -> _T:
         """Load the model."""
         raise NotImplementedError()
 

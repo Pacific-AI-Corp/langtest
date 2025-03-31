@@ -1049,7 +1049,9 @@ class TargetLLM:
                 if hasattr(response, "content"):
                     response = response.content
             else:
-                raise TypeError("Unsupported hub and model and Only LLM")
+                raise TypeError(
+                    "Unsupported hub: ['johsnsnowlabs', 'huggingface', 'spacy]"
+                )
         else:
             response = self.client(model=self.model, messages=self.messages)
 
@@ -1126,7 +1128,17 @@ class AttackerLLM:
         Returns the assistant's response as a string.
         """
         self.messages.append({"role": "user", "content": prompt})
-        response = self.client(model=self.model, messages=self.messages)
+        if isinstance(self.client, ModelAPI):
+            if self.client.__module__.endswith("llm_modelhandler"):
+                response = self.client.model.invoke(self.messages)
+                if hasattr(response, "content"):
+                    response = response.content
+            else:
+                raise TypeError(
+                    "Unsupported hub: ['johsnsnowlabs', 'huggingface', 'spacy]"
+                )
+        else:
+            response = self.client(model=self.model, messages=self.messages)
         # Assume response is a string.
         self.messages.append({"role": "assistant", "content": response})
         return response

@@ -9,6 +9,7 @@ from typing import List, Dict, TypedDict, Union
 import importlib_resources
 from langtest.errors import Errors, Warnings
 from langtest.modelhandler.modelhandler import ModelAPI
+from langtest.tasks.task import TaskManager
 from langtest.transform.base import ITests, TestFactory
 from langtest.transform.utils import GENERIC2BRAND_TEMPLATE, filter_unique_samples
 from langtest.utils.custom_types.helpers import (
@@ -937,54 +938,92 @@ class MedFuzz(BaseClinical):
         from langtest.utils.custom_types.sample import MedFuzzSample
         from tqdm.auto import tqdm
 
-        samples = tqdm(
-            sample_list,
-            desc="Transforming the samples",
-            unit="samples",
-            position=1,
-        )
+        try:
+            attacker_model_info = kwargs.get("attacker_llm", None)
+            if attacker_model_info is not None:
+                task = TaskManager("question-answering")
+                model = task.model(
+                    model_path=attacker_model_info["model"],
+                    model_hub=attacker_model_info["hub"],
+                    model_type=attacker_model_info["type"],
+                )
+            else:
+                from textwrap import dedent
 
-        transformed_samples = []
-        for sample in samples:
-            # llms
-            llm_attacker = AttackerLLM(MedFuzz.ollama_model_client, "llama3.2")
-            llm_target = TargetLLM(MedFuzz.ollama_model_client, "llama3.2")
+                error_message = dedent(
+                    """
+                    Attack model information is not provided in Configuration. Please provide the attack model information.
+                    {
+                        "medfuzz": {
+                            "attacker_llm": {
+                                "model": "<model_name>",
+                                "hub": "<model_hub>",
+                                "type": "<chat | completion>"
+                            }
+                        }
+                    }
+                """
+                ).strip()
 
-            # sample
-            med_sample = MedFuzzSample(**sample.dict())
-            med_sample.test_type = "medfuzz"
-            med_sample.category = "clinical"
+                raise ValueError(error_message)
 
-            med_sample.original_question = (
-                f"{med_sample.original_question}\n{med_sample.options}"
-            )
-            med_sample.options = None
+            # model = task.model(model=kwargs)
 
-            # ot = llm_target.process_user_text(f"{med_sample.original_question}\n{med_sample.options}")
-            ot = llm_target.process_user_text(med_sample.original_question)
-
-            # generate the attack plan
-            llm_attacker.generate_attack_plan(
-                benchmark_item=med_sample.original_question,
-                correct_answer="".join(med_sample.expected_results),
-                reasoning=ot["reasoning"],
-                confidence=ot["confidence_scores"],
-            )
-
-            # med_sample.perturbed_context = llm_attacker.generate_modified_question(
-            #     med_sample.original_question
-            # )
-            med_sample.perturbed_question = llm_attacker.generate_modified_question(
-                med_sample.original_question
+            samples = tqdm(
+                sample_list,
+                desc="Transforming the samples",
+                unit="samples",
+                position=1,
             )
 
-            med_sample.expected_results = "".join(map(str, med_sample.expected_results))[
-                :1
-            ]
+            transformed_samples = []
+            for sample in samples:
+                # llms
 
-            transformed_samples.append(med_sample)
+                llm_attacker = AttackerLLM(model)
+                llm_target = TargetLLM(model)
 
-        return transformed_samples
+                # sample
+                med_sample = MedFuzzSample(**sample.dict())
+                med_sample.test_type = "medfuzz"
+                med_sample.category = "clinical"
+
+                if med_sample.options not in [None, ""]:
+                    med_sample.original_question = (
+                        f"{med_sample.original_question}\n{med_sample.options}"
+                    )
+                    med_sample.options = None
+
+                # ot = llm_target.process_user_text(f"{med_sample.original_question}\n{med_sample.options}")
+                ot = llm_target.process_user_text(med_sample.original_question)
+
+                # generate the attack plan
+                llm_attacker.generate_attack_plan(
+                    benchmark_item=med_sample.original_question,
+                    correct_answer="".join(med_sample.expected_results),
+                    reasoning=ot["reasoning"],
+                    confidence=ot["confidence_scores"],
+                )
+
+                # med_sample.perturbed_context = llm_attacker.generate_modified_question(
+                #     med_sample.original_question
+                # )
+                med_sample.perturbed_question = llm_attacker.generate_modified_question(
+                    med_sample.original_question
+                )
+
+                med_sample.expected_results = "".join(
+                    map(str, med_sample.expected_results)
+                )[:1]
+
+                transformed_samples.append(med_sample)
+
+            return transformed_samples
+        except Exception:
+            import traceback
+
+            traceback.print_exc()
+            raise
 
     @staticmethod
     async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
@@ -996,20 +1035,7 @@ class MedFuzz(BaseClinical):
         for sample in sample_list:
             if sample.state != "done":
                 target_llm = TargetLLM(model)
-                # original_text_input = build_qa_input(
-                #     context=sample.original_context,
-                #     question=sample.perturbed_question,
-                #     options="",
-                # )
-                # prompt = build_qa_prompt(
-                #     original_text_input, "default_question_answering_prompt", **kwargs
-                # )
 
-                # sample.expected_results = model(
-                #     text={
-                #         "question": sample.original_question,
-                #     }
-                # )
                 response = target_llm.process_user_text(sample.perturbed_question)
 
                 sample.actual_results = response.get("final_answer", "")
@@ -1023,9 +1049,6 @@ class MedFuzz(BaseClinical):
                 progress_bar.update(1)
 
         return sample_list
-
-    def llm_attacker(self, model_name: str):
-        pass
 
     @staticmethod
     def ollama_model_client(model, messages):

@@ -1,7 +1,7 @@
 import importlib
 import inspect
 
-from typing import Any, List, Union
+from typing import Any, List, Type, Union, TypeVar
 import langchain.llms as lc
 import langchain.chat_models as chat_models
 from langchain.chains.llm import LLMChain
@@ -33,6 +33,8 @@ class PretrainedModelForQA(ModelAPI):
         ConfigError: If there is an error in the model configuration.
     """
 
+    _T = TypeVar("_T", bound="PretrainedModelForQA")
+
     HUB_PARAM_MAPPING = {
         "azure-openai": "max_tokens",
         "ai21": "maxTokens",
@@ -60,7 +62,9 @@ class PretrainedModelForQA(ModelAPI):
         self.predict.cache_clear()
 
     @classmethod
-    def load_model(cls, hub: str, path: str, *args, **kwargs) -> "PretrainedModelForQA":
+    def load_model(
+        cls: Type[_T], hub: str, path: str, *args, **kwargs
+    ) -> "PretrainedModelForQA":
         """Load the pretrained model.
 
         Args:

@@ -3174,12 +3174,26 @@ class MedFuzzSample(QASample):
 
         from .helpers import highlight_differences_both
 
-        h1, h2 = highlight_differences_both(
+        if self.original_context and self.perturbed_context:
+            orig_ctx, pert_ctx = highlight_differences_both(
+                self.original_context, self.perturbed_context
+            )
+            o_dict.update(
+                {
+                    "original_context": orig_ctx,
+                    "perturbed_context": pert_ctx,
+                }
+            )
+
+        orig_q, pert_q = highlight_differences_both(
             self.original_question, self.perturbed_question
         )
-
-        o_dict["original_question"] = h1
-        o_dict["perturbed_question"] = h2
+        o_dict.update(
+            {
+                "original_question": orig_q,
+                "perturbed_question": pert_q,
+            }
+        )
 
         return o_dict
 

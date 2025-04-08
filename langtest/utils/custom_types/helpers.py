@@ -1,3 +1,4 @@
+import difflib
 import re
 from pydantic.v1 import BaseModel
 from collections.abc import Hashable
@@ -833,3 +834,41 @@ class TestResultManager:
 
     def clear_data(self):
         self._data = []
+
+
+def highlight_differences_both(text1, text2):
+    """
+    Returns two highlighted HTML strings for text1 and text2 based on their differences.
+
+    - In text1, replaced text and deleted segments are highlighted.
+    - In text2, replaced text and inserted segments are highlighted.
+    """
+    matcher = difflib.SequenceMatcher(None, text1, text2)
+    highlighted_text1 = []
+    highlighted_text2 = []
+
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag == "equal":
+            highlighted_text1.append(text1[i1:i2])
+            highlighted_text2.append(text2[j1:j2])
+        elif tag == "replace":
+            # Yellow background with black text for replaced parts
+            highlighted_text1.append(
+                f"<span style='background-color: #FFD54F; color: #000000;'>{text1[i1:i2]}</span>"
+            )
+            highlighted_text2.append(
+                f"<span style='background-color: #FFD54F; color: #000000;'>{text2[j1:j2]}</span>"
+            )
+        elif tag == "delete":
+            # Red background with dark red text for deletions in the original text
+            highlighted_text1.append(
+                f"<span style='background-color: #E57373; color: #000000;'>{text1[i1:i2]}</span>"
+            )
+            # No content added for text2 since it was deleted.
+        elif tag == "insert":
+            # Green background with black text for insertions in the modified text
+            highlighted_text2.append(
+                f"<span style='background-color: #66c2a5; color: #000000;'>{text2[j1:j2]}</span>"
+            )
+
+    return "".join(highlighted_text1), "".join(highlighted_text2)

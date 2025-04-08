@@ -891,6 +891,7 @@ class Harness:
             "sentence",
             "patient_info_A",
             "patient_info_B",
+            "dialogue",
             "mask1",
             "mask2",
             "sent_stereo",

@@ -3198,6 +3198,48 @@ class MedFuzzSample(QASample):
         return o_dict
 
 
+class DialogueToSummarySample(BaseModel):
+    """
+    A class representing a sample for the dialouge to summarization task.
+
+    Attributes:
+        original_context (str): The original context for the dialogue.
+        perturbed_context (str): The perturbed context for the dialogue.
+        original_question (str): The original question for the dialogue.
+        perturbed_question (str): The perturbed question for the dialogue.
+    """
+
+    dialogue: str = None
+    expected_results: str = None
+    actual_results: str = None
+    task: str = Field(default="summarization", const=True)
+    dataset_name: str = None
+    category: str = None
+    test_type: str = None
+    state: str = None
+    ran_pass: bool = None
+    metric_name: str = None
+    config: Union[str, dict] = None
+    distance_result: float = None
+    feedback: str = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Converts the MTSDialogueSample object to a dictionary.
+
+        Returns:
+            Dict[str, Any]: A dictionary representation of the MTSDialogueSample object.
+        """
+
+        result = {
+            "category": self.category,
+            "test_type": self.test_type,
+            "dialogue": self.dialogue,
+        }
+
+        return result
+
+
 Sample = TypeVar(
     "Sample",
     MaxScoreSample,

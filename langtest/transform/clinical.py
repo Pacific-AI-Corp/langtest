@@ -62,7 +62,7 @@ class ClinicalTestFactory(ITests):
             data_handler_copy = [sample.copy() for sample in self.data_handler]
             transformed_samples = test_func(data_handler_copy, **params)
 
-            if test_name in ("demographic-bias", "amega"):
+            if test_name in ("demographic-bias", "amega", "clinical_note_summary"):
                 all_samples.extend(transformed_samples)
             else:
                 new_transformed_samples, removed_samples_tests = filter_unique_samples(
@@ -1077,3 +1077,77 @@ class MedFuzz(BaseClinical):
             .message.content
         )
         return res
+
+
+class ClinicalNoteSummary(BaseClinical):
+    """
+    ClinicalSummary class for the clinical tests
+    """
+
+    alias_name = "clinical_note_summary"
+    supported_tasks = ["summarization"]
+
+    @staticmethod
+    def transform(sample_list: List[Sample], *args, **kwargs):
+        """Transform method for the ClinicalSummary class"""
+        from langtest.utils.custom_types.sample import DialogueToSummarySample
+
+        transformed_samples = []
+
+        # load the dataset
+        dataset_path = kwargs.get("dataset_path", None)
+        if dataset_path is None:
+            raise ValueError("Dataset path is not provided.")
+
+        if dataset_path == "mts-dialog":
+            dataset = ClinicalNoteSummary.mts_dialog()
+
+        for dia in dataset[:2]:
+            sample = DialogueToSummarySample()
+            sample.dialogue = dia["dialogue"]
+            sample.expected_results = dia["ground_truth"]
+            sample.category = "clinical"
+            sample.test_type = "clinical_note_summary"
+
+            # append to transformed_samples
+            transformed_samples.append(sample)
+
+        return transformed_samples
+
+    @staticmethod
+    def mts_dialog():
+        """MTS Dialog class for the clinical tests"""
+        import pandas as pd
+
+        # read dataset from csv file
+        dataset_path = r"C:\Users\KALYAN\OneDrive\Documents\JSL\Datasets\MTS-Dialog\Main-Dataset\MTS-Dialog-ValidationSet.csv"
+        df = pd.read_csv(dataset_path)
+        df = df.dropna()
+        df["ground_truth"] = df.apply(
+            lambda x: x["section_header"] + "\n" + x["section_text"], axis=1
+        )
+
+        return df[["dialogue", "ground_truth"]].to_dict(orient="records")
+
+    @staticmethod
+    async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
+        """Run method for the ClinicalSummary class"""
+
+        progress_bar = kwargs.get("progress_bar", False)
+
+        for sample in sample_list:
+            if sample.state != "done":
+                original_text_input = build_qa_input(
+                    context=sample.original_context,
+                    question=sample.original_question,
+                    options=sample.options,
+                )
+                prompt = build_qa_prompt(
+                    original_text_input, "default_question_answering_prompt", **kwargs
+                )
+                # sample.actual_results = model(original_text_input, prompt=prompt)
+                # sample.state = "done"
+            if progress_bar:
+                progress_bar.update(1)
+
+        return sample_list

@@ -1135,16 +1135,11 @@ class ClinicalNoteSummary(BaseClinical):
 
         progress_bar = kwargs.get("progress_bar", False)
 
+        model = model.model
+
         for sample in sample_list:
             if sample.state != "done":
-                original_text_input = build_qa_input(
-                    context=sample.original_context,
-                    question=sample.original_question,
-                    options=sample.options,
-                )
-                prompt = build_qa_prompt(
-                    original_text_input, "default_question_answering_prompt", **kwargs
-                )
+                ...
                 # sample.actual_results = model(original_text_input, prompt=prompt)
                 # sample.state = "done"
             if progress_bar:

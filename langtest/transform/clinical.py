@@ -4,14 +4,18 @@ from collections import defaultdict
 import logging
 import random
 import re
-from typing import List, Dict, TypedDict, Union
+from typing import List, Dict, Literal, TypedDict, Union
 
 import importlib_resources
 from langtest.errors import Errors, Warnings
 from langtest.modelhandler.modelhandler import ModelAPI
 from langtest.tasks.task import TaskManager
 from langtest.transform.base import ITests, TestFactory
-from langtest.transform.utils import GENERIC2BRAND_TEMPLATE, filter_unique_samples
+from langtest.transform.utils import (
+    GENERIC2BRAND_TEMPLATE,
+    CLINICALNOTE_SUMMARY_INSTRUCTIONS,
+    filter_unique_samples,
+)
 from langtest.utils.custom_types.helpers import (
     HashableDict,
     build_qa_input,
@@ -1135,11 +1139,15 @@ class ClinicalNoteSummary(BaseClinical):
 
         progress_bar = kwargs.get("progress_bar", False)
 
-        model = model.model
+        model_type: Literal["chat", "completion"] = kwargs.get("model_type", "chat")
+
+        if model_type == "chat":
+            messages = [{"role": "system", "content": CLINICALNOTE_SUMMARY_INSTRUCTIONS}]
 
         for sample in sample_list:
             if sample.state != "done":
-                ...
+                messages.append({"role": "user", "content": sample.dialogue})
+                sample.actual_results = model.model.invoke(messages).content
                 # sample.actual_results = model(original_text_input, prompt=prompt)
                 # sample.state = "done"
             if progress_bar:

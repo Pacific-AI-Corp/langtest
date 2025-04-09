@@ -3237,6 +3237,15 @@ class DialogueToSummarySample(BaseModel):
             "dialogue": self.dialogue,
         }
 
+        if self.actual_results is not None and self.expected_results is not None:
+            result.update(
+                {
+                    "expected_result": self.expected_results,
+                    "actual_result": self.actual_results,
+                    "pass": True,
+                }
+            )
+
         return result
 
 
@@ -3262,4 +3271,5 @@ Sample = TypeVar(
     CrowsPairsSample,
     StereoSetSample,
     VisualQASample,
+    DialogueToSummarySample,
 )

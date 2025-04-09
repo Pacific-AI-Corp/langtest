@@ -34,6 +34,8 @@ class PretrainedModelForQA(ModelAPI):
     """
 
     _T = TypeVar("_T", bound="PretrainedModelForQA")
+    _L = TypeVar("_L", bound="BaseLanguageModel")
+    _C = TypeVar("_C", bound="BaseChatModel")
 
     HUB_PARAM_MAPPING = {
         "azure-openai": "max_tokens",
@@ -43,7 +45,7 @@ class PretrainedModelForQA(ModelAPI):
         "huggingface-inference-api": "max_length",
     }
 
-    def __init__(self, hub: str, model: Any, *args, **kwargs):
+    def __init__(self, hub: str, model: Union[str, Type[_L], Type[_C]], *args, **kwargs):
         """Constructor class
 
         Args:
@@ -62,9 +64,7 @@ class PretrainedModelForQA(ModelAPI):
         self.predict.cache_clear()
 
     @classmethod
-    def load_model(
-        cls: Type[_T], hub: str, path: str, *args, **kwargs
-    ) -> "PretrainedModelForQA":
+    def load_model(cls: Type[_T], hub: str, path: str, *args, **kwargs) -> Type[_T]:
         """Load the pretrained model.
 
         Args:
@@ -171,7 +171,7 @@ class PretrainedModelForQA(ModelAPI):
                     output_schema,
                     **({"method": "json_schema"} if hub == "ollama" else {}),
                 )
-            return cls(hub, cls.model, *args, **filtered_kwargs)
+            return cls(hub, cls.model, *args, **{**filtered_kwargs, **kwargs})
 
         except ModuleNotFoundError:
             module = MODEL_CLASSES[hub].get("module", None)

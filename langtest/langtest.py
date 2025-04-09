@@ -649,6 +649,7 @@ class Harness:
             "original_context",
             "original_question",
             "completion",
+            "dialogue",
             "test_case",
             "perturbed_context",
             "perturbed_image",

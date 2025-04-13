@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import asyncio
 from collections import defaultdict
 import logging
+import os
 import random
 import re
 from typing import List, Dict, Literal, TypedDict, Union
@@ -1109,11 +1110,11 @@ class ClinicalNoteSummary(BaseClinical):
             # based on file extension load the dataset using pandas
             import pandas as pd
 
-            file_extension = dataset_path.split(".")[-1]
+            file_extension = os.path.splitext(dataset_path)[1].lstrip(".")
 
-            dataset = getattr(pd, f"read_{file_extension}")(
-                dataset_path
-            ).to_dict(orient="records")
+            dataset = getattr(pd, f"read_{file_extension}")(dataset_path).to_dict(
+                orient="records"
+            )
 
         for dia in dataset:
             sample = DialogueToSummarySample()

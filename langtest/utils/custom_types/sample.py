@@ -4,6 +4,7 @@ import importlib
 from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar, Union, Callable
 from copy import deepcopy
 
+from langtest.metrics.llm_eval import SummaryEval
 from langtest.modelhandler.modelhandler import ModelAPI
 from ...errors import Errors
 from pydantic.v1 import BaseModel, PrivateAttr, validator, Field
@@ -3222,6 +3223,7 @@ class DialogueToSummarySample(BaseModel):
     config: Union[str, dict] = None
     distance_result: float = None
     feedback: str = None
+    __eval_model: str = PrivateAttr(default=None)
 
     def to_dict(self) -> Dict[str, Any]:
         """
@@ -3242,11 +3244,73 @@ class DialogueToSummarySample(BaseModel):
                 {
                     "expected_result": self.expected_results,
                     "actual_result": self.actual_results,
-                    "pass": True,
+                    # "feedback": self.feedback,
+                    "pass": self.is_pass(),
                 }
             )
 
+        if self.feedback is not None:
+            result.update({"feedback": self.feedback})
+
         return result
+
+    def is_pass(self) -> bool:
+
+        self.feedback = self._is_eval()
+        if self.feedback["Overall Quality"] >= 3:
+            self.ran_pass = True
+            return True
+        else:
+            self.ran_pass = False
+            return False
+
+    def _is_eval(self) -> Dict[str, float]:
+        """
+        Checks if the evaluation is valid.
+
+        Returns:
+            bool: True if the evaluation is valid, False otherwise.
+        """
+
+        # Model evaluation logic
+        if self.config is None:
+            from langtest.langtest import HARNESS_CONFIG as harness_config
+
+            self.config = harness_config
+
+        evaluation_model = self.config.get("evaluation", {}).get("model", "gpt-4o-mini")
+        evaluation_hub = self.config.get("evaluation", {}).get("hub", "openai")
+
+        # model initialization
+        from langtest.tasks import TaskManager
+
+        task = TaskManager("question-answering")
+        self.__eval_model = task.model(
+            evaluation_model,
+            evaluation_hub,
+            **self.config.get("model_parameters", {}),
+        )
+
+        # Evaluation logic
+        llm_eval = SummaryEval(
+            llm=self.__eval_model,
+            input_variables=["dialogue", "generated_summary"],
+        )
+
+        results = llm_eval.evaluate(
+            inputs=[
+                {
+                    "dialogue": self.dialogue,
+                }
+            ],
+            predictions=[
+                {
+                    "generated_summary": self.actual_results,
+                }
+            ],
+        )
+
+        return results
 
 
 Sample = TypeVar(

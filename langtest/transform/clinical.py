@@ -1105,10 +1105,20 @@ class ClinicalNoteSummary(BaseClinical):
 
         if dataset_path == "mts-dialog":
             dataset = ClinicalNoteSummary.mts_dialog()
+        else:
+            # based on file extension load the dataset using pandas
+            import pandas as pd
 
-        for dia in dataset[:2]:
+            file_extension = dataset_path.split(".")[-1]
+
+            dataset = getattr(pd, f"read_{file_extension}")(
+                dataset_path
+            ).to_dict(orient="records")
+
+        for dia in dataset:
             sample = DialogueToSummarySample()
             sample.dialogue = dia["dialogue"]
+            sample.dataset_name = dataset_path
             sample.expected_results = dia["ground_truth"]
             sample.category = "clinical"
             sample.test_type = "clinical_note_summary"
@@ -1139,7 +1149,7 @@ class ClinicalNoteSummary(BaseClinical):
 
         progress_bar = kwargs.get("progress_bar", False)
 
-        model_type: Literal["chat", "completion"] = kwargs.get("model_type", "chat")
+        model_type: Literal["chat", "completion"] = model.kwargs.get("model_type", "chat")
 
         if model_type == "chat":
             messages = [{"role": "system", "content": CLINICALNOTE_SUMMARY_INSTRUCTIONS}]

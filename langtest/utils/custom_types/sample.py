@@ -3256,6 +3256,10 @@ class DialogueToSummarySample(BaseModel):
 
     def is_pass(self) -> bool:
 
+        # already evaluated
+        if self.ran_pass:
+            return self.ran_pass
+
         self.feedback = self._is_eval()
         if self.feedback["Overall Quality"] >= 3:
             self.ran_pass = True

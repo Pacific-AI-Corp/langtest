@@ -181,4 +181,5 @@ Result = TypeVar(
     MaxScoreOutput,
     List[str],
     str,
+    None,
 )

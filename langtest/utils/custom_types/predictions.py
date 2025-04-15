@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -36,7 +36,7 @@ class NERPrediction(BaseModel):
     ) -> "NERPrediction":
         """"""
         return cls(
-            entity=entity,
+            entity=str(entity),
             span=Span(start=start, end=end, word=word),
             score=score,
             doc_id=doc_id,
@@ -71,7 +71,7 @@ class NERPrediction(BaseModel):
 class SequenceLabel(BaseModel):
     """Single prediction obtained from text-classification models"""
 
-    label: str
+    label: Union[str, int]
     score: float
 
     def __str__(self):

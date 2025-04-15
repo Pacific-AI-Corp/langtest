@@ -3223,6 +3223,7 @@ class DialogueToSummarySample(BaseModel):
     config: Union[str, dict] = None
     distance_result: float = None
     feedback: str = None
+    threshold: int = 5
     __eval_model: str = PrivateAttr(default=None)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -3261,7 +3262,7 @@ class DialogueToSummarySample(BaseModel):
             return self.ran_pass
 
         self.feedback = self._is_eval()
-        if self.feedback["Overall Quality"] >= 3:
+        if self.feedback["Overall Quality"] >= self.threshold:
             self.ran_pass = True
             return True
         else:

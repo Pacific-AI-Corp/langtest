@@ -139,11 +139,11 @@ class NEROutput(BaseModel):
         """String representation"""
         return [str(x) for x in self.predictions].__repr__()
 
-    def __eq__(self, other: "NEROutput"):
-        """Equality comparison method."""
-        # NOTE: we need the list of transformations applied to the sample to be able
-        # to align and compare two different NEROutput
-        raise NotImplementedError()
+    # def __eq__(self, other: "NEROutput"):
+    #     """Equality comparison method."""
+    #     # NOTE: we need the list of transformations applied to the sample to be able
+    #     # to align and compare two different NEROutput
+    #     raise NotImplementedError()
 
 
 class TranslationOutput(BaseModel):

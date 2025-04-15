@@ -59,7 +59,7 @@ class ClinicalTestFactory(ITests):
         tests_copy = self.tests.copy()
         for test_name, params in tests_copy.items():
             test_func = self.supported_tests[test_name].transform
-            data_handler_copy = [sample.copy() for sample in self.data_handler]
+            data_handler_copy = [sample.model_copy() for sample in self.data_handler]
             transformed_samples = test_func(data_handler_copy, **params)
 
             if test_name in ("demographic-bias", "amega"):

@@ -1519,7 +1519,7 @@ class Harness:
         testcases = None
 
         tests = self._config["tests"]
-        m_data = [sample.copy() for sample in dataset]
+        m_data = [sample.model_copy() for sample in dataset]
 
         if self.task in ["text-classification", "ner"]:
             if not isinstance(self.model, dict):

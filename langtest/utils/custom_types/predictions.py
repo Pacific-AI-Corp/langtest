@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .helpers import Span
 
@@ -16,9 +16,10 @@ class NERPrediction(BaseModel):
     pos_tag: Optional[str] = None
     chunk_tag: Optional[str] = None
 
-    class Config:
-        extra = "ignore"
-        allow_population_by_field_name = True
+    model_config = ConfigDict(
+        extra="ignore",
+        populate_by_name=True,
+    )
 
     @classmethod
     def from_span(

@@ -68,7 +68,7 @@ class AccuracyTestFactory(ITests):
             raise RuntimeError(Errors.E052(var="accuracy"))
 
         for test_name, params in self.tests.items():
-            data_handler_copy = [x.copy() for x in self._data_handler]
+            data_handler_copy = [x.model_copy() for x in self._data_handler]
 
             if data_handler_copy[0].task == "ner":
                 y_true = pd.Series(data_handler_copy).apply(
@@ -132,7 +132,7 @@ class AccuracyTestFactory(ITests):
             raw_data (List[Sample]): The raw dataset.
 
         """
-        raw_data_copy = [x.copy() for x in raw_data]
+        raw_data_copy = [x.model_copy() for x in raw_data]
 
         if isinstance(raw_data_copy[0], NERSample):
 

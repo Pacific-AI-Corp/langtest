@@ -61,7 +61,7 @@ class RepresentationTestFactory(ITests):
         all_samples = []
 
         for test_name, params in self.tests.items():
-            data_handler_copy = [x.copy() for x in self._data_handler]
+            data_handler_copy = [x.model_copy() for x in self._data_handler]
 
             transformed_samples = self.supported_tests[test_name].transform(
                 test_name, data_handler_copy, params

@@ -393,7 +393,7 @@ class Harness:
             logging.warning(Warnings.W021())
 
         else:
-            data = [sample.copy() for sample in model_response]
+            data = [sample.model_copy() for sample in model_response]
             data_dict = [{key: value for key, value in x.__dict__.items()} for x in data]
             data_df = pd.DataFrame(data_dict)
             data_df = data_df.reset_index(drop=True)
@@ -1614,7 +1614,9 @@ class Harness:
                 testcases = temp_testcases
             else:
                 for model_name, _ in self.model.items():
-                    testcases[model_name] = [sample.copy() for sample in temp_testcases]
+                    testcases[model_name] = [
+                        sample.model_copy() for sample in temp_testcases
+                    ]
 
         else:
             for dataset_name, samples in dataset.items():

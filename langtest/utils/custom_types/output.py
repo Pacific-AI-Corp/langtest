@@ -1,5 +1,5 @@
 from typing import List, Optional, TypeVar, Union
-from pydantic.v1 import BaseModel, validator
+from pydantic import BaseModel, field_validator
 from .helpers import Span
 from .predictions import NERPrediction, SequenceLabel
 
@@ -94,7 +94,8 @@ class NEROutput(BaseModel):
 
     predictions: List[NERPrediction]
 
-    @validator("predictions")
+    @field_validator("predictions")
+    @classmethod
     def sort_by_appearance(cls, v):
         """Sort spans by order of appearance in the text"""
         return sorted(v, key=lambda x: x.span.start)

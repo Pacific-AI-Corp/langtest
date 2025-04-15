@@ -1101,11 +1101,17 @@ class ClinicalNoteSummary(BaseClinical):
 
         # load the dataset
         dataset_path = kwargs.get("dataset_path", None)
+        num_samples = kwargs.get("num_samples", 0)
+        dialogue_col = kwargs.get("dialogue_col", "dialogue")
+        ground_truth_col = kwargs.get("ground_truth_col", "ground_truth")
+
         if dataset_path is None:
             raise ValueError("Dataset path is not provided.")
 
         if dataset_path == "mts-dialog":
             dataset = ClinicalNoteSummary.mts_dialog()
+        elif dataset_path in ("aci-dialog", "aci_bench"):
+            dataset = ClinicalNoteSummary.aci_dialog()
         else:
             # based on file extension load the dataset using pandas
             import pandas as pd
@@ -1116,11 +1122,16 @@ class ClinicalNoteSummary(BaseClinical):
                 orient="records"
             )
 
+        if num_samples > 0:
+            dataset = random.sample(dataset, num_samples)
+
         for dia in dataset:
             sample = DialogueToSummarySample()
-            sample.dialogue = dia["dialogue"]
+            sample.dialogue = dia[dialogue_col]
             sample.dataset_name = dataset_path
-            sample.expected_results = dia["ground_truth"]
+            if ground_truth_col in dia:
+                sample.expected_results = dia[ground_truth_col]
+
             sample.category = "clinical"
             sample.test_type = "clinical_note_summary"
 
@@ -1135,12 +1146,35 @@ class ClinicalNoteSummary(BaseClinical):
         import pandas as pd
 
         # read dataset from csv file
-        dataset_path = r"C:\Users\KALYAN\OneDrive\Documents\JSL\Datasets\MTS-Dialog\Main-Dataset\MTS-Dialog-ValidationSet.csv"
+        dataset_path = (
+            importlib_resources.files("langtest")
+            / "data"
+            / "MTSDialog"
+            / "validation.csv"
+        )
         df = pd.read_csv(dataset_path)
         df = df.dropna()
         df["ground_truth"] = df.apply(
             lambda x: x["section_header"] + "\n" + x["section_text"], axis=1
         )
+
+        return df[["dialogue"]].to_dict(orient="records")
+
+    @staticmethod
+    def aci_dialog():
+        """ACI Dialog class for the clinical tests"""
+        import pandas as pd
+
+        # read dataset from csv file
+        dataset_path = (
+            importlib_resources.files("langtest")
+            / "data"
+            / "ACIBench"
+            / "aci_bench_test_1.json"
+        )
+        df = pd.read_json(dataset_path, orient="records")
+        df = df.dropna()
+        df.rename({"src": "dialogue", "tgt": "ground_truth"}, axis=1, inplace=True)
 
         return df[["dialogue", "ground_truth"]].to_dict(orient="records")
 
@@ -1154,10 +1188,15 @@ class ClinicalNoteSummary(BaseClinical):
 
         if model_type == "chat":
             messages = [{"role": "system", "content": CLINICALNOTE_SUMMARY_INSTRUCTIONS}]
+        else:
+            messages = f"## Instructions:\n{CLINICALNOTE_SUMMARY_INSTRUCTIONS}"
 
         for sample in sample_list:
             if sample.state != "done":
-                messages.append({"role": "user", "content": sample.dialogue})
+                if isinstance(messages, list):
+                    messages.append({"role": "user", "content": sample.dialogue})
+                else:
+                    messages = f"{messages}\n ## Dialogue\n{sample.dialogue}"
                 sample.actual_results = model.model.invoke(messages).content
                 # sample.actual_results = model(original_text_input, prompt=prompt)
                 # sample.state = "done"

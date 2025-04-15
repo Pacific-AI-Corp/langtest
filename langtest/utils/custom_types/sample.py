@@ -3201,7 +3201,7 @@ class MedFuzzSample(QASample):
 
 class DialogueToSummarySample(BaseModel):
     """
-    A class representing a sample for the dialouge to summarization task.
+    A class representing a sample for the dialogue to summarization task.
 
     Attributes:
         original_context (str): The original context for the dialogue.
@@ -3302,16 +3302,12 @@ class DialogueToSummarySample(BaseModel):
         )
 
         results = llm_eval.evaluate(
-            inputs=[
-                {
-                    "dialogue": self.dialogue,
-                }
-            ],
-            predictions=[
-                {
-                    "generated_summary": self.actual_results,
-                }
-            ],
+            inputs={
+                "dialogue": self.dialogue,
+            },
+            predictions={
+                "generated_summary": self.actual_results,
+            },
         )
 
         return results

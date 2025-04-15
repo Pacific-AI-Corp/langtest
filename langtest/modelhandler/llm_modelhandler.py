@@ -64,7 +64,7 @@ class PretrainedModelForQA(ModelAPI):
         self.predict.cache_clear()
 
     @classmethod
-    def load_model(cls: Type[_T], hub: str, path: str, *args, **kwargs) -> Type[_T]:
+    def load_model(cls: Type[_T], hub: str, path: str, *args, **kwargs) -> _T:
         """Load the pretrained model.
 
         Args:

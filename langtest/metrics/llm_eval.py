@@ -2,7 +2,7 @@ import re
 import ast
 import string
 from textwrap import dedent
-from typing import Dict, List, Mapping, Optional, Tuple
+from typing import List, Mapping, Optional, Tuple
 from ..utils.custom_types.helpers import HashableDict
 
 template = """You are a teacher grading a quiz.
@@ -290,66 +290,49 @@ class SummaryEval:
         self.template = template
         self.input_variables = input_variables
 
-    def _build_prompt(self, dialogue: str, summary: str) -> List[Dict[str, str]]:
-        """Builds the message prompt for LLM evaluation."""
-        return [
-            {"role": "system", "content": self.template},
-            {
-                "role": "user",
-                "content": f"### Dialogue\n{dialogue}\n### Generated Summary\n{summary}",
-            },
-        ]
-
-    def evaluate(self, inputs: List[dict], predictions: List[dict]) -> List[dict]:
+    def evaluate(self, inputs: dict, predictions: dict) -> List[dict]:
         """Evaluate a list of dialogue-summary pairs."""
-        results = []
-        for input_example, prediction_example in zip(inputs, predictions):
-            dialogue = input_example.get("dialogue", "")
-            summary = prediction_example.get("summary", "")
-            # messages = self._build_prompt(dialogue, summary)
 
-            # evaluation = self.llm.chat.completions.create(
-            #     model="gpt-4o",
-            #     messages=messages,
-            #     temperature=0.0,
-            # )
-            content = self.llm.predict(
-                prompt=HashableDict(
-                    **{
-                        "template": self.template,
-                        "input_variables": self.input_variables,
-                    }
-                ),
-                text=HashableDict(**{"dialogue": dialogue, "summary": summary}),
-            )
+        dialogue = inputs.get("dialogue", "")
+        summary = predictions.get("summary", "")
 
-            # Convert string output to dict (assuming the model returns a dictionary-like string)
-            try:
+        content = self.llm.predict(
+            prompt=HashableDict(
+                **{
+                    "template": self.template,
+                    "input_variables": self.input_variables,
+                }
+            ),
+            text=HashableDict(**{"dialogue": dialogue, "summary": summary}),
+        )
 
-                # Remove markdown code block formatting if present
-                match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", content, re.DOTALL)
-                if match:
-                    dict_str = match.group(1)
-                else:
-                    dict_str = content.strip()
+        # Convert string output to dict (assuming the model returns a dictionary-like string)
+        try:
 
-                result_dict = ast.literal_eval(dict_str)
-                # loaded_eval
-                # result_dict = eval(evaluation.choices[0].message.content)
-                results.append(result_dict)
-            except Exception as e:
-                results.append(
-                    {
-                        "Factual Completeness": 0,
-                        "No Hallucinations": 0,
-                        "Clinical Tone & Structure": 0,
-                        "Overall Quality": 0,
-                        "error": str(e),
-                    }
-                )
+            # Remove markdown code block formatting if present
+            match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", content, re.DOTALL)
+            if match:
+                dict_str = match.group(1)
+            else:
+                dict_str = content.strip()
 
-        return results[0]
+            result_dict = ast.literal_eval(dict_str)
+            # loaded_eval
+            # result_dict = eval(evaluation.choices[0].message.content)
+            return result_dict
+        except Exception as e:
+            return {
+                "Factual Completeness": 0,
+                "No Hallucinations": 0,
+                "Clinical Tone & Structure": 0,
+                "Overall Quality": 0,
+                "error": str(e),
+            }
 
     def evaluate_batch(self, inputs: List[dict], predictions: List[dict]) -> List[dict]:
         """Alias for evaluate - placeholder for future batch implementation."""
-        return self.evaluate(inputs, predictions)
+        results = []
+        for input_example, prediction_example in zip(inputs, predictions):
+            result = self.evaluate(input_example, prediction_example)
+            results.append(result)
+        return results

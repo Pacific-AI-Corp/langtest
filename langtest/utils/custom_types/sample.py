@@ -42,7 +42,7 @@ class BaseSample(BaseModel):
 
     original: Union[str, None] = None
     test_type: str = None
-    test_case: str = None
+    test_case: Union[str, int, float] = None
     expected_results: Result = None
     actual_results: Result = None
     transformations: List[Transformation] = None

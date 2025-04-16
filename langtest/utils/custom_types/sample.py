@@ -40,16 +40,16 @@ class BaseSample(BaseModel):
     operator and add the new model to the `Result` type variable.
     """
 
-    original: Union[str, None] = None
-    test_type: str = None
-    test_case: Union[str, int, float] = None
-    expected_results: Result = None
-    actual_results: Result = None
-    transformations: List[Transformation] = None
-    category: str = None
-    state: str = None
-    threshold: float = None
-    dataset_name: str = None
+    original: Optional[str] = None
+    test_type: Optional[str] = None
+    test_case: Optional[Union[str, int, float]] = None
+    expected_results: Optional[Result] = None
+    actual_results: Optional[Result] = None
+    transformations: Optional[List[Transformation]] = None
+    category: Optional[str] = None
+    state: Optional[str] = None
+    threshold: Optional[float] = None
+    dataset_name: Optional[str] = None
 
     def __init__(self, **data):
         """Constructor method"""

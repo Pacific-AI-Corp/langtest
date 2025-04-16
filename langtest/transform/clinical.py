@@ -1104,7 +1104,7 @@ class ClinicalNoteSummary(BaseClinical):
         num_samples = kwargs.get("num_samples", 0)
         dialogue_col = kwargs.get("dialogue_col", "dialogue")
         ground_truth_col = kwargs.get("ground_truth_col", "ground_truth")
-        threshold = max(kwargs.get("threshold", 5), 10)
+        threshold = min(kwargs.get("threshold", 5), 10)
 
         if dataset_path is None:
             raise ValueError("Dataset path is not provided.")

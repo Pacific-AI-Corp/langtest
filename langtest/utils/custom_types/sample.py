@@ -3285,31 +3285,43 @@ class DialogueToSummarySample(BaseModel):
 
         evaluation_model = self.config.get("evaluation", {}).get("model", "gpt-4o-mini")
         evaluation_hub = self.config.get("evaluation", {}).get("hub", "openai")
+        evalution_metric = self.config.get("evaluation", {}).get("metric", "llm_eval")
 
-        # model initialization
-        from langtest.tasks import TaskManager
+        if evalution_metric == "llm_eval":
+            from langtest.metrics.llm_eval import SummaryEval
+            from langtest.tasks import TaskManager
 
-        task = TaskManager("question-answering")
-        self.__eval_model = task.model(
-            evaluation_model,
-            evaluation_hub,
-            **self.config.get("model_parameters", {}),
-        )
+            # model initialization
+            task = TaskManager("question-answering")
+            self.__eval_model = task.model(
+                evaluation_model,
+                evaluation_hub,
+                **self.config.get("model_parameters", {}),
+            )
+            # Evaluation logic
+            llm_eval = SummaryEval(
+                llm=self.__eval_model,
+                input_variables=["dialogue", "generated_summary"],
+            )
 
-        # Evaluation logic
-        llm_eval = SummaryEval(
-            llm=self.__eval_model,
-            input_variables=["dialogue", "generated_summary"],
-        )
+            results = llm_eval.evaluate(
+                inputs={
+                    "dialogue": self.dialogue,
+                },
+                predictions={
+                    "generated_summary": self.actual_results,
+                },
+            )
+        # rouge evaluation
+        elif evalution_metric == "rouge":
+            import evaluate
 
-        results = llm_eval.evaluate(
-            inputs={
-                "dialogue": self.dialogue,
-            },
-            predictions={
-                "generated_summary": self.actual_results,
-            },
-        )
+            rogue = evaluate.load("rouge")
+            results = rogue.compute(
+                predictions=[self.actual_results],
+                references=[self.expected_results],
+                use_stemmer=True,
+            )
 
         return results
 

@@ -1203,7 +1203,7 @@ class ClinicalNoteSummary(BaseClinical):
                     messages = f"{messages}\n ## Dialogue\n{sample.dialogue}"
                 sample.actual_results = model.model.invoke(messages).content
                 # sample.actual_results = model(original_text_input, prompt=prompt)
-                # sample.state = "done"
+                sample.state = "done"
             if progress_bar:
                 progress_bar.update(1)
 

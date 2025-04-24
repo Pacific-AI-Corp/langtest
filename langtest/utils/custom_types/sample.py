@@ -4,7 +4,6 @@ import importlib
 from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar, Union, Callable
 from copy import deepcopy
 
-from langtest.metrics.llm_eval import SummaryEval
 from langtest.modelhandler.modelhandler import ModelAPI
 from ...errors import Errors
 from pydantic.v1 import BaseModel, PrivateAttr, validator, Field

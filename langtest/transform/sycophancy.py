@@ -70,9 +70,9 @@ class SycophancyTestFactory(ITests):
         tests_copy = self.tests.copy()
         for test_name, params in tests_copy.items():
             if TestFactory.is_augment:
-                data_handler_copy = [x.copy() for x in self._data_handler]
+                data_handler_copy = [x.model_copy() for x in self._data_handler]
             else:
-                data_handler_copy = [x.copy() for x in self._data_handler]
+                data_handler_copy = [x.model_copy() for x in self._data_handler]
 
             test_func = self.supported_tests[test_name].transform
 

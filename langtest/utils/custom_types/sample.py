@@ -1,12 +1,25 @@
 import re
 import string
 import importlib
-from typing import Any, Dict, List, Mapping, Optional, Tuple, TypeVar, Union, Callable
+from typing import (
+    Any,
+    ClassVar,
+    Dict,
+    List,
+    Literal,
+    Mapping,
+    Optional,
+    Tuple,
+    TypeVar,
+    Union,
+    Callable,
+)
 from copy import deepcopy
+from PIL.Image import Image
 
 from langtest.modelhandler.modelhandler import ModelAPI
 from ...errors import Errors
-from pydantic.v1 import BaseModel, PrivateAttr, validator, Field
+from pydantic import BaseModel, ConfigDict, PrivateAttr, Field, field_validator
 from pydantic import BaseModel as BaseModelV2
 from .helpers import Transformation, Span
 from .helpers import default_user_prompt
@@ -27,16 +40,16 @@ class BaseSample(BaseModel):
     operator and add the new model to the `Result` type variable.
     """
 
-    original: str = None
-    test_type: str = None
-    test_case: str = None
-    expected_results: Result = None
-    actual_results: Result = None
-    transformations: List[Transformation] = None
-    category: str = None
-    state: str = None
-    threshold: float = None
-    dataset_name: str = None
+    original: Optional[str] = None
+    test_type: Optional[str] = None
+    test_case: Optional[Union[str, int, float]] = None
+    expected_results: Optional[Result] = None
+    actual_results: Optional[Result] = None
+    transformations: Optional[List[Transformation]] = None
+    category: Optional[str] = None
+    state: Optional[str] = None
+    threshold: Optional[float] = None
+    dataset_name: Optional[str] = None
 
     def __init__(self, **data):
         """Constructor method"""
@@ -82,15 +95,17 @@ class BaseSample(BaseModel):
             result.update(
                 {
                     "transformations": [
-                        transformation.dict() for transformation in self.transformations
+                        transformation.model_dump()
+                        for transformation in self.transformations
                     ]
                 }
             )
 
         return result
 
-    @validator("transformations")
-    def sort_transformations(cls, v):
+    @field_validator("transformations")
+    @classmethod
+    def sort_transformations(cls, v, info):
         """Validator ensuring that transformations are in correct order"""
         return sorted(v, key=lambda x: x.original_span.start)
 
@@ -135,7 +150,8 @@ class NERSample(BaseSample):
     """Helper object for named entity recognition tasks"""
 
     # TODO: remove _realigned_spans, but for now it ensures that we don't realign spans multiple times
-    task: str = Field(default="ner", const=True)
+    # task: str = Field(default="ner", forzen=True)
+    task: Literal["ner"] = "ner"
     _realigned_spans: Optional[Result] = PrivateAttr(default_factory=None)
 
     def __init__(self, **data):
@@ -329,7 +345,7 @@ class SequenceClassificationSample(BaseSample):
     """
 
     gender: str = None
-    task: str = Field(default="text-classification", constr=True)
+    task: Literal["text-classification"] = "text-classification"
 
     def __init__(self, **data):
         """Constructor method"""
@@ -398,7 +414,8 @@ class BaseQASample(BaseModel):
     dataset_name: str = None
     category: str = None
     state: str = None
-    task: str = Field(default="question-answering", const=True)
+    # task: str = Field(default="question-answering", frozen=True)
+    task: Literal["question-answering"] = "question-answering"
     test_case: str = None
     config: Mapping[str, Mapping] = None
     distance_result: float = None
@@ -750,7 +767,8 @@ class SummarizationSample(BaseModel):
     actual_results: str = None
     state: str = None
     dataset_name: str = None
-    task: str = Field(default="summarization", constr=True)
+    # task: str = Field(default="summarization", frozen=True)
+    task: Literal["summarization"] = "summarization"
     category: str = None
     test_type: str = None
     ran_pass: tuple = None
@@ -900,7 +918,8 @@ class ToxicitySample(BaseModel):
     completion_toxicity: str = None
     state: str = None
     dataset_name: str = None  # RealToxicityPrompts
-    task: str = Field(default="toxicity", constr=True)
+    # task: str = Field(default="toxicity", frozen=True)
+    task: Literal["toxicity"] = "toxicity"
     category: str = None  # toxicity
     test_type: str = None  # offensive
 
@@ -1044,7 +1063,8 @@ class TranslationSample(BaseModel):
     actual_results: Result = None
     state: str = None
     dataset_name: str = None
-    task: str = Field(default="translation", const=True)
+    # task: str = Field(default="translation", frozen=True)
+    task: Literal["translation"] = "translation"
     category: str = None
     test_type: str = None
     ran_pass: tuple = None
@@ -1153,7 +1173,8 @@ class SecuritySample(BaseModel):
     actual_results: str = None
     state: str = None
     dataset_name: str = None
-    task: str = Field(default="security", const=True)
+    # task: str = Field(default="security", frozen=True)
+    task: Literal["security"] = "security"
     category: str = None  # security
     test_type: str = None  # prompt_injection_attack
 
@@ -1426,7 +1447,7 @@ class DisinformationSample(BaseModel):
     task: str = None
     category: str = None
     test_type: str = None
-    model_response: str = None
+    generated_response: str = None
     ran_pass: tuple = None
 
     def __init__(self, **data):
@@ -1440,13 +1461,13 @@ class DisinformationSample(BaseModel):
             "test_type": self.test_type,
         }
 
-        if self.model_response is not None:
+        if self.generated_response is not None:
             bool_pass, eval_score = self._is_eval()
             result.update(
                 {
                     "hypothesis": self.hypothesis,
                     "statements": self.statements,
-                    "model_response": self.model_response,
+                    "model_response": self.generated_response,
                     "eval_score": eval_score,
                     "pass": bool_pass,
                 }
@@ -1483,7 +1504,7 @@ class DisinformationSample(BaseModel):
                 model="sentence-transformers/distiluse-base-multilingual-cased-v2"
             )
 
-        sentences = [self.statements, self.model_response]
+        sentences = [self.statements, self.generated_response]
 
         embeddings = model.get_embedding(sentences)
 
@@ -1504,7 +1525,7 @@ class DisinformationSample(BaseModel):
         )
         server_prompt = kwargs.get("server_prompt", " ")
 
-        self.model_response = model(
+        self.generated_response = model(
             text={"statements": self.statements, "hypothesis": self.hypothesis},
             prompt={
                 "template": prompt_template,
@@ -1531,10 +1552,12 @@ class WinoBiasSample(BaseModel):
     test_type: str = "wino-bias"
     state: str = None
     dataset_name: str = None
-    model_response: str = None
+    generated_response: str = None
     hub: str = None
     diff_threshold: float = 0.03
-    valid_values = re.compile(r"(?i)^\s*(C\. Both A and B|Both A and B|Both|C|C.)\s*$")
+    valid_values: ClassVar[re.Pattern] = re.compile(
+        r"(?i)^\s*(C\. Both A and B|Both A and B|Both|C|C.)\s*$"
+    )
     ran_pass: bool = None
 
     def __init__(self, **data):
@@ -1562,10 +1585,10 @@ class WinoBiasSample(BaseModel):
         if self.hub != "huggingface":
             result["options"] = self.options
 
-        if self.model_response is not None:
+        if self.generated_response is not None:
             result.update(
                 {
-                    "model_response": self.model_response,
+                    "model_response": self.generated_response,
                     "pass": self.is_pass(),
                 }
             )
@@ -1578,14 +1601,14 @@ class WinoBiasSample(BaseModel):
             return self.ran_pass
 
         if self.hub == "huggingface":
-            if self.model_response:
-                values = list(self.model_response.values())
+            if self.generated_response:
+                values = list(self.generated_response.values())
                 if len(values) < 2:
                     self.ran_pass = False
                 else:
                     self.ran_pass = abs(values[0] - values[1]) <= self.diff_threshold
         else:
-            if self.valid_values.search(self.model_response.lower()):
+            if self.valid_values.search(self.generated_response.lower()):
                 self.ran_pass = True
             else:
                 self.ran_pass = False
@@ -1595,7 +1618,7 @@ class WinoBiasSample(BaseModel):
         self.__update_params()
         """"""
         if self.hub == "huggingface":
-            self.model_response = model(text=self.masked_text)
+            self.generated_response = model(text=self.masked_text)
             return True
         else:
             dataset_name = self.dataset_name.split("-")[0].lower()
@@ -1604,7 +1627,7 @@ class WinoBiasSample(BaseModel):
             )
             server_prompt = kwargs.get("server_prompt", " ")
 
-            self.model_response = model(
+            self.generated_response = model(
                 text={"question": self.masked_text, "options": self.options},
                 prompt={
                     "template": prompt_template,
@@ -1792,7 +1815,7 @@ class LegalSample(BaseModel):
         legal_conclusion_A (str): Legal conclusion A.
         legal_conclusion_B (str): Legal conclusion B.
         correct_conlusion (str): The correct legal-conlusion (A or B)
-        model_conclusion (str ) : Correct Conclusion as per the model (A or B)
+        generated_conclusion (str ) : Correct Conclusion as per the model (A or B)
         state (str): The state of the sample.
         dataset_name (str): The name of the dataset the sample belongs to.
         task (str): The task associated with the sample.
@@ -1805,7 +1828,7 @@ class LegalSample(BaseModel):
     legal_conclusion_A: str
     legal_conclusion_B: str
     correct_conlusion: str = None
-    model_conclusion: str = None
+    generated_conclusion: str = None
     state: str = None
     dataset_name: str = None
     task: str = "legal"
@@ -1834,10 +1857,10 @@ class LegalSample(BaseModel):
             "correct_conlusion": self.correct_conlusion,
         }
 
-        if self.model_conclusion is not None:
+        if self.generated_conclusion is not None:
             result.update(
                 {
-                    "model_conclusion": self.model_conclusion,
+                    "model_conclusion": self.generated_conclusion,
                     "pass": self.is_pass(),
                 }
             )
@@ -1853,7 +1876,7 @@ class LegalSample(BaseModel):
 
     def _is_eval(self) -> bool:
         """"""
-        return self.model_conclusion == self.correct_conlusion
+        return self.generated_conclusion == self.correct_conlusion
 
     def run(self, model, **kwargs):
         """"""
@@ -1867,7 +1890,7 @@ class LegalSample(BaseModel):
         )
         server_prompt = kwargs.get("server_prompt", " ")
 
-        self.model_conclusion = model(
+        self.generated_conclusion = model(
             text={
                 "case": self.case,
                 "legal_claim": self.legal_claim,
@@ -1886,8 +1909,8 @@ class LegalSample(BaseModel):
             server_prompt=server_prompt,
         )
 
-        self.model_conclusion = (
-            self.model_conclusion.replace(" ", "").replace("\n", "").lower()
+        self.generated_conclusion = (
+            self.generated_conclusion.replace(" ", "").replace("\n", "").lower()
         )
 
         return True
@@ -2213,7 +2236,8 @@ class SensitivitySample(BaseModel):
     test_case: str = None
     state: str = None
     dataset_name: str = None
-    task: str = Field(default="sensitivity", constr=True)
+    # task: str = Field(default="sensitivity", constr=True)
+    task: Literal["sensitivity"] = "sensitivity"
     category: str = None
     test_type: str = None
     expected_result: Result = None
@@ -2495,7 +2519,8 @@ class SycophancySample(BaseModel):
     dataset_name: str = None
     category: str = None
     state: str = None
-    task: str = Field(default="sycophancy", const=True)
+    # task: str = Field(default="sycophancy", frozen=True)
+    task: Literal["sycophancy"] = "sycophancy"
     test_case: str = None
     gt: bool = False
     eval_model: str = None
@@ -2734,7 +2759,8 @@ class TextGenerationSample(BaseModel):
     test_type: str = Field(default=None, alias="test_type")
     state: str = Field(default=None, alias="state")
     dataset_name: str = Field(default=None, alias="dataset_name")
-    task: str = Field(default=None, alias="task")
+    # task: str = Field(default=None, alias="task")
+    task: Literal["text_generation"] = "text_generation"
     _given_attributes: List[str] = []
     ran_pass: bool = None
 
@@ -2815,8 +2841,6 @@ class VisualQASample(BaseModel):
         actual_result (str): The actual result of the test.
     """
 
-    from PIL.Image import Image
-
     original_image: Union[Image, str, Any] = None
     perturbed_image: Union[Image, str, Any] = None
     question: str = None
@@ -2833,13 +2857,15 @@ class VisualQASample(BaseModel):
     metric_name: str = None
     config: Union[str, dict] = None
     state: str = None
-    task: str = Field(default="visualqa", const=True)
+    # task: str = Field(default="visualqa", frozen=True)
+    task: Literal["visualqa"] = "visualqa"
     distance_result: float = None
     eval_model: str = None
     feedback: str = None
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True,
+    )
 
     def __init__(self, **data):
         super().__init__(**data)

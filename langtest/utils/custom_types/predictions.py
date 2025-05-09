@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import Optional, Union
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from .helpers import Span
 
@@ -16,9 +16,10 @@ class NERPrediction(BaseModel):
     pos_tag: Optional[str] = None
     chunk_tag: Optional[str] = None
 
-    class Config:
-        extra = "ignore"
-        allow_population_by_field_name = True
+    model_config = ConfigDict(
+        extra="ignore",
+        populate_by_name=True,
+    )
 
     @classmethod
     def from_span(
@@ -35,7 +36,7 @@ class NERPrediction(BaseModel):
     ) -> "NERPrediction":
         """"""
         return cls(
-            entity=entity,
+            entity=str(entity),
             span=Span(start=start, end=end, word=word),
             score=score,
             doc_id=doc_id,
@@ -70,7 +71,7 @@ class NERPrediction(BaseModel):
 class SequenceLabel(BaseModel):
     """Single prediction obtained from text-classification models"""
 
-    label: str
+    label: Union[str, int]
     score: float
 
     def __str__(self):

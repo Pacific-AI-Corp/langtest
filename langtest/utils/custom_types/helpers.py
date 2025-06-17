@@ -1,6 +1,6 @@
 import difflib
 import re
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 from collections.abc import Hashable
 import importlib
 from typing import List, Tuple, Union
@@ -215,8 +215,8 @@ class Transformation(BaseModel):
 
         return json.dumps(
             {
-                "original_span": self.original_span.dict(),
-                "new_span": self.new_span.dict(),
+                "original_span": self.original_span.model_dump(),
+                "new_span": self.new_span.model_dump(),
                 "ignore": self.ignore,
             }
         )

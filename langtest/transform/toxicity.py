@@ -50,7 +50,7 @@ class ToxicityTestFactory(ITests):
         all_samples = []
 
         for test_name, params in self.tests.items():
-            data_handler_copy = [x.copy() for x in self._data_handler]
+            data_handler_copy = [x.model_copy() for x in self._data_handler]
 
             test_func = self.supported_tests[test_name].transform
             transformed_samples = test_func(

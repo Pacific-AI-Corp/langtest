@@ -102,7 +102,7 @@ class FairnessTestFactory(ITests):
             raw_data (List[Sample]): The raw dataset.
 
         """
-        raw_data_copy = [x.copy() for x in raw_data]
+        raw_data_copy = [x.model_copy() for x in raw_data]
         grouped_label = {}
         grouped_data = cls.get_gendered_data(raw_data_copy)
         for gender, data in grouped_data.items():

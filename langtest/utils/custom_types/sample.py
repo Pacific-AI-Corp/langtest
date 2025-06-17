@@ -3238,7 +3238,7 @@ class DialogueToSummarySample(BaseModel):
     dialogue: str = None
     expected_results: str = None
     actual_results: str = None
-    task: str = Field(default="summarization", const=True)
+    task: Literal["summarization"] = "summarization"
     dataset_name: str = None
     category: str = None
     test_type: str = None

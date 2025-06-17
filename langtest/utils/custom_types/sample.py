@@ -3222,7 +3222,7 @@ class DialogueToSummarySample(BaseModel):
     config: Union[str, dict] = None
     distance_result: float = None
     feedback: str = None
-    threshold: int = 5
+    threshold: int = 0.5
     __eval_model: str = PrivateAttr(default=None)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -3261,7 +3261,12 @@ class DialogueToSummarySample(BaseModel):
             return self.ran_pass
 
         self.feedback = self._is_eval()
-        if self.feedback["Overall Quality"] >= self.threshold:
+        if self.feedback.get("Overall Quality", 0) >= self.threshold:
+            self.ran_pass = True
+            return True
+        elif self.feedback.values() and any(
+            value >= self.threshold for value in self.feedback.values()
+        ):
             self.ran_pass = True
             return True
         else:
@@ -3285,6 +3290,14 @@ class DialogueToSummarySample(BaseModel):
         evaluation_model = self.config.get("evaluation", {}).get("model", "gpt-4o-mini")
         evaluation_hub = self.config.get("evaluation", {}).get("hub", "openai")
         evalution_metric = self.config.get("evaluation", {}).get("metric", "llm_eval")
+
+        # threshold
+        self.threshold = self.config.get("evaluation", {}).get("threshold", 0.5)
+        if self.threshold is None and evalution_metric == "llm_eval":
+            self.threshold = 5
+        elif self.threshold is None and evalution_metric == "rouge":
+            self.threshold = 0.5
+        # llm evaluation
 
         if evalution_metric == "llm_eval":
             from langtest.metrics.llm_eval import SummaryEval

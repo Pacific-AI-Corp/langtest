@@ -1197,12 +1197,11 @@ class AttackerLLM:
 
 # ClincialNote Summary
 CLINICALNOTE_SUMMARY_INSTRUCTIONS = """
-Summarize the conversation to generate a clinical note as per ISO standards with four sections:
-1. HISTORY OF PRESENT ILLNESS
-2. PHYSICAL EXAM
-3. RESULTS
-4. ASSESSMENT AND PLAN
+Summarize the conversation to generate a clinical note with {sections_info}
 
 The conversation is:
 Conversation: Doctor-patient dialogue:
+
+The output is:
+it should be a clinical note that includes the only given sections.
 """

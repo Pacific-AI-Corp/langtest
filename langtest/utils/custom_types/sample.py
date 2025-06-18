@@ -3283,7 +3283,7 @@ class DialogueToSummarySample(BaseModel):
     def is_pass(self) -> bool:
 
         # already evaluated
-        if self.ran_pass:
+        if self.ran_pass is not None:
             return self.ran_pass
 
         self.feedback = self._is_eval()

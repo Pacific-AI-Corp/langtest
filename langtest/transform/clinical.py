@@ -1126,12 +1126,12 @@ class ClinicalNoteSummary(BaseClinical):
         if num_samples > 0:
             dataset = random.sample(dataset, num_samples)
 
-        for dia in dataset:
+        for each_row in dataset:
             sample = DialogueToSummarySample()
-            sample.dialogue = dia[dialogue_col]
+            sample.dialogue = each_row[dialogue_col]
             sample.dataset_name = dataset_path
-            if ground_truth_col in dia:
-                sample.expected_results = dia[ground_truth_col]
+            if ground_truth_col in each_row:
+                sample.expected_results = each_row[ground_truth_col]
 
             sample.category = "clinical"
             sample.test_type = "clinical_note_summary"
@@ -1159,10 +1159,10 @@ class ClinicalNoteSummary(BaseClinical):
         df = pd.read_csv(dataset_path)
         df = df.dropna()
         df["ground_truth"] = df.apply(
-            lambda x: x["section_header"] + "\n" + x["section_text"], axis=1
+            lambda x: x["section_header"] + " Section: \n" + x["section_text"], axis=1
         )
 
-        return df[["dialogue"]].to_dict(orient="records")
+        return df[["dialogue", "ground_truth"]].to_dict(orient="records")
 
     @staticmethod
     def aci_dialog():
@@ -1190,17 +1190,19 @@ class ClinicalNoteSummary(BaseClinical):
 
         model_type: Literal["chat", "completion"] = model.kwargs.get("model_type", "chat")
 
-        if model_type == "chat":
-            messages = [{"role": "system", "content": CLINICALNOTE_SUMMARY_INSTRUCTIONS}]
-        else:
-            messages = f"## Instructions:\n{CLINICALNOTE_SUMMARY_INSTRUCTIONS}"
-
         for sample in sample_list:
             if sample.state != "done":
-                if isinstance(messages, list):
-                    messages.append({"role": "user", "content": sample.dialogue})
+                if model_type == "chat":
+                    messages = [
+                        {
+                            "role": "system",
+                            "content": ClinicalNoteSummary.get_instructions(sample),
+                        },
+                        {"role": "user", "content": sample.dialogue},
+                    ]
                 else:
-                    messages = f"{messages}\n ## Dialogue\n{sample.dialogue}"
+                    messages = f"## Instructions:\n{ClinicalNoteSummary.get_instructions(sample)}\n## Dialogue\n{sample.dialogue}"
+
                 sample.actual_results = model.model.invoke(messages).content
                 # sample.actual_results = model(original_text_input, prompt=prompt)
                 sample.state = "done"
@@ -1208,3 +1210,21 @@ class ClinicalNoteSummary(BaseClinical):
                 progress_bar.update(1)
 
         return sample_list
+
+    @classmethod
+    def get_instructions(cls, sample: Sample) -> str:
+        """Get MTS Dialog dataset"""
+        if sample.dataset_name == "mts-dialog":
+            # Extract the heading from md text '##'
+            section_header = sample.expected_results.split("\n")[0]
+            sections = f"{section_header}"
+            return CLINICALNOTE_SUMMARY_INSTRUCTIONS.format(sections_info=sections)
+        else:
+            sections = (
+                "four sections:\n\n"
+                "1. HISTORY OF PRESENT ILLNESS\n"
+                "2. PHYSICAL EXAM\n"
+                "3. RESULTS\n"
+                "4. ASSESSMENT AND PLANn\n"
+            )
+            return CLINICALNOTE_SUMMARY_INSTRUCTIONS.format(sections_info=sections)

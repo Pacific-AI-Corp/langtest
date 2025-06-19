@@ -1193,3 +1193,15 @@ class AttackerLLM:
         prompt = self.build_modified_question_prompt(benchmark_item)
         modified_question = self.send_message(prompt)
         return modified_question
+
+
+# ClincialNote Summary
+CLINICALNOTE_SUMMARY_INSTRUCTIONS = """
+Summarize the conversation to generate a clinical note with {sections_info}
+
+The conversation is:
+Conversation: Doctor-patient dialogue:
+
+The output is:
+it should be a clinical note that includes the only given sections.
+"""

@@ -3224,6 +3224,146 @@ class MedFuzzSample(QASample):
         return o_dict
 
 
+class DialogueToSummarySample(BaseModel):
+    """
+    A class representing a sample for the dialogue to summarization task.
+
+    Attributes:
+        original_context (str): The original context for the dialogue.
+        perturbed_context (str): The perturbed context for the dialogue.
+        original_question (str): The original question for the dialogue.
+        perturbed_question (str): The perturbed question for the dialogue.
+    """
+
+    dialogue: str = None
+    expected_results: str = None
+    actual_results: str = None
+    task: Literal["summarization"] = "summarization"
+    dataset_name: str = None
+    category: str = None
+    test_type: str = None
+    state: str = None
+    ran_pass: bool = None
+    metric_name: str = None
+    config: Union[str, dict] = None
+    distance_result: float = None
+    feedback: str = None
+    threshold: int = 0.5
+    __eval_model: str = PrivateAttr(default=None)
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Converts the MTSDialogueSample object to a dictionary.
+
+        Returns:
+            Dict[str, Any]: A dictionary representation of the MTSDialogueSample object.
+        """
+
+        result = {
+            "category": self.category,
+            "test_type": self.test_type,
+            "dialogue": self.dialogue,
+        }
+
+        if self.actual_results is not None and self.expected_results is not None:
+            result.update(
+                {
+                    "expected_result": self.expected_results,
+                    "actual_result": self.actual_results,
+                    # "feedback": self.feedback,
+                    "pass": self.is_pass(),
+                }
+            )
+
+        if self.feedback is not None:
+            result.update({"feedback": self.feedback})
+
+        return result
+
+    def is_pass(self) -> bool:
+
+        # already evaluated
+        if self.ran_pass is not None:
+            return self.ran_pass
+
+        self.feedback = self._is_eval()
+        if self.feedback.get("Overall Quality", 0) >= self.threshold:
+            self.ran_pass = True
+            return True
+        elif self.feedback.values() and any(
+            value >= self.threshold for value in self.feedback.values()
+        ):
+            self.ran_pass = True
+            return True
+        else:
+            self.ran_pass = False
+            return False
+
+    def _is_eval(self) -> Dict[str, float]:
+        """
+        Checks if the evaluation is valid.
+
+        Returns:
+            bool: True if the evaluation is valid, False otherwise.
+        """
+
+        # Model evaluation logic
+        if self.config is None:
+            from langtest.langtest import HARNESS_CONFIG as harness_config
+
+            self.config = harness_config
+
+        evaluation_model = self.config.get("evaluation", {}).get("model", "gpt-4o-mini")
+        evaluation_hub = self.config.get("evaluation", {}).get("hub", "openai")
+        evalution_metric = self.config.get("evaluation", {}).get("metric", "llm_eval")
+
+        # threshold
+        self.threshold = self.config.get("evaluation", {}).get("threshold", 0.5)
+        if self.threshold is None and evalution_metric == "llm_eval":
+            self.threshold = 5
+        elif self.threshold is None and evalution_metric == "rouge":
+            self.threshold = 0.5
+        # llm evaluation
+
+        if evalution_metric == "llm_eval":
+            from langtest.metrics.llm_eval import SummaryEval
+            from langtest.tasks import TaskManager
+
+            # model initialization
+            task = TaskManager("question-answering")
+            self.__eval_model = task.model(
+                evaluation_model,
+                evaluation_hub,
+                **self.config.get("model_parameters", {}),
+            )
+            # Evaluation logic
+            llm_eval = SummaryEval(
+                llm=self.__eval_model,
+                input_variables=["dialogue", "generated_summary"],
+            )
+
+            results = llm_eval.evaluate(
+                inputs={
+                    "dialogue": self.dialogue,
+                },
+                predictions={
+                    "generated_summary": self.actual_results,
+                },
+            )
+        # rouge evaluation
+        elif evalution_metric == "rouge":
+            import evaluate
+
+            rogue = evaluate.load("rouge")
+            results = rogue.compute(
+                predictions=[self.actual_results],
+                references=[self.expected_results],
+                use_stemmer=True,
+            )
+
+        return results
+
+
 Sample = TypeVar(
     "Sample",
     MaxScoreSample,
@@ -3246,4 +3386,5 @@ Sample = TypeVar(
     CrowsPairsSample,
     StereoSetSample,
     VisualQASample,
+    DialogueToSummarySample,
 )

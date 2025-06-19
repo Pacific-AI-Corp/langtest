@@ -2,16 +2,21 @@ from abc import ABC, abstractmethod
 import asyncio
 from collections import defaultdict
 import logging
+import os
 import random
 import re
-from typing import List, Dict, TypedDict, Union
+from typing import List, Dict, Literal, TypedDict, Union
 
 import importlib_resources
 from langtest.errors import Errors, Warnings
 from langtest.modelhandler.modelhandler import ModelAPI
 from langtest.tasks.task import TaskManager
 from langtest.transform.base import ITests, TestFactory
-from langtest.transform.utils import GENERIC2BRAND_TEMPLATE, filter_unique_samples
+from langtest.transform.utils import (
+    GENERIC2BRAND_TEMPLATE,
+    CLINICALNOTE_SUMMARY_INSTRUCTIONS,
+    filter_unique_samples,
+)
 from langtest.utils.custom_types.helpers import (
     HashableDict,
     build_qa_input,
@@ -62,7 +67,7 @@ class ClinicalTestFactory(ITests):
             data_handler_copy = [sample.model_copy() for sample in self.data_handler]
             transformed_samples = test_func(data_handler_copy, **params)
 
-            if test_name in ("demographic-bias", "amega"):
+            if test_name in ("demographic-bias", "amega", "clinical_note_summary"):
                 all_samples.extend(transformed_samples)
             else:
                 new_transformed_samples, removed_samples_tests = filter_unique_samples(
@@ -1077,3 +1082,149 @@ class MedFuzz(BaseClinical):
             .message.content
         )
         return res
+
+
+class ClinicalNoteSummary(BaseClinical):
+    """
+    ClinicalSummary class for the clinical tests
+    """
+
+    alias_name = "clinical_note_summary"
+    supported_tasks = ["summarization"]
+
+    @staticmethod
+    def transform(sample_list: List[Sample], *args, **kwargs):
+        """Transform method for the ClinicalSummary class"""
+        from langtest.utils.custom_types.sample import DialogueToSummarySample
+
+        transformed_samples = []
+
+        # load the dataset
+        dataset_path = kwargs.get("dataset_path", None)
+        num_samples = kwargs.get("num_samples", 0)
+        dialogue_col = kwargs.get("dialogue_col", "dialogue")
+        ground_truth_col = kwargs.get("ground_truth_col", "ground_truth")
+        threshold = min(kwargs.get("threshold", 5), 10)
+
+        if dataset_path is None:
+            raise ValueError("Dataset path is not provided.")
+
+        if dataset_path == "mts-dialog":
+            dataset = ClinicalNoteSummary.mts_dialog()
+        elif dataset_path in ("aci-dialog", "aci_bench"):
+            dataset = ClinicalNoteSummary.aci_dialog()
+        else:
+            # based on file extension load the dataset using pandas
+            import pandas as pd
+
+            file_extension = os.path.splitext(dataset_path)[1].lstrip(".")
+
+            dataset = getattr(pd, f"read_{file_extension}")(dataset_path).to_dict(
+                orient="records"
+            )
+
+        if num_samples > 0:
+            dataset = random.sample(dataset, num_samples)
+
+        for each_row in dataset:
+            sample = DialogueToSummarySample()
+            sample.dialogue = each_row[dialogue_col]
+            sample.dataset_name = dataset_path
+            if ground_truth_col in each_row:
+                sample.expected_results = each_row[ground_truth_col]
+
+            sample.category = "clinical"
+            sample.test_type = "clinical_note_summary"
+
+            # set threshold for the sample
+            sample.threshold = threshold
+
+            # append to transformed_samples
+            transformed_samples.append(sample)
+
+        return transformed_samples
+
+    @staticmethod
+    def mts_dialog():
+        """MTS Dialog class for the clinical tests"""
+        import pandas as pd
+
+        # read dataset from csv file
+        dataset_path = (
+            importlib_resources.files("langtest")
+            / "data"
+            / "MTSDialog"
+            / "validation.csv"
+        )
+        df = pd.read_csv(dataset_path)
+        df = df.dropna()
+        df["ground_truth"] = df.apply(
+            lambda x: x["section_header"] + " Section: \n" + x["section_text"], axis=1
+        )
+
+        return df[["dialogue", "ground_truth"]].to_dict(orient="records")
+
+    @staticmethod
+    def aci_dialog():
+        """ACI Dialog class for the clinical tests"""
+        import pandas as pd
+
+        # read dataset from csv file
+        dataset_path = (
+            importlib_resources.files("langtest")
+            / "data"
+            / "ACIBench"
+            / "aci_bench_test_1.json"
+        )
+        df = pd.read_json(dataset_path, orient="records")
+        df = df.dropna()
+        df.rename({"src": "dialogue", "tgt": "ground_truth"}, axis=1, inplace=True)
+
+        return df[["dialogue", "ground_truth"]].to_dict(orient="records")
+
+    @staticmethod
+    async def run(sample_list: List[Sample], model: ModelAPI, *args, **kwargs):
+        """Run method for the ClinicalSummary class"""
+
+        progress_bar = kwargs.get("progress_bar", False)
+
+        model_type: Literal["chat", "completion"] = model.kwargs.get("model_type", "chat")
+
+        for sample in sample_list:
+            if sample.state != "done":
+                if model_type == "chat":
+                    messages = [
+                        {
+                            "role": "system",
+                            "content": ClinicalNoteSummary.get_instructions(sample),
+                        },
+                        {"role": "user", "content": sample.dialogue},
+                    ]
+                else:
+                    messages = f"## Instructions:\n{ClinicalNoteSummary.get_instructions(sample)}\n## Dialogue\n{sample.dialogue}"
+
+                sample.actual_results = model.model.invoke(messages).content
+                # sample.actual_results = model(original_text_input, prompt=prompt)
+                sample.state = "done"
+            if progress_bar:
+                progress_bar.update(1)
+
+        return sample_list
+
+    @classmethod
+    def get_instructions(cls, sample: Sample) -> str:
+        """Get MTS Dialog dataset"""
+        if sample.dataset_name == "mts-dialog":
+            # Extract the heading from md text '##'
+            section_header = sample.expected_results.split("\n")[0]
+            sections = f"{section_header}"
+            return CLINICALNOTE_SUMMARY_INSTRUCTIONS.format(sections_info=sections)
+        else:
+            sections = (
+                "four sections:\n\n"
+                "1. HISTORY OF PRESENT ILLNESS\n"
+                "2. PHYSICAL EXAM\n"
+                "3. RESULTS\n"
+                "4. ASSESSMENT AND PLANn\n"
+            )
+            return CLINICALNOTE_SUMMARY_INSTRUCTIONS.format(sections_info=sections)

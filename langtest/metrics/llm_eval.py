@@ -1,4 +1,5 @@
 import re
+import ast
 import string
 from textwrap import dedent
 from typing import List, Mapping, Optional, Tuple
@@ -256,3 +257,82 @@ class LlmEval:
         ]
 
         return self.evaluate_batch(examples)
+
+
+SUMMARY_EVAL_TEMPLATE = """
+Evaluate the clinical summary generated from the doctor-patient dialogue below.
+
+Instructions:
+1. Factual Completeness (1-10): Provide an integer rating.
+2. No Hallucinations (1-10): Provide an integer rating.
+3. Clinical Tone & Structure (1-10): Provide an integer rating.
+4. Overall Quality (1-10): Provide an integer rating.
+
+Output a dict object with keys "Factual Completeness", "No Hallucinations", "Clinical Tone & Structure", and "Overall Quality" mapping to the integer ratings.
+
+### Dialogue
+{dialogue}
+### Generated Summary
+{summary}
+"""
+
+
+class SummaryEval:
+    """SummaryEval for evaluating clinical summary generation from doctor-patient dialogues."""
+
+    def __init__(
+        self,
+        llm,
+        template: str = SUMMARY_EVAL_TEMPLATE,
+        input_variables: List[str] = ["context", "summary"],
+    ):
+        self.llm = llm
+        self.template = template
+        self.input_variables = input_variables
+
+    def evaluate(self, inputs: dict, predictions: dict) -> List[dict]:
+        """Evaluate a list of dialogue-summary pairs."""
+
+        dialogue = inputs.get("dialogue", "")
+        summary = predictions.get("summary", "")
+
+        content = self.llm.predict(
+            prompt=HashableDict(
+                **{
+                    "template": self.template,
+                    "input_variables": self.input_variables,
+                }
+            ),
+            text=HashableDict(**{"dialogue": dialogue, "summary": summary}),
+        )
+
+        # Convert string output to dict (assuming the model returns a dictionary-like string)
+        try:
+
+            # Remove markdown code block formatting if present
+            match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", content, re.DOTALL)
+            if match:
+                dict_str = match.group(1)
+            else:
+                dict_str = content.strip()
+
+            result_dict = ast.literal_eval(dict_str)
+            # loaded_eval
+            # result_dict = eval(evaluation.choices[0].message.content)
+            return result_dict
+        except Exception as e:
+            return {
+                "Factual Completeness": 0,
+                "No Hallucinations": 0,
+                "Clinical Tone & Structure": 0,
+                "Overall Quality": 0,
+                "error": str(e),
+            }
+
+    def evaluate_batch(self, inputs: List[dict], predictions: List[dict]) -> List[dict]:
+        """Alias for evaluate - placeholder for future batch implementation."""
+        results = []
+        for input_example, prediction_example in zip(inputs, predictions):
+            result = self.evaluate(input_example, prediction_example)
+            results.append(result)
+        return results

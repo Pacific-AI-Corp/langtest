@@ -78,13 +78,13 @@ langchain = {version = "^0.3.15", optional = true}
 typing-extensions = "^4.10.0"
 langchain-openai = {version = "^0.3.7", optional = true}
 boto3 = {version = "^1.34.93", optional = true}
-importlib-resources = "^6.4.0"
+importlib-resources = ">=5.10"
 click = ">=8.1.7"
 openpyxl = ">=3.1.5"
 tables = ">=3.8.0"
 pillow = ">=11.0.0"
 langchain-databricks = {version = "0.1.1", optional = true}
-langchain-community = {version = "0.3.5", optional = true}
+langchain-community = {version = "==0.3.9", optional = true}
 langchain-ollama = {version = "^0.2.2", optional = true}
 ollama = {version = "^0.4.7", optional = true}
 

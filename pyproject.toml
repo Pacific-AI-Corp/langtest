@@ -51,7 +51,7 @@ exclude = 'langtest/errors.py'
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
-pydantic = "2.9.2"
+pydantic = ">=2.10.0"
 johnsnowlabs = {version = "5.5.0", optional = true}
 rouge-score = { version = "^0.1.2", optional = true }
 evaluate = { version = "^0.4.0", optional = true }
@@ -70,7 +70,7 @@ ai21 = {version = "^1.1.0", optional = true}
 metaflow = {version = ">=2.9.0", optional = true}
 accelerate = {version = "0.34.2", optional = true}
 seqeval = {version = "^1.2.0", optional = true}
-mlflow = {version = "^2.19.0", optional = true}
+mlflow = {version = ">=3.1.0", optional = true}
 datasets = {version = ">=2.14.0", optional = true}
 matplotlib = {version = "^3.7.2", optional = true}
 tenacity = {version = "^8.2.2", optional = true}
@@ -83,7 +83,6 @@ click = ">=8.1.7"
 openpyxl = ">=3.1.5"
 tables = ">=3.8.0"
 pillow = ">=11.0.0"
-langchain-databricks = {version = "0.1.1", optional = true}
 langchain-community = {version = "==0.3.9", optional = true}
 langchain-ollama = {version = "^0.2.2", optional = true}
 ollama = {version = "^0.4.7", optional = true}

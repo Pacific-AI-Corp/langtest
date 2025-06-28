@@ -86,6 +86,7 @@ pillow = ">=11.0.0"
 langchain-community = {version = "==0.3.9", optional = true}
 langchain-ollama = {version = "^0.2.2", optional = true}
 ollama = {version = "^0.4.7", optional = true}
+databricks-langchain = {version = "0.5.1", optional = true, markers = "python_version >= '3.10' and python_version < '4.0'"}
 
 [tool.poetry.extras]
 transformers = ["transformers", "torch", "accelerate", "datasets"]
@@ -100,8 +101,8 @@ metaflow = ["metaflow"]
 mlflow = ["mlflow"]
 datasets = ["datasets"]
 matplotlib = ["matplotlib"]
-databricks = ["langchain", "langchain-databricks", "langchain-community", "langchain-openai"]
-llms = ["langchain", "langchain-community", "langchain-openai", "langchain-databricks", "langchain-ollama"]
+databricks = ["langchain", "databricks-langchain", "langchain-community", "langchain-openai"]
+llms = ["langchain", "langchain-community", "langchain-openai", "langchain-ollama"]
 ollama_sdk = ["langchain", "langchain-community", "ollama"]
 
 [tool.poetry.group.dev.dependencies]

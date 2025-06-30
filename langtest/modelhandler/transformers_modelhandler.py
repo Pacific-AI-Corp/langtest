@@ -379,7 +379,7 @@ class PretrainedModelForTextClassification(ModelAPI):
         if return_all_scores:
             kwargs["top_k"] = len(self.labels)
 
-        output = self.model(text, truncation_strategy=truncation_strategy, **kwargs)
+        output = self.model(text, truncation=truncation_strategy, **kwargs)
         return SequenceClassificationOutput(text=text, predictions=output)
 
     def predict_raw(

@@ -190,7 +190,7 @@ class HarnessTestCase(unittest.TestCase):
         save_dir = "/tmp/saved_harness_edit_import_testcases"
 
         if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
+            os.makedirs(save_dir, exist_ok=True)
 
         harness = Harness(
             task="ner",

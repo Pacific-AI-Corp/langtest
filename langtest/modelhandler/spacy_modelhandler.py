@@ -6,7 +6,9 @@ from functools import lru_cache
 
 from .modelhandler import ModelAPI
 from ..utils.custom_types import NEROutput, NERPrediction, SequenceClassificationOutput
-from pkg_resources import resource_filename
+
+# from pkg_resources import resource_filename
+from importlib_resources import files
 from ..errors import Errors
 
 
@@ -126,7 +128,7 @@ class PretrainedModelForTextClassification(ModelAPI):
         """
         try:
             if path == "textcat_imdb":
-                path = resource_filename("langtest", "data/textcat_imdb")
+                path = files("langtest").joinpath("data/textcat_imdb")
             return cls(spacy.load(path))
         except OSError:
             raise ValueError(Errors.E041(path=path))

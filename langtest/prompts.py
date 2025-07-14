@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Dict, List, Union
 
-from pydantic.v1 import BaseModel, validator, Extra
+from pydantic.v1 import BaseModel, validator, Extra, ConfigDict
 
 
 class MessageType(BaseModel):
@@ -15,10 +15,7 @@ class MessageType(BaseModel):
         "answer",
     ]
 
-    class Config:
-        extra = (
-            Extra.allow
-        )  # Allow any additional fields that are not explicitly declared
+    model_config = ConfigDict(extra=Extra.allow)
 
     @validator("*", pre=True, allow_reuse=True)
     def add_field(cls, v, values, field, **kwargs):
@@ -73,10 +70,7 @@ class Conversion(BaseModel):
     user: MessageType
     ai: MessageType
 
-    class Config:
-        extra = (
-            Extra.allow
-        )  # Allow any additional fields that are not explicitly declared
+    model_config = ConfigDict(extra=Extra.allow)
 
     @validator("*", pre=True, allow_reuse=True)
     def add_field(cls, v, values, field, **kwargs):

@@ -187,9 +187,28 @@ class BiasTestFactory(ITests):
         for test_name, params in self.tests.items():
             data_handler_copy = [x.model_copy() for x in self._data_handler]
 
-            transformed_samples = self.supported_tests[test_name].transform(
-                data_handler_copy, **params.get("parameters", {})
-            )
+            test_func = self.supported_tests[test_name].transform
+
+            if TestFactory.task in ("question-answering", "summarization"):
+                _ = [
+                    (
+                        sample.transform(
+                            test_func,
+                            params.get("parameters", {}),
+                            prob=params.pop("prob", 1.0),
+                        )
+                        if hasattr(sample, "transform")
+                        else sample
+                    )
+                    for sample in data_handler_copy
+                ]
+                transformed_samples = data_handler_copy
+
+            else:
+
+                transformed_samples = test_func(
+                    data_handler_copy, **params.get("parameters", {})
+                )
 
             new_transformed_samples, removed_samples_tests = filter_unique_samples(
                 TestFactory.task, transformed_samples, test_name
@@ -322,7 +341,11 @@ class GenderPronounBias(BaseBias):
 
     @staticmethod
     def transform(
-        sample_list: List[Sample], pronouns_to_substitute: List[str], pronoun_type: str
+        sample_list: List[Sample],
+        pronouns_to_substitute: List[str],
+        pronoun_type: str,
+        *args,
+        **kwargs,
     ) -> List[Sample]:
         """Replace pronouns to check the gender bias
 
@@ -381,7 +404,10 @@ class GenderPronounBias(BaseBias):
                     replaced_string = re.sub(
                         regex, chosen_token, replaced_string, count=1
                     )
-                    if sample.task in ("ner", "text-classification"):
+                    if not isinstance(sample, str) and sample.task in (
+                        "ner",
+                        "text-classification",
+                    ):
                         transformations.append(
                             Transformation(
                                 original_span=Span(
@@ -428,6 +454,8 @@ class CountryEconomicBias(BaseBias):
         sample_list: List[Sample],
         country_names_to_substitute: List[str],
         chosen_country_names: List[str],
+        *args,
+        **kwargs,
     ) -> List[Sample]:
         """Replace country names to check the ethnicity bias
 
@@ -464,7 +492,10 @@ class CountryEconomicBias(BaseBias):
                     replaced_string = re.sub(
                         regex, chosen_token, replaced_string, count=1
                     )
-                    if sample.task in ("ner", "text-classification"):
+                    if not isinstance(sample, str) and sample.task in (
+                        "ner",
+                        "text-classification",
+                    ):
                         transformations.append(
                             Transformation(
                                 original_span=Span(
@@ -518,6 +549,8 @@ class EthnicityNameBias(BaseBias):
         sample_list: List[Sample],
         names_to_substitute: List[str],
         chosen_ethnicity_names: List[str],
+        *args,
+        **kwargs,
     ) -> List[Sample]:
         """Replace names to check the ethnicity bias
 
@@ -601,7 +634,11 @@ class ReligionBias(BaseBias):
 
     @staticmethod
     def transform(
-        sample_list: List[Sample], names_to_substitute: List[str], chosen_names: List[str]
+        sample_list: List[Sample],
+        names_to_substitute: List[str],
+        chosen_names: List[str],
+        *args,
+        **kwargs,
     ) -> List[Sample]:
         """Replace  names to check the religion bias
 

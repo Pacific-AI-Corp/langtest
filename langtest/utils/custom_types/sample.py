@@ -448,7 +448,7 @@ class BaseQASample(BaseModel):
             sens = [self.original_question, self.original_context]
 
             self.perturbed_question, self.perturbed_context = func(
-                sens, prob, **params, **kwargs
+                sens, prob=prob, **params, **kwargs
             )
 
             self.category = func.__module__.split(".")[-1]

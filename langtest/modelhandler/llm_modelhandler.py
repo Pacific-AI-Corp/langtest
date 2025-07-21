@@ -13,8 +13,7 @@ from pydantic.v1 import Field, ValidationError
 from langtest.utils.custom_types.output import NEROutput
 from langtest.utils.custom_types.predictions import NERPrediction
 from ..modelhandler.modelhandler import ModelAPI, LANGCHAIN_HUBS
-from ..errors import Errors, Warnings
-import logging
+from ..errors import Errors
 from functools import lru_cache
 from langtest.utils.custom_types.helpers import HashableDict
 from langchain.chat_models.base import BaseChatModel
@@ -195,9 +194,6 @@ class PretrainedModelForQA(ModelAPI):
             hub (str): The hub name for the model.
             kwargs (dict): Keyword arguments to be updated.
         """
-        if hub == "azure-openai" and "deployment_name" not in kwargs:
-            kwargs["deployment_name"] = "gpt-3.5-turbo-instruct"
-            logging.warning(Warnings.W014(hub=hub, kwargs=kwargs))
 
         if "max_tokens" in kwargs and hub in cls.HUB_PARAM_MAPPING:
             new_tokens_key = cls.HUB_PARAM_MAPPING[hub]

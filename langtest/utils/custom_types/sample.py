@@ -21,7 +21,7 @@ from langtest.modelhandler.modelhandler import ModelAPI
 from ...errors import Errors
 from pydantic import BaseModel, ConfigDict, PrivateAttr, Field, field_validator
 from pydantic import BaseModel as BaseModelV2
-from .helpers import Transformation, Span
+from .helpers import Transformation, Span, build_qa_input, build_qa_prompt
 from .helpers import default_user_prompt
 from ...metrics import EmbeddingDistance
 from .output import MaxScoreOutput, NEROutput, Result
@@ -405,26 +405,26 @@ class BaseQASample(BaseModel):
 
     original_question: str
     original_context: str
-    options: str = None
-    test_type: str = None
-    perturbed_question: str = None
-    perturbed_context: str = None
+    options: Optional[str] = None
+    test_type: Optional[str] = None
+    perturbed_question: Optional[str] = None
+    perturbed_context: Optional[str] = None
     expected_results: Result = None
     actual_results: Result = None
-    dataset_name: str = None
-    category: str = None
-    state: str = None
+    dataset_name: Optional[str] = None
+    category: Optional[str] = None
+    state: Optional[str] = None
     # task: str = Field(default="question-answering", frozen=True)
     task: Literal["question-answering"] = "question-answering"
-    test_case: str = None
+    test_case: Optional[str] = None
     config: Mapping[str, Mapping] = None
     distance_result: float = None
     eval_model: Union[str, tuple] = None
     ran_pass: bool = None
-    metric_name: str = None
-    gender: str = None
+    metric_name: Optional[str] = None
+    gender: Optional[str] = None
     loaded_fields: Dict[str, Any] = None
-    feedback: str = None
+    feedback: Optional[str] = None
 
     def __init__(self, **data):
         """Constructor method"""
@@ -3362,6 +3362,171 @@ class DialogueToSummarySample(BaseModel):
             )
 
         return results
+
+
+class ShuffleOptions(QASample):
+    perturbed_options: Optional[str] = None
+
+    def shuffle(self, pattern: str = "\n|,"):
+        """Shuffle the options in the question."""
+        import random
+
+        if not self.options:
+            return
+
+        # Split and clean options
+        options_list = re.split(pattern, self.options.strip())
+        cleaned_options = [
+            re.sub(r"^[A-E]\.\s*", "", opt.strip()) for opt in options_list if opt.strip()
+        ]
+
+        # Shuffle and relabel
+        random.shuffle(cleaned_options)
+        labeled_options = [
+            f"{chr(65 + i)}. {opt}" for i, opt in enumerate(cleaned_options)
+        ]
+        self.perturbed_options = "\n".join(labeled_options)
+
+    def _is_eval(self) -> bool:
+        if not all([self.expected_results, self.actual_results, self.perturbed_options]):
+            self.ran_pass = False
+            return self.ran_pass
+
+        # Extract options
+        original_options = re.findall(
+            r"^[A-E]\.\s*(.*)", self.options.strip(), re.MULTILINE
+        )
+        perturbed_options = re.findall(
+            r"^([A-E])\.\s*(.*)", self.perturbed_options.strip(), re.MULTILINE
+        )
+
+        # Get correct answer text
+        match = re.match(r"^([A-E])", self.expected_results.strip().upper())
+        if not match:
+            self.ran_pass = False
+            return self.ran_pass
+        expected_label = match.group(1)
+        expected_index = ord(expected_label) - 65
+
+        if expected_index >= len(original_options):
+            self.ran_pass = False
+            return self.ran_pass
+
+        correct_option_text = original_options[expected_index].strip()
+
+        # Find new label for correct answer
+        new_correct_label = next(
+            (
+                label
+                for label, text in perturbed_options
+                if text.strip() == correct_option_text
+            ),
+            None,
+        )
+
+        if not new_correct_label:
+            self.ran_pass = False
+            return self.ran_pass
+
+        # Extract selected label from actual results
+        actual_text = self.actual_results.strip()
+
+        # Check if actual_results is just a label (e.g., "C")
+        if re.match(r"^[A-E]$", actual_text):
+            selected_label = actual_text
+        # Check if actual_results starts with a label (e.g., "C. Text...")
+        elif re.match(r"^([A-E])\.", actual_text):
+            selected_label = re.match(r"^([A-E])\.", actual_text).group(1)
+        else:
+            # If actual_results is the full text, find matching option
+            selected_label = None
+            for label, text in perturbed_options:
+                if text.strip() == actual_text:
+                    selected_label = label
+                    break
+
+            if not selected_label:
+                # Try matching with original options as fallback
+                for i, text in enumerate(original_options):
+                    if text.strip() == actual_text:
+                        # Find the corresponding label in perturbed options
+                        for p_label, p_text in perturbed_options:
+                            if p_text.strip() == text.strip():
+                                selected_label = p_label
+                                break
+                        break
+
+        if not selected_label:
+            self.ran_pass = False
+            return self.ran_pass
+
+        self.ran_pass = selected_label == new_correct_label
+        return self.ran_pass
+
+    def is_pass(self):
+        return self._is_eval() or self.ran_pass
+
+    def run(self, model, **kwargs):
+
+        tokens = 1
+
+        dataset_name = (
+            self.dataset_name.split("-")[0].lower()
+            if self.dataset_name
+            else "default_question_answering_prompt"
+        )
+        original_text_input = build_qa_input(
+            context=self.original_context,
+            question=self.original_question,
+            options=self.options,
+        )
+
+        perturbed_text_input = build_qa_input(
+            context=self.original_context,
+            question=self.original_question,
+            options=self.perturbed_options,
+        )
+
+        server_prompt = kwargs.get("server_prompt", " ")
+
+        prompt = build_qa_prompt(original_text_input, dataset_name, **kwargs)
+
+        self.expected_results = model(
+            text=original_text_input, prompt=prompt, server_prompt=server_prompt
+        )
+
+        if self.perturbed_options:
+            self.actual_results = model(
+                text=perturbed_text_input, prompt=prompt, server_prompt=server_prompt
+            )
+
+        self.state == "done"
+
+        tokens += len(
+            self.original_question.split()
+            + (self.original_context.split() if self.original_context else "")
+        )
+        return tokens
+
+    def to_dict(self):
+        result = super().to_dict()
+
+        # remove the length of perturbed_question and perturbed_context in length
+        if self.perturbed_question is None or self.perturbed_question == "":
+            del result["perturbed_question"]
+        if (
+            self.perturbed_context is None
+            or self.perturbed_context == ""
+            and "perturbed_context" in result
+        ):
+            del result["perturbed_context"]
+        # else:
+        result.update(
+            {
+                "perturbed_options": self.perturbed_options,
+            }
+        )
+        return result
 
 
 Sample = TypeVar(

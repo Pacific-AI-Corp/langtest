@@ -678,6 +678,7 @@ class Harness:
             "log_prob_antistereo",
             "diff_threshold",
             "options",
+            "perturbed_options",
             "expected_result",
             "prompt_toxicity",
             "actual_result",
@@ -915,6 +916,7 @@ class Harness:
             "question",
             "ground_truth",
             "options",
+            "perturbed_options",
             "expected_result",
         ]
 

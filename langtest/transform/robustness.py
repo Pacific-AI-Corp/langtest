@@ -15,6 +15,7 @@ from langtest.transform.base import ITests, TestFactory
 from langtest.errors import Errors, Warnings
 from langtest.transform.utils import create_terminology, filter_unique_samples
 from langtest.utils.custom_types import SequenceClassificationSample
+from langtest.utils.custom_types.sample import QASample, ShuffleOptions
 from .constants import (
     A2B_DICT,
     CONTRACTION_MAP,
@@ -129,10 +130,10 @@ class RobustnessTestFactory(ITests):
 
             test_func = self.supported_tests[test_name].transform
 
-            if (
-                TestFactory.task in ("question-answering", "summarization")
-                and test_name != "multiple_perturbations"
-            ):
+            if TestFactory.task in (
+                "question-answering",
+                "summarization",
+            ) and test_name not in ("multiple_perturbations", "randomize_options"):
                 _ = [
                     (
                         sample.transform(
@@ -2257,3 +2258,41 @@ class AddTabs(BaseRobustness):
                     sample.category = "robustness"
                 perturbed_samples.append(sample)
         return perturbed_samples
+
+
+class RandomizeOptions(BaseRobustness):
+
+    alias_name = "randomize_options"
+    supported_tasks = ["question-answering"]
+
+    @staticmethod
+    def transform(
+        sample_list: List[Sample],
+        prob: Optional[float] = 1.0,
+        split_pattern: str = "\n|,",
+    ) -> List[Sample]:
+        """Transforms the given sample list by randomizing the options in the input text
+        Args:
+            sample_list (List[Sample]): The list of samples to transform.
+            prob (Optional[float]): The probability controlling the proportion of words to be perturbed.
+                                    Defaults to 1.0, which means all samples will be transformed.
+        Returns:
+            List[Sample]: The transformed list of samples with options randomized.
+        """
+        transformed_samples = []
+        for sample in sample_list:
+            if sample.task == "question-answering" and isinstance(sample, QASample):
+                shuffle_sample = ShuffleOptions(
+                    **sample.model_dump(
+                        exclude_none=True,
+                        exclude_unset=True,
+                    )
+                )
+                shuffle_sample.category = "robustness"
+                shuffle_sample.test_type = "randomize_options"
+                shuffle_sample.perturbed_context = ""
+                shuffle_sample.perturbed_question = ""
+                shuffle_sample.shuffle(pattern=split_pattern)
+
+                transformed_samples.append(shuffle_sample)
+        return transformed_samples

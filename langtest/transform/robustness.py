@@ -2281,7 +2281,7 @@ class RandomizeOptions(BaseRobustness):
         """
         transformed_samples = []
         for sample in sample_list:
-            if sample.task == "question-answering" and isinstance(sample, QASample):
+            if isinstance(sample, QASample) and sample.task == "question-answering":
                 shuffle_sample = ShuffleOptions(
                     **sample.model_dump(
                         exclude_none=True,

@@ -2295,4 +2295,7 @@ class RandomizeOptions(BaseRobustness):
                 shuffle_sample.shuffle(pattern=split_pattern)
 
                 transformed_samples.append(shuffle_sample)
+            elif isinstance(sample, str):
+                transformed_samples.append(None)
+
         return transformed_samples

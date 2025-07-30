@@ -437,6 +437,27 @@ class RobustnessTestCase(unittest.TestCase):
         for sample in transformed_samples:
             self.assertNotEqual(sample.test_case, sample.original)
 
+    def test_randomize_options(self) -> None:
+        """
+        Test the RandomizeOptions transformation.
+        """
+        transformed_samples = RandomizeOptions.transform(
+            sample_list=[
+                QASample(
+                    original_question="What is John Snow Labs?",
+                    original_context="John Snow Labs is a healthcare company specializing in accelerating progress in data science.",
+                    options="A. healthcare company\nB. tech company\nC. data science company",
+                    task="question-answering",
+                )
+            ]
+        )
+        self.assertIsInstance(transformed_samples, list)
+        for sample in transformed_samples:
+            self.assertIsInstance(sample, ShuffleOptions)
+            if isinstance(sample, ShuffleOptions):
+                sample.shuffle()
+                self.assertTrue(sample.options != sample.perturbed_options)
+
 
 class RobustnessTestCaseQaAndSummarization(unittest.TestCase):
     """
@@ -508,6 +529,7 @@ class RobustnessTestCaseQaAndSummarization(unittest.TestCase):
                     "british_to_american",
                     "add_context",
                     "multiple_perturbations",
+                    "randomize_options",
                 ]:
                     sample.transform(test_func, {}, prob)
                 elif test in ["american_to_british", "british_to_american"]:

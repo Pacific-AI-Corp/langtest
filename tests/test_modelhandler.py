@@ -64,7 +64,6 @@ class ModelAPITestCase(unittest.TestCase):
             task = TaskManager("question-answering")
             task.model(model_path="j2-jumbo-instruct", model_hub="ai21")
 
-
     def test_cohere_model(self) -> None:
         """
         Test loading a model from Cohere

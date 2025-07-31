@@ -342,11 +342,11 @@ class DefaultCodeBlocksTestCase(unittest.TestCase):
         """
         Test text classification task with John Snow Labs model.
         """
-        try:
-            h = Harness(
-                task="text-classification",
-                model={"model": "en.sentiment.imdb.glove", "hub": "johnsnowlabs"},
-            )
-            h.generate().run().report()
-        except Exception as e:
-            self.fail(f"Test failed with the following error:\n{e}")
+        # try:
+        h = Harness(
+            task="text-classification",
+            model={"model": "en.sentiment.imdb.glove", "hub": "johnsnowlabs"},
+        )
+        h.generate().run().report()
+        # except Exception as e:
+        #     self.fail(f"Test failed with the following error:\n{e}")

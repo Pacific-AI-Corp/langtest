@@ -68,7 +68,7 @@ tqdm = "^4.67.1"
 cohere = { version = "^4.10.0", optional = true}
 ai21 = {version = "^1.1.0", optional = true}
 metaflow = {version = ">=2.9.0", optional = true}
-accelerate = {version = "0.34.2", optional = true}
+accelerate = "^1.9.0"
 seqeval = {version = "^1.2.0", optional = true}
 mlflow = {version = ">=3.1.0", optional = true}
 datasets = {version = ">=2.14.0", optional = true}

@@ -293,7 +293,7 @@ files = [
     {file = "appnope-0.1.3-py2.py3-none-any.whl", hash = "sha256:265a455292d0bd8a72453494fa24df5a11eb18373a60c7c0430889f22548605e"},
     {file = "appnope-0.1.3.tar.gz", hash = "sha256:02bd91c4de869fbb1e1c50aafc4098827a7a54ab2f39d9dcba6c9547ed920e24"},
 ]
-markers = {main = "sys_platform == \"darwin\"", dev = "sys_platform == \"darwin\" or platform_system == \"Darwin\""}
+markers = {main = "sys_platform == \"darwin\" and extra == \"true\"", dev = "sys_platform == \"darwin\" or platform_system == \"Darwin\""}
 
 [[package]]
 name = "asttokens"
@@ -306,6 +306,7 @@ files = [
     {file = "asttokens-2.2.1-py2.py3-none-any.whl", hash = "sha256:6b0ac9e93fb0335014d382b8fa9b3afa7df546984258005da0b9e7095b3deb1c"},
     {file = "asttokens-2.2.1.tar.gz", hash = "sha256:4622110b2a6f30b77e1473affaa97e711bc2f07d3f10848420ff1898edbe94f3"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.dependencies]
 six = "*"
@@ -356,6 +357,7 @@ files = [
     {file = "backcall-0.2.0-py2.py3-none-any.whl", hash = "sha256:fbbce6a29f263178a1f7915c1940bde0ec2b2a967566fe1c65c1dfb7422bd255"},
     {file = "backcall-0.2.0.tar.gz", hash = "sha256:5cbdbf27be5e7cfadb448baf0aa95508f91f2bbc6c6437cd9cd06e2a4c215e1e"},
 ]
+markers = {main = "extra == \"true\""}
 
 [[package]]
 name = "backoff"
@@ -510,7 +512,7 @@ msgpack = "*"
 name = "boto3"
 version = "1.34.93"
 description = "The AWS SDK for Python"
-optional = false
+optional = true
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
@@ -530,7 +532,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 name = "botocore"
 version = "1.34.93"
 description = "Low-level, data-driven core of boto 3."
-optional = false
+optional = true
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
@@ -582,6 +584,7 @@ description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
 files = [
     {file = "certifi-2024.12.14-py3-none-any.whl", hash = "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56"},
     {file = "certifi-2024.12.14.tar.gz", hash = "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"},
@@ -687,6 +690,7 @@ description = "The Real First Universal Charset Detector. Open, modern and activ
 optional = false
 python-versions = ">=3.7.0"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
 files = [
     {file = "charset-normalizer-3.2.0.tar.gz", hash = "sha256:3bb3d25a8e6c0aedd251753a79ae98a093c7e7b471faa3aa9a93a81431987ace"},
     {file = "charset_normalizer-3.2.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0b87549028f680ca955556e3bd57013ab47474c3124dc069faa0b6545b6c9710"},
@@ -847,6 +851,7 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+markers = {main = "(sys_platform == \"win32\" or platform_system == \"Windows\" or extra == \"true\") and (extra == \"spacy\" or extra == \"true\" or platform_system == \"Windows\")"}
 
 [[package]]
 name = "comm"
@@ -1181,9 +1186,10 @@ dev = ["databricks-vectorsearch (>=0.50)", "hatch", "pytest", "ruff (==0.6.4)"]
 name = "databricks-api"
 version = "0.9.0"
 description = "Databricks API client auto-generated from the official databricks-cli package"
-optional = false
+optional = true
 python-versions = ">=3.6,<4.0"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "databricks_api-0.9.0-py3-none-any.whl", hash = "sha256:51327fc1a06d9f4125a7a74d6764c3f1e99b6fb8f4b7f7cc178679b2c0d8ae5b"},
     {file = "databricks_api-0.9.0.tar.gz", hash = "sha256:40db26831ae37d2659d2700f4cb253615d895b6d440b99fb995aed51e67928f0"},
@@ -1196,9 +1202,10 @@ databricks-cli = "*"
 name = "databricks-cli"
 version = "0.17.6"
 description = "A command line interface for Databricks"
-optional = false
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "databricks-cli-0.17.6.tar.gz", hash = "sha256:7fea8b4e47ac38bd4eaad8a76e38a6916419df930ad1c615a6b43feb427672c4"},
     {file = "databricks_cli-0.17.6-py2-none-any.whl", hash = "sha256:99c8fef80ef3215a36c09f594e7788e59bf9990792b4697d8daece754abe1660"},
@@ -1345,9 +1352,10 @@ requests = ">=2"
 name = "dataclasses"
 version = "0.6"
 description = "A backport of the dataclasses module for Python 3.6"
-optional = false
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "dataclasses-0.6-py3-none-any.whl", hash = "sha256:454a69d788c7fda44efd71e259be79577822f5e3f53f029a22d08004e951dc9f"},
     {file = "dataclasses-0.6.tar.gz", hash = "sha256:6988bd2b895eef432d562370bb707d540f32f7360ab13da45340101bc2307d84"},
@@ -1461,6 +1469,7 @@ files = [
     {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
     {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
 ]
+markers = {main = "extra == \"true\""}
 
 [[package]]
 name = "deprecated"
@@ -1653,6 +1662,7 @@ files = [
     {file = "executing-1.2.0-py2.py3-none-any.whl", hash = "sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc"},
     {file = "executing-1.2.0.tar.gz", hash = "sha256:19da64c18d2d851112f09c287f8d3dbbdf725ab0e569077efb6cdcbd3497c107"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.extras]
 tests = ["asttokens", "littleutils", "pytest", "rich ; python_version >= \"3.11\""]
@@ -2449,6 +2459,7 @@ description = "Internationalized Domain Names in Applications (IDNA)"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
 files = [
     {file = "idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"},
     {file = "idna-3.10.tar.gz", hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9"},
@@ -2575,6 +2586,7 @@ files = [
     {file = "ipython-8.12.2-py3-none-any.whl", hash = "sha256:ea8801f15dfe4ffb76dea1b09b847430ffd70d827b41735c64a0638a04103bfc"},
     {file = "ipython-8.12.2.tar.gz", hash = "sha256:c7b80eb7f5a855a88efc971fda506ff7a91c280b42cdae26643e0f601ea281ea"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.dependencies]
 appnope = {version = "*", markers = "sys_platform == \"darwin\""}
@@ -2628,6 +2640,7 @@ files = [
     {file = "jedi-0.18.2-py2.py3-none-any.whl", hash = "sha256:203c1fd9d969ab8f2119ec0a3342e0b49910045abe6af0a3ae83a5764d54639e"},
     {file = "jedi-0.18.2.tar.gz", hash = "sha256:bae794c30d07f6d910d32a7048af09b5a39ed740918da923c6b780790ebac612"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.dependencies]
 parso = ">=0.8.0,<0.9.0"
@@ -2732,7 +2745,7 @@ files = [
 name = "jmespath"
 version = "0.10.0"
 description = "JSON Matching Expressions"
-optional = false
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 groups = ["main"]
 files = [
@@ -2755,14 +2768,15 @@ files = [
 
 [[package]]
 name = "johnsnowlabs"
-version = "5.5.5"
-description = "The John Snow Labs Library gives you access to all of John Snow Labs Enterprise And Open Source products in an easy and simple manner. Access 10000+ state-of-the-art NLP and OCR models for Finance, Legal and Medical domains. Easily scalable to Spark Cluster"
-optional = false
+version = "6.0.4"
+description = "The John Snow Labs Library gives you access to all of John Snow Labs Enterprise And Open Source products in an easy and simple manner. Access 10000+ state-of-the-art NLP and OCR models for Finance, Legal and Medical domains. Easily scalable to Spark Cluster "
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
-    {file = "johnsnowlabs-5.5.5-py3-none-any.whl", hash = "sha256:fe737f7a805e85f1cccf78efed7ce5df41febc5d5d9fb54c2ec732990e09e405"},
-    {file = "johnsnowlabs-5.5.5.tar.gz", hash = "sha256:ce50594932ea35003e92412a0e5f7fe8ec6eaaae4686f010711a74cc38bddfa7"},
+    {file = "johnsnowlabs-6.0.4-py3-none-any.whl", hash = "sha256:2e51ddea0645433c63ffd0c5dabc7e2ea9d66190d928c2bdfe8a3e4296d24795"},
+    {file = "johnsnowlabs-6.0.4.tar.gz", hash = "sha256:364ba6583a0b5fbcba605fdb993a1e1a93a74af7660e4aec4ea7dd5c8fd0a4fc"},
 ]
 
 [package.dependencies]
@@ -2775,7 +2789,7 @@ numpy = "*"
 pydantic = ">=2"
 pyspark = "3.4.0"
 requests = "*"
-spark-nlp = "5.5.3"
+spark-nlp = "6.0.4"
 spark-nlp-display = "5.0"
 
 [[package]]
@@ -3308,6 +3322,7 @@ files = [
     {file = "matplotlib-inline-0.1.6.tar.gz", hash = "sha256:f887e5f10ba98e8d2b150ddcf4702c1e5f8b3a20005eb0f74bfdbd360ee6f304"},
     {file = "matplotlib_inline-0.1.6-py3-none-any.whl", hash = "sha256:f1f41aab5328aa5aaea9b16d083b128102f8712542f819fe7e6a420ff581b311"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.dependencies]
 traitlets = "*"
@@ -3764,9 +3779,10 @@ twitter = ["twython"]
 name = "nlu"
 version = "5.4.1"
 description = "John Snow Labs NLU provides state of the art algorithms for NLP&NLU with 20000+ of pretrained models in 200+ languages. It enables swift and simple development and research with its powerful Pythonic and Keras inspired API. It is powerd by John Snow Labs powerful Spark NLP library."
-optional = false
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "nlu-5.4.1-py3-none-any.whl", hash = "sha256:09fcef8af8fa919b10726c116167a517274a83f078612de9bfd4959e3a3fec14"},
 ]
@@ -4108,9 +4124,10 @@ files = [
 name = "oauthlib"
 version = "3.2.2"
 description = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
-optional = false
+optional = true
 python-versions = ">=3.6"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "oauthlib-3.2.2-py3-none-any.whl", hash = "sha256:8139f29aac13e25d502680e9e19963e83f16838d48a0d71c287fe40e7067fbca"},
     {file = "oauthlib-3.2.2.tar.gz", hash = "sha256:9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918"},
@@ -4383,6 +4400,7 @@ files = [
     {file = "parso-0.8.3-py2.py3-none-any.whl", hash = "sha256:c001d4636cd3aecdaf33cbb40aebb59b094be2a74c556778ef5576c175e19e75"},
     {file = "parso-0.8.3.tar.gz", hash = "sha256:8c07be290bb59f03588915921e29e8a50002acaf2cdc5fa0e0114f91709fafa0"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.extras]
 qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
@@ -4407,11 +4425,11 @@ description = "Pexpect allows easy control of interactive console applications."
 optional = false
 python-versions = "*"
 groups = ["main", "dev"]
-markers = "sys_platform != \"win32\""
 files = [
     {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
     {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
 ]
+markers = {main = "sys_platform != \"win32\" and extra == \"true\"", dev = "sys_platform != \"win32\""}
 
 [package.dependencies]
 ptyprocess = ">=0.5"
@@ -4427,6 +4445,7 @@ files = [
     {file = "pickleshare-0.7.5-py2.py3-none-any.whl", hash = "sha256:9649af414d74d4df115d5d718f82acb59c9d418196b7b4290ed47a12ce62df56"},
     {file = "pickleshare-0.7.5.tar.gz", hash = "sha256:87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca"},
 ]
+markers = {main = "extra == \"true\""}
 
 [[package]]
 name = "pillow"
@@ -4626,6 +4645,7 @@ files = [
     {file = "prompt_toolkit-3.0.39-py3-none-any.whl", hash = "sha256:9dffbe1d8acf91e3de75f3b544e4842382fc06c6babe903ac9acb74dc6e08d88"},
     {file = "prompt_toolkit-3.0.39.tar.gz", hash = "sha256:04505ade687dc26dc4284b1ad19a83be2f2afe83e7a828ace0c72f3a1df72aac"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.dependencies]
 wcwidth = "*"
@@ -4782,11 +4802,11 @@ description = "Run a subprocess in a pseudo terminal"
 optional = false
 python-versions = "*"
 groups = ["main", "dev"]
-markers = "sys_platform != \"win32\""
 files = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
     {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
 ]
+markers = {main = "sys_platform != \"win32\" and extra == \"true\"", dev = "sys_platform != \"win32\""}
 
 [[package]]
 name = "pure-eval"
@@ -4799,6 +4819,7 @@ files = [
     {file = "pure_eval-0.2.2-py3-none-any.whl", hash = "sha256:01eaab343580944bc56080ebe0a674b39ec44a945e6d09ba7db3cb8cec289350"},
     {file = "pure_eval-0.2.2.tar.gz", hash = "sha256:2b45320af6dfaa1750f543d714b6d1c520a1688dec6fd24d339063ce0aaa9ac3"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.extras]
 tests = ["pytest"]
@@ -4819,9 +4840,10 @@ files = [
 name = "py4j"
 version = "0.10.9.7"
 description = "Enables Python programs to dynamically access arbitrary Java objects"
-optional = false
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"true\""
 files = [
     {file = "py4j-0.10.9.7-py2.py3-none-any.whl", hash = "sha256:85defdfd2b2376eb3abf5ca6474b51ab7e0de341c75a02f46dc9b5976f5a5c1b"},
     {file = "py4j-0.10.9.7.tar.gz", hash = "sha256:0b6e5315bb3ada5cf62ac651d107bb2ebc02def3dee9d9548e3baac644ea8dbb"},
@@ -4831,9 +4853,10 @@ files = [
 name = "pyarrow"
 version = "18.1.0"
 description = "Python library for Apache Arrow"
-optional = false
+optional = true
 python-versions = ">=3.9"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"mlflow\" or extra == \"true\""
 files = [
     {file = "pyarrow-18.1.0-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:e21488d5cfd3d8b500b3238a6c4b075efabc18f0f6d80b29239737ebd69caa6c"},
     {file = "pyarrow-18.1.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:b516dad76f258a702f7ca0250885fc93d1fa5ac13ad51258e39d402bd9e2e1e4"},
@@ -5133,6 +5156,7 @@ files = [
     {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
     {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.extras]
 plugins = ["importlib-metadata ; python_version < \"3.8\""]
@@ -5141,9 +5165,10 @@ plugins = ["importlib-metadata ; python_version < \"3.8\""]
 name = "pyjwt"
 version = "2.8.0"
 description = "JSON Web Token implementation in Python"
-optional = false
+optional = true
 python-versions = ">=3.7"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "PyJWT-2.8.0-py3-none-any.whl", hash = "sha256:59127c392cc44c2da5bb3192169a91f429924e17aff6534d70fdc02ab3e04320"},
     {file = "PyJWT-2.8.0.tar.gz", hash = "sha256:57e28d156e3d5c10088e0c68abb90bfac3df82b40a71bd0daa20c65ccd5c23de"},
@@ -5191,9 +5216,10 @@ tomli = {version = "*", markers = "python_version < \"3.11\""}
 name = "pyspark"
 version = "3.4.0"
 description = "Apache Spark Python API"
-optional = false
+optional = true
 python-versions = ">=3.7"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "pyspark-3.4.0.tar.gz", hash = "sha256:167a23e11854adb37f8602de6fcc3a4f96fd5f1e323b9bb83325f38408c5aafd"},
 ]
@@ -5607,6 +5633,7 @@ description = "Python HTTP for Humans."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
 files = [
     {file = "requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"},
     {file = "requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"},
@@ -5696,7 +5723,7 @@ pyasn1 = ">=0.1.3"
 name = "s3transfer"
 version = "0.10.1"
 description = "An Amazon S3 Transfer Manager"
-optional = false
+optional = true
 python-versions = ">= 3.8"
 groups = ["main"]
 files = [
@@ -6172,23 +6199,25 @@ files = [
 
 [[package]]
 name = "spark-nlp"
-version = "5.5.3"
+version = "6.0.4"
 description = "John Snow Labs Spark NLP is a natural language processing library built on top of Apache Spark ML. It provides simple, performant & accurate NLP annotations for machine learning pipelines, that scale easily in a distributed environment."
-optional = false
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
-    {file = "spark-nlp-5.5.3.tar.gz", hash = "sha256:d7069bdf3d0808b3de4f826ae471c041a96a0efbecf2ac5af2f43e7a0ae63e19"},
-    {file = "spark_nlp-5.5.3-py2.py3-none-any.whl", hash = "sha256:7edfdc7a2a63aafa5bddd2f578fcd65caa5c126d216af6635ee7b298e1bf80c3"},
+    {file = "spark_nlp-6.0.4-py2.py3-none-any.whl", hash = "sha256:fb4e4207edce72e195d527263db7e5c56def2dfe492ca49b7f8895e67b4d0134"},
+    {file = "spark_nlp-6.0.4.tar.gz", hash = "sha256:29daf034686ae428eaf83dd371ad095b42164dff40148039002cd3afa66389ee"},
 ]
 
 [[package]]
 name = "spark-nlp-display"
 version = "5.0"
 description = "Visualization package for Spark NLP"
-optional = false
+optional = true
 python-versions = ">=2.7"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "spark-nlp-display-5.0.tar.gz", hash = "sha256:46faa77553d3eb3fc968eb434303752f7baf39b39b03f17cd0934466b6a86620"},
     {file = "spark_nlp_display-5.0-py3-none-any.whl", hash = "sha256:ede785f68cd4299d4a93e389d26be90eeb0e24372de99d30b107ad19464c87e0"},
@@ -6351,6 +6380,7 @@ files = [
     {file = "stack_data-0.6.2-py3-none-any.whl", hash = "sha256:cbb2a53eb64e5785878201a97ed7c7b94883f48b87bfb0bbe8b623c74679e4a8"},
     {file = "stack_data-0.6.2.tar.gz", hash = "sha256:32d2dd0376772d01b6cb9fc996f3c8b57a357089dec328ed4b6553d037eaf815"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.dependencies]
 asttokens = ">=2.1.0"
@@ -6384,9 +6414,10 @@ full = ["httpx (>=0.27.0,<0.29.0)", "itsdangerous", "jinja2", "python-multipart 
 name = "svgwrite"
 version = "1.4"
 description = "A Python library to create SVG drawings."
-optional = false
+optional = true
 python-versions = ">=3.6"
 groups = ["main"]
+markers = "extra == \"true\""
 files = [
     {file = "svgwrite-1.4-py3-none-any.whl", hash = "sha256:fa842fb3129a9399d19b5e9602a022fcc7f2f3f24713550e765c488ffafd743d"},
     {file = "svgwrite-1.4.zip", hash = "sha256:b38ac03b67f81c728d81a33e4711aaf3ab136a57156d721bb17f88525d9909bb"},
@@ -6453,9 +6484,10 @@ doc = ["ipython", "numpydoc", "sphinx (>=1.1)", "sphinx-rtd-theme"]
 name = "tabulate"
 version = "0.9.0"
 description = "Pretty-print tabular data"
-optional = false
+optional = true
 python-versions = ">=3.7"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"true\""
 files = [
     {file = "tabulate-0.9.0-py3-none-any.whl", hash = "sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f"},
     {file = "tabulate-0.9.0.tar.gz", hash = "sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"},
@@ -6793,6 +6825,7 @@ files = [
     {file = "traitlets-5.9.0-py3-none-any.whl", hash = "sha256:9e6ec080259b9a5940c797d58b613b5e31441c2257b87c2e795c5228ae80d2d8"},
     {file = "traitlets-5.9.0.tar.gz", hash = "sha256:f6cde21a9c68cf756af02035f72d5a723bf607e862e7be33ece505abf4a3bad9"},
 ]
+markers = {main = "extra == \"true\""}
 
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
@@ -7176,6 +7209,7 @@ files = [
     {file = "wcwidth-0.2.6-py2.py3-none-any.whl", hash = "sha256:795b138f6875577cd91bba52baf9e445cd5118fd32723b460e30a0af30ea230e"},
     {file = "wcwidth-0.2.6.tar.gz", hash = "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"},
 ]
+markers = {main = "extra == \"true\""}
 
 [[package]]
 name = "weasel"
@@ -7563,8 +7597,9 @@ ollama-sdk = ["langchain", "langchain-community", "ollama"]
 openai = ["langchain", "langchain-community", "langchain-openai", "openai"]
 spacy = ["spacy"]
 transformers = ["accelerate", "datasets", "torch", "transformers"]
+true = ["johnsnowlabs"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "8c451bdf8dc175690dce169ad8e4304cbc387ba728052c636a6c9a0805cc8802"
+content-hash = "9ab362744f846b76e8b8e2e56dc53354a85677503669492aef99676017299b2b"

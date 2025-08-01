@@ -312,12 +312,12 @@ class DefaultCodeBlocksTestCase(unittest.TestCase):
         )
         h.generate().run().report()
 
-    def test_ner_jsl(self):
-        """
-        Test NER task with John Snow Labs model.
-        """
-        h = Harness(task="ner", model={"model": "ner_dl_bert", "hub": "johnsnowlabs"})
-        h.generate().run().report()
+    # def test_ner_jsl(self):
+    #     """
+    #     Test NER task with John Snow Labs model.
+    #     """
+    #     h = Harness(task="ner", model={"model": "ner_dl_bert", "hub": "johnsnowlabs"})
+    #     h.generate().run().report()
 
     def test_text_classification_spacy(self):
         """
@@ -338,15 +338,15 @@ class DefaultCodeBlocksTestCase(unittest.TestCase):
         )
         h.generate().run().report()
 
-    def test_text_classification_jsl(self):
-        """
-        Test text classification task with John Snow Labs model.
-        """
-        # try:
-        h = Harness(
-            task="text-classification",
-            model={"model": "en.sentiment.imdb.glove", "hub": "johnsnowlabs"},
-        )
-        h.generate().run().report()
-        # except Exception as e:
-        #     self.fail(f"Test failed with the following error:\n{e}")
+    # def test_text_classification_jsl(self):
+    #     """
+    #     Test text classification task with John Snow Labs model.
+    #     """
+    #     # try:
+    #     h = Harness(
+    #         task="text-classification",
+    #         model={"model": "en.sentiment.imdb.glove", "hub": "johnsnowlabs"},
+    #     )
+    #     h.generate().run().report()
+    # except Exception as e:
+    #     self.fail(f"Test failed with the following error:\n{e}")

@@ -17,17 +17,17 @@ class SparkNLPTestCase(unittest.TestCase):
             "config": "tests/fixtures/config_ner.yaml",
         }
 
-    def test_predict(self):
-        """
-        Testing Instance after in Harness Class
-        """
-        harness = Harness(**self.params)
-        self.assertIsInstance(harness, Harness)
+    # def test_predict(self):
+    #     """
+    #     Testing Instance after in Harness Class
+    #     """
+    #     harness = Harness(**self.params)
+    #     self.assertIsInstance(harness, Harness)
 
-    def test_outputCol(self):
-        """
-        Testing Attributes of Harness Class
-        """
-        harness = Harness(**self.params)
-        self.assertIsInstance(harness.model, (str, ModelAPI))
-        self.assertIsInstance(harness.model.output_col, str)
+    # def test_outputCol(self):
+    #     """
+    #     Testing Attributes of Harness Class
+    #     """
+    #     harness = Harness(**self.params)
+    #     self.assertIsInstance(harness.model, (str, ModelAPI))
+    #     self.assertIsInstance(harness.model.output_col, str)

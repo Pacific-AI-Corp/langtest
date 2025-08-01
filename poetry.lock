@@ -2755,14 +2755,14 @@ files = [
 
 [[package]]
 name = "johnsnowlabs"
-version = "6.0.4"
-description = "The John Snow Labs Library gives you access to all of John Snow Labs Enterprise And Open Source products in an easy and simple manner. Access 10000+ state-of-the-art NLP and OCR models for Finance, Legal and Medical domains. Easily scalable to Spark Cluster "
+version = "5.5.5"
+description = "The John Snow Labs Library gives you access to all of John Snow Labs Enterprise And Open Source products in an easy and simple manner. Access 10000+ state-of-the-art NLP and OCR models for Finance, Legal and Medical domains. Easily scalable to Spark Cluster"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "johnsnowlabs-6.0.4-py3-none-any.whl", hash = "sha256:2e51ddea0645433c63ffd0c5dabc7e2ea9d66190d928c2bdfe8a3e4296d24795"},
-    {file = "johnsnowlabs-6.0.4.tar.gz", hash = "sha256:364ba6583a0b5fbcba605fdb993a1e1a93a74af7660e4aec4ea7dd5c8fd0a4fc"},
+    {file = "johnsnowlabs-5.5.5-py3-none-any.whl", hash = "sha256:fe737f7a805e85f1cccf78efed7ce5df41febc5d5d9fb54c2ec732990e09e405"},
+    {file = "johnsnowlabs-5.5.5.tar.gz", hash = "sha256:ce50594932ea35003e92412a0e5f7fe8ec6eaaae4686f010711a74cc38bddfa7"},
 ]
 
 [package.dependencies]
@@ -2775,7 +2775,7 @@ numpy = "*"
 pydantic = ">=2"
 pyspark = "3.4.0"
 requests = "*"
-spark-nlp = "6.0.4"
+spark-nlp = "5.5.3"
 spark-nlp-display = "5.0"
 
 [[package]]
@@ -6172,14 +6172,14 @@ files = [
 
 [[package]]
 name = "spark-nlp"
-version = "6.0.4"
+version = "5.5.3"
 description = "John Snow Labs Spark NLP is a natural language processing library built on top of Apache Spark ML. It provides simple, performant & accurate NLP annotations for machine learning pipelines, that scale easily in a distributed environment."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "spark_nlp-6.0.4-py2.py3-none-any.whl", hash = "sha256:fb4e4207edce72e195d527263db7e5c56def2dfe492ca49b7f8895e67b4d0134"},
-    {file = "spark_nlp-6.0.4.tar.gz", hash = "sha256:29daf034686ae428eaf83dd371ad095b42164dff40148039002cd3afa66389ee"},
+    {file = "spark-nlp-5.5.3.tar.gz", hash = "sha256:d7069bdf3d0808b3de4f826ae471c041a96a0efbecf2ac5af2f43e7a0ae63e19"},
+    {file = "spark_nlp-5.5.3-py2.py3-none-any.whl", hash = "sha256:7edfdc7a2a63aafa5bddd2f578fcd65caa5c126d216af6635ee7b298e1bf80c3"},
 ]
 
 [[package]]
@@ -7567,4 +7567,4 @@ transformers = ["accelerate", "datasets", "torch", "transformers"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "662d8037ae386b942d403150cf7c9af05073c844c5bf618f3173e3be82790055"
+content-hash = "8c451bdf8dc175690dce169ad8e4304cbc387ba728052c636a6c9a0805cc8802"

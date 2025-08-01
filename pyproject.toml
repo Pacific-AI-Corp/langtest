@@ -52,7 +52,7 @@ exclude = 'langtest/errors.py'
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 pydantic = ">=2.10.0"
-johnsnowlabs = {version = "^6.0.3", optional = true}
+johnsnowlabs = ">=5.5.0"
 rouge-score = { version = "^0.1.2", optional = true }
 evaluate = { version = "^0.4.0", optional = true }
 transformers = "^4.52.1"
@@ -124,7 +124,7 @@ format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
 force-cpu-torch = "python -m pip install torch --index-url https://download.pytorch.org/whl/cpu"
-extra-lib = "python -m pip install openpyxl tables pyspark==3.5.6"
+extra-lib = "python -m pip install openpyxl tables"
 
 
 [build-system]

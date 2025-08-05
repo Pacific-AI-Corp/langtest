@@ -25,7 +25,9 @@ from langtest.utils.custom_types import (
 from ..utils.lib_manager import try_import_lib
 from ..errors import Warnings, Errors
 import glob
-from pkg_resources import resource_filename
+
+# from pkg_resources import resource_filename
+from importlib import resources
 from langtest.logger import logger
 
 COLUMN_MAPPER = {
@@ -1213,15 +1215,19 @@ class JSONLDataset(BaseDataset):
         elif dataset_name in additional_datasets.keys():
             files = additional_datasets[dataset_name]
             for file in files:
-                file_loc = resource_filename("langtest", f"/data/{dataset_name}/{file}")
+                file_loc = resources.files("langtest").joinpath(
+                    f"/data/{dataset_name}/{file}"
+                )
                 data = self.__load_jsonl(file_loc, dataset_name, data, *args, **kwargs)
         else:
             if dataset_name == "MedMCQA":
-                data_files = resource_filename(
-                    "langtest", f"/data/{dataset_name}/MedMCQA-Validation/"
+                data_files = resources.files("langtest").joinpath(
+                    f"/data/{dataset_name}/MedMCQA-Validation/"
                 )
             else:
-                data_files = resource_filename("langtest", f"/data/{dataset_name}/")
+                data_files = resources.files("langtest").joinpath(
+                    f"/data/{dataset_name}/"
+                )
 
             all_files = glob.glob(f"{data_files}/**/*.jsonl", recursive=True)
             jsonl_files = [file for file in all_files if re.match(r".*\.jsonl$", file)]

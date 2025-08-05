@@ -11,7 +11,8 @@ import pandas as pd
 import yaml
 import random
 
-from pkg_resources import resource_filename
+# from pkg_resources import resource_filename
+from importlib import resources
 
 from langtest.types import DatasetConfig, HarnessConfig, ModelConfig
 
@@ -208,7 +209,7 @@ class Harness:
         else:
             logging.info(Warnings.W001())
             self._config = self.configure(
-                resource_filename("langtest", "data/config.yml")
+                str(resources.files("langtest.data").joinpath("config.yml"))
             )
 
         # prompt config
@@ -1494,10 +1495,10 @@ class Harness:
             data_path = os.path.join(
                 "data", self.DEFAULTS_DATASET[(self.task, model, hub)]
             )
-            data = {"data_source": resource_filename("langtest", data_path)}
+            data = {"data_source": str(resources.files("langtest").joinpath(data_path))}
             o_data = DataFactory(data, task=self.task).load()
             if model == "textcat_imdb":
-                model = resource_filename("langtest", "data/textcat_imdb")
+                model = str(resources.files("langtest").joinpath("data/textcat_imdb"))
             self.is_default = True
             logging.info(Warnings.W002(info=(self.task, model, hub)))
         elif data is None and self.task.category == "ideology":

@@ -3,7 +3,9 @@ import pickle
 import click
 import asyncio
 from langtest import cli
-from pkg_resources import resource_filename
+
+# from pkg_resources import resource_filename
+from importlib import resources
 from langtest.config import read_config
 
 try:
@@ -18,7 +20,9 @@ try:
 except ImportError as e:
     print(e, "please install llama_index using `pip install llama-index`")
 
-default_qa_pkl = resource_filename("langtest", "data/Retrieval_Datasets/qa_dataset.pkl")
+default_qa_pkl = resources.files("langtest").joinpath(
+    "data/Retrieval_Datasets/qa_dataset.pkl"
+)
 
 # set environment variables
 os.environ["OPENAI_API_KEY"] = read_config("openai_api_key")

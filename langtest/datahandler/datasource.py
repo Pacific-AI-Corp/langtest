@@ -1215,19 +1215,19 @@ class JSONLDataset(BaseDataset):
         elif dataset_name in additional_datasets.keys():
             files = additional_datasets[dataset_name]
             for file in files:
-                file_loc = resources.files("langtest").joinpath(
-                    f"/data/{dataset_name}/{file}"
-                )
+                file_loc = str(resources.files("langtest").joinpath(
+                    f"data/{dataset_name}/{file}"
+                ))
                 data = self.__load_jsonl(file_loc, dataset_name, data, *args, **kwargs)
         else:
             if dataset_name == "MedMCQA":
-                data_files = resources.files("langtest").joinpath(
-                    f"/data/{dataset_name}/MedMCQA-Validation/"
-                )
+                data_files = str(resources.files("langtest").joinpath(
+                    f"data/{dataset_name}/MedMCQA-Validation/"
+                ))
             else:
-                data_files = resources.files("langtest").joinpath(
-                    f"/data/{dataset_name}/"
-                )
+                data_files = str(resources.files("langtest").joinpath(
+                    f"data/{dataset_name}/"
+                ))
 
             all_files = glob.glob(f"{data_files}/**/*.jsonl", recursive=True)
             jsonl_files = [file for file in all_files if re.match(r".*\.jsonl$", file)]

@@ -209,7 +209,7 @@ class Harness:
         else:
             logging.info(Warnings.W001())
             self._config = self.configure(
-                str(resources.files("langtest.data").joinpath("config.yml"))
+                str(resources.files("langtest").joinpath("data/config.yml"))
             )
 
         # prompt config

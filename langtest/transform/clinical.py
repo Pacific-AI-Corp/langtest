@@ -416,9 +416,6 @@ class Brand2Generic(BaseClinical):
         progress_bar = kwargs.get("progress_bar", False)
 
         for sample in sample_list:
-            # if hasattr(sample, "run"):
-            #     sample.run(model, **kwargs)
-            # else:
             if isinstance(sample, QASample):
                 # build the template
                 temp_temlate = "Context:\n {context}\nQuestion:\n {text}"

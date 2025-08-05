@@ -20,9 +20,9 @@ try:
 except ImportError as e:
     print(e, "please install llama_index using `pip install llama-index`")
 
-default_qa_pkl = str(resources.files("langtest").joinpath(
-    "data/Retrieval_Datasets/qa_dataset.pkl"
-))
+default_qa_pkl = str(
+    resources.files("langtest").joinpath("data/Retrieval_Datasets/qa_dataset.pkl")
+)
 
 # set environment variables
 os.environ["OPENAI_API_KEY"] = read_config("openai_api_key")

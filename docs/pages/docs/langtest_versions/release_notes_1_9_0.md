@@ -33,7 +33,7 @@ We're excited to announce the latest release of LangTest, featuring significant 
 ##  🔥 Key Enhancements:
 
 ### 🤗 Hugging Face Callback Integration
- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/HF_Callback_NER.ipynb)     
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/HF_Callback_NER.ipynb)     
 We introduced the callback class for utilization in transformers model training. Callbacks in transformers are entities that can tailor the training loop's behavior within the PyTorch or Keras Trainer. These callbacks have the ability to examine the training loop state, make decisions (such as early stopping), or execute actions (including logging, saving, or evaluation). LangTest effectively leverages this capability by incorporating an automatic testing callback. This class is both flexible and adaptable, seamlessly integrating with any transformers model for a customized experience.
 
 Create a callback instance with one line and then use it in the callbacks of trainer:
@@ -55,7 +55,7 @@ trainer = Trainer(..., callbacks=[my_callback])
 </div><div class="h3-box" markdown="1">
 
 ### 🚀 Enhanced Templatic Augmentation with Automated Sample Generation
- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Templatic_Augmentation_Notebook.ipynb)     
+ [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Templatic_Augmentation_Notebook.ipynb)     
 
 Users can now enable the automatic generation of sample templates by setting generate_templates to True. This feature utilizes the advanced capabilities of LLMs to create structured templates that can be used for templatic augmentation.To ensure quality and relevance, users can review the generated templates by setting show_templates to True. 
 

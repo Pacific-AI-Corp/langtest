@@ -31,7 +31,7 @@ John Snow Labs is excited to announce the release of LangTest 2.2.0! This update
 ## 🔥 Key Enhancements:
 
 ### **🏆 Comprehensive Model Ranking & Leaderboard**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_with_Harness.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_with_Harness.ipynb)
 The new Model Ranking & Leaderboard system offers a comprehensive way to evaluate and compare model performance based on various metrics across different datasets. This feature allows users to rank models, retain historical rankings, and analyze performance trends.
 
 **Key Features:**
@@ -108,7 +108,7 @@ The Model Ranking & Leaderboard system provides a robust and structured method f
 
 
 ### **🔍 Efficient Few-Shot Model Evaluation**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Fewshot_QA_Notebook.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Fewshot_QA_Notebook.ipynb)
 Few-Shot Model Evaluation optimizes and evaluates model performance using minimal data. This feature provides rapid insights into model capabilities, enabling efficient assessment and optimization with limited examples.
 
 **Key Features:**
@@ -189,7 +189,7 @@ Few-Shot Model Evaluation provides valuable insights into model capabilities wit
 
 
 ### **📊 Evaluating NER in LLMs**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/NER%20Casual%20LLM.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/NER%20Casual%20LLM.ipynb)
 Evaluating NER in LLMs enables precise extraction and evaluation of entities using Large Language Models (LLMs). This feature enhances the capability to assess LLM performance on Named Entity Recognition tasks.
 
 **Key Features:**
@@ -244,7 +244,7 @@ Evaluating NER in LLMs allows for accurate entity extraction and performance ass
 
 
 ### **🚀 Enhanced Data Augmentation**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Data_Augmenter_Notebook.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Data_Augmenter_Notebook.ipynb)
 Enhanced Data Augmentation introduces a new `DataAugmenter` class, enabling streamlined and harness-free data augmentation. This feature simplifies the process of enriching datasets to improve model robustness and performance.
 
 **Key Features:**
@@ -293,7 +293,7 @@ Enhanced Data Augmentation capabilities in LangTest ensure that your models are 
 
 
 ### **🎯Multi-Dataset Prompts**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/MultiPrompt_MultiDataset.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/MultiPrompt_MultiDataset.ipynb)
 Multi-Dataset Prompts streamline the process of integrating and testing various data sources by allowing users to define custom prompts for each dataset. This enhancement ensures efficient prompt handling across multiple datasets, enabling comprehensive performance evaluations.
 
 **Key Features:**
@@ -354,11 +354,11 @@ Multi-dataset prompts in LangTest empower users to efficiently manage and test m
 {:.table2}
 | Notebooks          | Colab Link |
 |--------------------|-------------|
-| Model Ranking & Leaderboard       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_with_Harness.ipynb)|
-| Fewshot Model Evaluation     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Fewshot_QA_Notebook.ipynb) |
-| Evaluating NER in LLMs    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/NER%20Casual%20LLM.ipynb) |
-| Data Augmenter    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Data_Augmenter_Notebook.ipynb) |
-| Multi-Dataset Prompts   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/MultiPrompt_MultiDataset.ipynb) |
+| Model Ranking & Leaderboard       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_with_Harness.ipynb)|
+| Fewshot Model Evaluation     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Fewshot_QA_Notebook.ipynb) |
+| Evaluating NER in LLMs    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/NER%20Casual%20LLM.ipynb) |
+| Data Augmenter    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Data_Augmenter_Notebook.ipynb) |
+| Multi-Dataset Prompts   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/MultiPrompt_MultiDataset.ipynb) |
 
 
 ## 🐛 Fixes

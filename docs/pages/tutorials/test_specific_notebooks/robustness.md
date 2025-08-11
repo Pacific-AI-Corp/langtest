@@ -23,7 +23,7 @@ In the Robustness notebook, we're looking at how tough the ner.dl model is. Robu
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-|  **Robustness**    | John Snow Labs                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Robustness_DEMO.ipynb)                              |
+|  **Robustness**    | John Snow Labs                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Robustness_DEMO.ipynb)                              |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

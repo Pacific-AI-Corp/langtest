@@ -41,7 +41,7 @@ The website has been updated with new content highlighting Databricks integratio
 
 
 ### 🔗 Spark DataFrames and Delta Live Tables Support  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/LangTest_Databricks_Integration.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/LangTest_Databricks_Integration.ipynb)
 
 We've expanded our capabilities with support for Spark DataFrames and Delta Live Tables from Databricks, enabling seamless integration and efficient data processing for your projects.  
 
@@ -161,7 +161,7 @@ results_dlt_df.write.format("delta").save("<FILE_PATH>")
 ```
 
 ###  🧪 Performance Degradation Analysis in Robustness Testing  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Degradation_Analysis_Test.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Degradation_Analysis_Test.ipynb)
 
 Introducing Performance Degradation Analysis in robustness tests! Gain insights into how your models handle edge cases and ensure consistent performance under challenging scenarios.  
 
@@ -235,7 +235,7 @@ harness.report()
 ![image](https://github.com/user-attachments/assets/88352c00-e94c-49d2-b8ab-d13cdaa1c716)
 
 ###  🖼 Enhanced Image Robustness Testing  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Visual_QA_II.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Visual_QA_II.ipynb)
 
 We've added new test types for Image Robustness to evaluate your vision models rigorously. Could you challenge your models with diverse image perturbations and assess their ability to adapt?  
 
@@ -341,7 +341,7 @@ harness.report()
 
 
 ###  🛠 Customizable Templates for LLMs  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Custom_Chat_Template_Config.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Custom_Chat_Template_Config.ipynb)
 
 Personalize your workflows effortlessly with customizable templates for large language models (LLMs) from Hugging Face. Tailor prompts and configurations to meet your specific needs.  
 
@@ -484,9 +484,9 @@ The website has been updated to feature new content emphasizing Databricks integ
 
 | Notebooks          | Colab Link |
 |--------------------|-------------|
-| **LangTest-Databricks Integration**     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/LangTest_Databricks_Integration.ipynb) |
-| **Degradation Analysis Test**       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Degradation_Analysis_Test.ipynb)|
-| **Custom Chat Template Config**    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Custom_Chat_Template_Config.ipynb) |
+| **LangTest-Databricks Integration**     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/LangTest_Databricks_Integration.ipynb) |
+| **Degradation Analysis Test**       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Degradation_Analysis_Test.ipynb)|
+| **Custom Chat Template Config**    | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Custom_Chat_Template_Config.ipynb) |
 
 
 ## What's Changed

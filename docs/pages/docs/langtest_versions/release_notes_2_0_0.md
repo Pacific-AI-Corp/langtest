@@ -35,7 +35,7 @@ We're thrilled to announce the latest release of LangTest, introducing remarkabl
 ## 🔥 Key Enhancements:
 
 ### 🚀 Model Benchmarking: Exploring Insights into Model Performance
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Question-Answering.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Question-Answering.ipynb)
 
 As part of our ongoing Model Benchmarking initiative, we're excited to share the results of our comprehensive tests on a diverse range of models across various datasets, focusing on evaluating their performance on top of **accuracy** and **robustness** .
 
@@ -72,7 +72,7 @@ Go to: [Leaderboard](https://langtest.org/leaderboard/llm)
 | Toxicity |  test | general_toxicity|  `TheBloke/Llama-2-7B-chat-GGUF`, `TheBloke/SOLAR-10.7B-Instruct-v1.0-GGUF`, `TheBloke/neural-chat-7B-v3-1-GGUF`, `TheBloke/openchat_3.5-GGUF`, `TheBloke/phi-2-GGUF`, `google/flan-t5-xxl`, `gpt-3.5-turbo-instruct`, `gpt-4-1106-preview`, `mistralai/Mistral-7B-Instruct-v0.1`, `mistralai/Mixtral-8x7B-Instruct-v0.1`, `TheBloke/zephyr-7B-beta-GGUF`, `mlabonne/NeuralBeagle14-7B-GGUF`, `TheBloke/Llama-2-7B-Chat-GGUF` |
 
 ### ⚡Integration: LM Studio with LangTest
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/LM-Studio-Demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/LM-Studio-Demo.ipynb)
 
 The integration of [LM Studio](https://lmstudio.ai/)  with LangTest enables offline utilization of Hugging Face quantized models, offering users a seamless experience for conducting various NLP tests locally.
 
@@ -89,7 +89,7 @@ Simply integrate LM Studio with LangTest to unlock offline utilization of Huggin
 https://github.com/JohnSnowLabs/langtest/assets/101416953/d1f288d4-1d96-4d9c-9db2-4f87a9e69019
 
 ### 🚀Text Embedding Benchmark Pipelines with CLI (LangTest + LlamaIndex)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_Embeddings(Llama_Index%2BLangtest).ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_Embeddings(Llama_Index%2BLangtest).ipynb)
 
 Text embedding benchmarks play a pivotal role in assessing the performance of text embedding models across various tasks, crucial for evaluating the quality of text embeddings used in Natural Language Processing (NLP) applications. 
 
@@ -108,7 +108,7 @@ The LangTest CLI for Text Embedding Benchmark Pipelines facilitates evaluation o
 3. **Example Usage (Multiple Models):** `python -m langtest benchmark embeddings --model "TaylorAI/bge-micro,TaylorAI/gte-tiny,intfloat/e5-small" --hub huggingface`
 
 ### 📊  Compare Models Across Multiple Benchmark Datasets
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb)
 
 Previously, when testing your model, you were limited to evaluating its performance on one dataset at a time. With this update, we've introduced the flexibility to assess your model's efficacy across diverse benchmark datasets simultaneously, empowering you to gain deeper insights into its performance under various conditions and data distributions.
 
@@ -159,7 +159,7 @@ harness.generate().run().report()
 ```
 
 ### 🤬 Enhanced Toxicity Testing
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb)
 
 In this latest release, we've enhanced our toxicity testing framework by introducing a series of comprehensive assessments. Evaluations can be tailored to focus on specific types of toxicity, allowing for detailed analysis in targeted areas of concern. These enhancements are designed to evaluate various facets of toxicity, including obscenity, insult, threat, identity attack, and targeting based on sexual orientation. By expanding the scope of our assessments, we aim to better identify and address instances of negative or hateful comments, harmful stereotypes, and expressions of intent to cause harm or danger.
 
@@ -216,11 +216,11 @@ harness.generate().run().report()
 
 | Notebooks          | Collab Link |
 |--------------------|-------------|
-| LM-Studio          | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/LM-Studio-Demo.ipynb) |
-| Embedding-Benchmark| [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_Embeddings(Llama_Index%2BLangtest).ipynb) |
-| QA-Benchmark      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Question-Answering.ipynb) |
-| Multi-Dataset     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb) |
-| Toxicity     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb) |
+| LM-Studio          | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/LM-Studio-Demo.ipynb) |
+| Embedding-Benchmark| [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Benchmarking_Embeddings(Llama_Index%2BLangtest).ipynb) |
+| QA-Benchmark      | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Question-Answering.ipynb) |
+| Multi-Dataset     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb) |
+| Toxicity     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb) |
 ----------------
 # 🐛 Fixes
 

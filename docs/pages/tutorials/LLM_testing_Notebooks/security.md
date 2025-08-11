@@ -4,7 +4,7 @@ header: true
 seotitle: NLP Tutorials | Security Test | John Snow Labs
 title: Security
 key: llm_testing_notebooks
-permalink: /docs/pages/tutorials/llm_testing_notebooks/Security
+permalink: /docs/pages/tutorials/llm_testing_notebooks/security
 sidebar:
     nav: tutorials
 aside:

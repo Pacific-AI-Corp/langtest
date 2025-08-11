@@ -23,7 +23,7 @@ In the Security notebook, we assess the `gpt-3.5-turbo-instruct` model using the
 {:.table2}
 | Category               | Hub                           | Task                              |Dataset Used| Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-|  **Disinformation**                          | 	OpenAI                    | Text-Generation                               | Prompt-Injection-Attack | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Prompt_Injections.ipynb)                                    |
+|  **Disinformation**                          | 	OpenAI                    | Text-Generation                               | Prompt-Injection-Attack | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Prompt_Injections.ipynb)                                    |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

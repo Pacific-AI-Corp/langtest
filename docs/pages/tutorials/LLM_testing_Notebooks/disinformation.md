@@ -23,7 +23,7 @@ In the Disinformation Test notebook, we're evaluating `j2-jumbo-instruct` model 
 {:.table2}
 | Category               | Hub                           | Task                              |Dataset Used| Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-|  **Disinformation**                          | 	AI21                    | Text-Generation                               | Narrative-Wedging | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Disinformation.ipynb)                                    |
+|  **Disinformation**                          | 	AI21                    | Text-Generation                               | Narrative-Wedging | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Disinformation.ipynb)                                    |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

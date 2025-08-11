@@ -29,7 +29,7 @@ John Snow Labs is thrilled to announce the release of LangTest 2.3.0! This updat
 ## 🔥 Key Enhancements:
 
 ### 🔗 **Enhanced Multi-Model, Multi-Dataset Support**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Multi_Model_Multi_Dataset.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Multi_Model_Multi_Dataset.ipynb)
 
 Introducing the enhanced Multi-Model, Multi-Dataset Support feature, designed to streamline and elevate the evaluation of multiple models across diverse datasets.
 
@@ -136,7 +136,7 @@ harness.generate().run().report()
 This enhancement allows for a more efficient and insightful evaluation process, ensuring that models are thoroughly tested and compared across a variety of scenarios.
 
 ### 💊 **Generic to Brand Drug Name Swapping Tests**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Swapping_Drug_Names_Test.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Swapping_Drug_Names_Test.ipynb)
 
 This key enhancement enables the swapping of generic drug names with brand names and vice versa, ensuring accurate and relevant evaluations in medical and pharmaceutical contexts. The `drug_generic_to_brand` and `drug_brand_to_generic` tests are available in the clinical category.
 
@@ -199,7 +199,7 @@ harness.generate().run().report()
 This enhancement ensures that medical and pharmaceutical models are evaluated with the highest accuracy and contextual relevance, considering the use of both generic and brand drug names.
 
 ### 📈 **Prometheus Model Integration**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Evaluation_with_Prometheus_Eval.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Evaluation_with_Prometheus_Eval.ipynb)
 
 Integrating the Prometheus model enhances evaluation capabilities, providing detailed and insightful metrics for comprehensive model performance assessment.
 
@@ -259,7 +259,7 @@ harness.generate().run().report()
 This integration ensures that model performance is assessed with a higher degree of accuracy and detail, leveraging the advanced capabilities of the Prometheus model to provide meaningful and actionable insights.
 
 ### 🛡 **Safety Testing Enhancements**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Misuse_Test_with_Prometheus_evaluation.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Misuse_Test_with_Prometheus_evaluation.ipynb)
 
 LangTest offers advanced safety testing to identify and mitigate potential misuse and safety issues in your models. This comprehensive suite of tests aims to expose potential issues and ensure that models behave responsibly and adhere to ethical guidelines, preventing harmful or unintended outputs.
 
@@ -324,10 +324,10 @@ Significant enhancements to the logging functionalities provide more detailed an
 
 | Notebooks          | Colab Link |
 |--------------------|-------------|
-| Multi-Model, Multi-Dataset         | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Multi_Model_Multi_Dataset.ipynb)|
-| Evaluation with Prometheus Eval     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Evaluation_with_Prometheus_Eval.ipynb)|
-| Swapping Drug Names Test     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Swapping_Drug_Names_Test.ipynb)|
-| Misuse Test with Prometheus Evaluation     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Misuse_Test_with_Prometheus_evaluation.ipynb)|
+| Multi-Model, Multi-Dataset         | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Multi_Model_Multi_Dataset.ipynb)|
+| Evaluation with Prometheus Eval     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Evaluation_with_Prometheus_Eval.ipynb)|
+| Swapping Drug Names Test     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Swapping_Drug_Names_Test.ipynb)|
+| Misuse Test with Prometheus Evaluation     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Misuse_Test_with_Prometheus_evaluation.ipynb)|
 
 
 ## 🚀 New LangTest blogs :

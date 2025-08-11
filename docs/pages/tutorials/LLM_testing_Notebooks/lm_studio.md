@@ -23,7 +23,7 @@ In the notebook, we are conducting robustness and accuracy testing on the `TheBl
 {:.table2}
 | Category               | Hub                           | Task                              |  Datset Used                                                                                                                                                                                                                                   | Open In Colab |
 | ----------------------------------- |
-| **Robustness**, **Accuracy** | LM Studio                            | Question-Answering  | `OpenBookQA` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/LM-Studio-Demo.ipynb)               |
+| **Robustness**, **Accuracy** | LM Studio                            | Question-Answering  | `OpenBookQA` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/LM-Studio-Demo.ipynb)               |
 
 <div class="main-docs" markdown="1">
 

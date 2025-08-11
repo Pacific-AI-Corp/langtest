@@ -27,7 +27,7 @@ The notebook introduces a simple synthetic data intervention aimed at reducing u
 {:.table2}
 | Category               | Hub       | Task               | Dataset Used | Open In Colab                                                                                                                                                                          |
 |------------------------|-----------|--------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                 |
-| **Sycophancy** | OpenAI                            | Question-Answering                          | `synthetic-math-data`, `synthetic-nlp-data`| [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy.ipynb)                                        | 
+| **Sycophancy** | OpenAI                            | Question-Answering                          | `synthetic-math-data`, `synthetic-nlp-data`| [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy.ipynb)                                        | 
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

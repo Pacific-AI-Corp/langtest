@@ -22,7 +22,7 @@ In the Toxicity notebook, we're evaluating `gpt-3.5-turbo-instruct` model on tox
 {:.table2}
 | Category               | Hub       | Task               | Dataset Used | Open In Colab                                                                                                                                                                          |
 |------------------------|-----------|--------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Toxicity**           | OpenAI    | Text-Generation   | Toxicity     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb) |
+| **Toxicity**           | OpenAI    | Text-Generation   | Toxicity     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb) |
 
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">

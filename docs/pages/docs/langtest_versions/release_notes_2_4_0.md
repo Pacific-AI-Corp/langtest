@@ -32,7 +32,7 @@ John Snow Labs is excited to announce the release of LangTest 2.4.0! This update
 ## 🔥 **Key Enhancements**
 
 ### 🔗 **Multimodality Testing with VQA Task**  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Visual_QA.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Visual_QA.ipynb)
 
 In this release, we introduce multimodality testing, expanding your model’s evaluation capabilities with Visual Question Answering (VQA) tasks.
 
@@ -122,7 +122,7 @@ display(HTML(html))
 
 
 ### 📝 **Robustness Tests for Text Classification, Question-Answering, and Summarization**  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Add_New_Lines_and_Tabs_Tests.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Add_New_Lines_and_Tabs_Tests.ipynb)
 
 The new `add_new_lines` and `add_tabs` tests push your text models to manage input variations more effectively.
 
@@ -177,7 +177,7 @@ harness.generate().run().report()
 
 
 ### 🛡 **Basic Safety Evaluation with Prompt Guard**  
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Safety_Tests_With_PromptGuard.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Safety_Tests_With_PromptGuard.ipynb)
 
 LangTest introduces safety checks using the prompt_guard model, providing essential safety layers for evaluating prompts before they are sent to large language models (LLMs), ensuring harmful or unethical outputs are avoided.
 

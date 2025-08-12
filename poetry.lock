@@ -293,7 +293,7 @@ files = [
     {file = "appnope-0.1.3-py2.py3-none-any.whl", hash = "sha256:265a455292d0bd8a72453494fa24df5a11eb18373a60c7c0430889f22548605e"},
     {file = "appnope-0.1.3.tar.gz", hash = "sha256:02bd91c4de869fbb1e1c50aafc4098827a7a54ab2f39d9dcba6c9547ed920e24"},
 ]
-markers = {main = "sys_platform == \"darwin\" and extra == \"true\"", dev = "sys_platform == \"darwin\" or platform_system == \"Darwin\""}
+markers = {main = "sys_platform == \"darwin\" and extra == \"johnsnowlabs\"", dev = "sys_platform == \"darwin\" or platform_system == \"Darwin\""}
 
 [[package]]
 name = "asttokens"
@@ -306,7 +306,7 @@ files = [
     {file = "asttokens-2.2.1-py2.py3-none-any.whl", hash = "sha256:6b0ac9e93fb0335014d382b8fa9b3afa7df546984258005da0b9e7095b3deb1c"},
     {file = "asttokens-2.2.1.tar.gz", hash = "sha256:4622110b2a6f30b77e1473affaa97e711bc2f07d3f10848420ff1898edbe94f3"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.dependencies]
 six = "*"
@@ -357,7 +357,7 @@ files = [
     {file = "backcall-0.2.0-py2.py3-none-any.whl", hash = "sha256:fbbce6a29f263178a1f7915c1940bde0ec2b2a967566fe1c65c1dfb7422bd255"},
     {file = "backcall-0.2.0.tar.gz", hash = "sha256:5cbdbf27be5e7cfadb448baf0aa95508f91f2bbc6c6437cd9cd06e2a4c215e1e"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [[package]]
 name = "backoff"
@@ -584,7 +584,7 @@ description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or python_version == \"3.9\") and (extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\")"
 files = [
     {file = "certifi-2024.12.14-py3-none-any.whl", hash = "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56"},
     {file = "certifi-2024.12.14.tar.gz", hash = "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"},
@@ -690,7 +690,7 @@ description = "The Real First Universal Charset Detector. Open, modern and activ
 optional = false
 python-versions = ">=3.7.0"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or python_version == \"3.9\") and (extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\")"
 files = [
     {file = "charset-normalizer-3.2.0.tar.gz", hash = "sha256:3bb3d25a8e6c0aedd251753a79ae98a093c7e7b471faa3aa9a93a81431987ace"},
     {file = "charset_normalizer-3.2.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0b87549028f680ca955556e3bd57013ab47474c3124dc069faa0b6545b6c9710"},
@@ -851,7 +851,7 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
-markers = {main = "(sys_platform == \"win32\" or platform_system == \"Windows\" or extra == \"true\") and (extra == \"spacy\" or extra == \"true\" or platform_system == \"Windows\")"}
+markers = {main = "(platform_system == \"Windows\" or sys_platform == \"win32\" or extra == \"johnsnowlabs\") and (extra == \"johnsnowlabs\" or extra == \"spacy\" or platform_system == \"Windows\")"}
 
 [[package]]
 name = "comm"
@@ -1189,7 +1189,7 @@ description = "Databricks API client auto-generated from the official databricks
 optional = true
 python-versions = ">=3.6,<4.0"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "databricks_api-0.9.0-py3-none-any.whl", hash = "sha256:51327fc1a06d9f4125a7a74d6764c3f1e99b6fb8f4b7f7cc178679b2c0d8ae5b"},
     {file = "databricks_api-0.9.0.tar.gz", hash = "sha256:40db26831ae37d2659d2700f4cb253615d895b6d440b99fb995aed51e67928f0"},
@@ -1205,7 +1205,7 @@ description = "A command line interface for Databricks"
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "databricks-cli-0.17.6.tar.gz", hash = "sha256:7fea8b4e47ac38bd4eaad8a76e38a6916419df930ad1c615a6b43feb427672c4"},
     {file = "databricks_cli-0.17.6-py2-none-any.whl", hash = "sha256:99c8fef80ef3215a36c09f594e7788e59bf9990792b4697d8daece754abe1660"},
@@ -1355,7 +1355,7 @@ description = "A backport of the dataclasses module for Python 3.6"
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "dataclasses-0.6-py3-none-any.whl", hash = "sha256:454a69d788c7fda44efd71e259be79577822f5e3f53f029a22d08004e951dc9f"},
     {file = "dataclasses-0.6.tar.gz", hash = "sha256:6988bd2b895eef432d562370bb707d540f32f7360ab13da45340101bc2307d84"},
@@ -1469,7 +1469,7 @@ files = [
     {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
     {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [[package]]
 name = "deprecated"
@@ -1662,7 +1662,7 @@ files = [
     {file = "executing-1.2.0-py2.py3-none-any.whl", hash = "sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc"},
     {file = "executing-1.2.0.tar.gz", hash = "sha256:19da64c18d2d851112f09c287f8d3dbbdf725ab0e569077efb6cdcbd3497c107"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.extras]
 tests = ["asttokens", "littleutils", "pytest", "rich ; python_version >= \"3.11\""]
@@ -1748,7 +1748,7 @@ files = [
     {file = "filelock-3.12.2-py3-none-any.whl", hash = "sha256:cbb791cdea2a72f23da6ac5b5269ab0a0d161e9ef0100e653b69049a7706d1ec"},
     {file = "filelock-3.12.2.tar.gz", hash = "sha256:002740518d8aa59a26b0c76e10fb8c6e15eae825d34b6fdf670333fd7b938d81"},
 ]
-markers = {main = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\""}
+markers = {main = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"true\""}
 
 [package.extras]
 docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
@@ -1950,7 +1950,7 @@ description = "File-system specification"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\""
+markers = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"true\""
 files = [
     {file = "fsspec-2023.6.0-py3-none-any.whl", hash = "sha256:1cbad1faef3e391fba6dc005ae9b5bdcbf43005c9167ce78c915549c352c869a"},
     {file = "fsspec-2023.6.0.tar.gz", hash = "sha256:d0b2f935446169753e7a5c5c55681c54ea91996cc67be93c39a154fb3a2742af"},
@@ -2459,7 +2459,7 @@ description = "Internationalized Domain Names in Applications (IDNA)"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or python_version == \"3.9\") and (extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\")"
 files = [
     {file = "idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"},
     {file = "idna-3.10.tar.gz", hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11df2c86030af0ac09b01b13ea9"},
@@ -2586,7 +2586,7 @@ files = [
     {file = "ipython-8.12.2-py3-none-any.whl", hash = "sha256:ea8801f15dfe4ffb76dea1b09b847430ffd70d827b41735c64a0638a04103bfc"},
     {file = "ipython-8.12.2.tar.gz", hash = "sha256:c7b80eb7f5a855a88efc971fda506ff7a91c280b42cdae26643e0f601ea281ea"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.dependencies]
 appnope = {version = "*", markers = "sys_platform == \"darwin\""}
@@ -2640,7 +2640,7 @@ files = [
     {file = "jedi-0.18.2-py2.py3-none-any.whl", hash = "sha256:203c1fd9d969ab8f2119ec0a3342e0b49910045abe6af0a3ae83a5764d54639e"},
     {file = "jedi-0.18.2.tar.gz", hash = "sha256:bae794c30d07f6d910d32a7048af09b5a39ed740918da923c6b780790ebac612"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.dependencies]
 parso = ">=0.8.0,<0.9.0"
@@ -2657,7 +2657,7 @@ description = "A very fast and expressive template engine."
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"mlflow\""
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\" or extra == \"mlflow\""
 files = [
     {file = "jinja2-3.1.5-py3-none-any.whl", hash = "sha256:aba0f4dc9ed8013c424088f68a5c226f7d6097ed89b246d7749c2ec4175c6adb"},
     {file = "jinja2-3.1.5.tar.gz", hash = "sha256:8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"},
@@ -2773,7 +2773,7 @@ description = "The John Snow Labs Library gives you access to all of John Snow L
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "johnsnowlabs-6.0.4-py3-none-any.whl", hash = "sha256:2e51ddea0645433c63ffd0c5dabc7e2ea9d66190d928c2bdfe8a3e4296d24795"},
     {file = "johnsnowlabs-6.0.4.tar.gz", hash = "sha256:364ba6583a0b5fbcba605fdb993a1e1a93a74af7660e4aec4ea7dd5c8fd0a4fc"},
@@ -3162,7 +3162,7 @@ description = "Safely add untrusted strings to HTML/XML markup."
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"mlflow\""
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\" or extra == \"mlflow\""
 files = [
     {file = "MarkupSafe-2.1.3-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:cd0f502fe016460680cd20aaa5a76d241d6f35a1c3350c474bac1273803893fa"},
     {file = "MarkupSafe-2.1.3-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e09031c87a1e51556fdcb46e5bd4f59dfb743061cf93c4d6831bf894f125eb57"},
@@ -3322,7 +3322,7 @@ files = [
     {file = "matplotlib-inline-0.1.6.tar.gz", hash = "sha256:f887e5f10ba98e8d2b150ddcf4702c1e5f8b3a20005eb0f74bfdbd360ee6f304"},
     {file = "matplotlib_inline-0.1.6-py3-none-any.whl", hash = "sha256:f1f41aab5328aa5aaea9b16d083b128102f8712542f819fe7e6a420ff581b311"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.dependencies]
 traitlets = "*"
@@ -3450,7 +3450,7 @@ description = "Python library for arbitrary-precision floating-point arithmetic"
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"transformers\""
+markers = "extra == \"transformers\" or extra == \"true\""
 files = [
     {file = "mpmath-1.3.0-py3-none-any.whl", hash = "sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"},
     {file = "mpmath-1.3.0.tar.gz", hash = "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f"},
@@ -3735,7 +3735,7 @@ description = "Python package for creating and manipulating graphs and networks"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "extra == \"transformers\""
+markers = "extra == \"transformers\" or extra == \"true\""
 files = [
     {file = "networkx-3.1-py3-none-any.whl", hash = "sha256:4f33f68cb2afcf86f28a45f43efc27a9386b535d567d2127f8f61d51dec58d36"},
     {file = "networkx-3.1.tar.gz", hash = "sha256:de346335408f84de0eada6ff9fafafff9bcda11f0a0dfaa931133debb146ab61"},
@@ -3782,7 +3782,7 @@ description = "John Snow Labs NLU provides state of the art algorithms for NLP&N
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "nlu-5.4.1-py3-none-any.whl", hash = "sha256:09fcef8af8fa919b10726c116167a517274a83f078612de9bfd4959e3a3fec14"},
 ]
@@ -3899,235 +3899,13 @@ files = [
 ]
 
 [[package]]
-name = "nvidia-cublas-cu12"
-version = "12.6.4.1"
-description = "CUBLAS native runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:08ed2686e9875d01b58e3cb379c6896df8e76c75e0d4a7f7dace3d7b6d9ef8eb"},
-    {file = "nvidia_cublas_cu12-12.6.4.1-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:235f728d6e2a409eddf1df58d5b0921cf80cfa9e72b9f2775ccb7b4a87984668"},
-    {file = "nvidia_cublas_cu12-12.6.4.1-py3-none-win_amd64.whl", hash = "sha256:9e4fa264f4d8a4eb0cdbd34beadc029f453b3bafae02401e999cf3d5a5af75f8"},
-]
-
-[[package]]
-name = "nvidia-cuda-cupti-cu12"
-version = "12.6.80"
-description = "CUDA profiling tools runtime libs."
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:166ee35a3ff1587f2490364f90eeeb8da06cd867bd5b701bf7f9a02b78bc63fc"},
-    {file = "nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_aarch64.whl", hash = "sha256:358b4a1d35370353d52e12f0a7d1769fc01ff74a191689d3870b2123156184c4"},
-    {file = "nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:6768bad6cab4f19e8292125e5f1ac8aa7d1718704012a0e3272a6f61c4bce132"},
-    {file = "nvidia_cuda_cupti_cu12-12.6.80-py3-none-manylinux2014_x86_64.whl", hash = "sha256:a3eff6cdfcc6a4c35db968a06fcadb061cbc7d6dde548609a941ff8701b98b73"},
-    {file = "nvidia_cuda_cupti_cu12-12.6.80-py3-none-win_amd64.whl", hash = "sha256:bbe6ae76e83ce5251b56e8c8e61a964f757175682bbad058b170b136266ab00a"},
-]
-
-[[package]]
-name = "nvidia-cuda-nvrtc-cu12"
-version = "12.6.77"
-description = "NVRTC native runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cuda_nvrtc_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:5847f1d6e5b757f1d2b3991a01082a44aad6f10ab3c5c0213fa3e25bddc25a13"},
-    {file = "nvidia_cuda_nvrtc_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:35b0cc6ee3a9636d5409133e79273ce1f3fd087abb0532d2d2e8fff1fe9efc53"},
-    {file = "nvidia_cuda_nvrtc_cu12-12.6.77-py3-none-win_amd64.whl", hash = "sha256:f7007dbd914c56bd80ea31bc43e8e149da38f68158f423ba845fc3292684e45a"},
-]
-
-[[package]]
-name = "nvidia-cuda-runtime-cu12"
-version = "12.6.77"
-description = "CUDA Runtime native Libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:6116fad3e049e04791c0256a9778c16237837c08b27ed8c8401e2e45de8d60cd"},
-    {file = "nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:d461264ecb429c84c8879a7153499ddc7b19b5f8d84c204307491989a365588e"},
-    {file = "nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ba3b56a4f896141e25e19ab287cd71e52a6a0f4b29d0d31609f60e3b4d5219b7"},
-    {file = "nvidia_cuda_runtime_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:a84d15d5e1da416dd4774cb42edf5e954a3e60cc945698dc1d5be02321c44dc8"},
-    {file = "nvidia_cuda_runtime_cu12-12.6.77-py3-none-win_amd64.whl", hash = "sha256:86c58044c824bf3c173c49a2dbc7a6c8b53cb4e4dca50068be0bf64e9dab3f7f"},
-]
-
-[[package]]
-name = "nvidia-cudnn-cu12"
-version = "9.5.1.17"
-description = "cuDNN runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cudnn_cu12-9.5.1.17-py3-none-manylinux_2_28_aarch64.whl", hash = "sha256:9fd4584468533c61873e5fda8ca41bac3a38bcb2d12350830c69b0a96a7e4def"},
-    {file = "nvidia_cudnn_cu12-9.5.1.17-py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:30ac3869f6db17d170e0e556dd6cc5eee02647abc31ca856634d5a40f82c15b2"},
-    {file = "nvidia_cudnn_cu12-9.5.1.17-py3-none-win_amd64.whl", hash = "sha256:d7af0f8a4f3b4b9dbb3122f2ef553b45694ed9c384d5a75bab197b8eefb79ab8"},
-]
-
-[package.dependencies]
-nvidia-cublas-cu12 = "*"
-
-[[package]]
-name = "nvidia-cufft-cu12"
-version = "11.3.0.4"
-description = "CUFFT native runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d16079550df460376455cba121db6564089176d9bac9e4f360493ca4741b22a6"},
-    {file = "nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_aarch64.whl", hash = "sha256:8510990de9f96c803a051822618d42bf6cb8f069ff3f48d93a8486efdacb48fb"},
-    {file = "nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:ccba62eb9cef5559abd5e0d54ceed2d9934030f51163df018532142a8ec533e5"},
-    {file = "nvidia_cufft_cu12-11.3.0.4-py3-none-manylinux2014_x86_64.whl", hash = "sha256:768160ac89f6f7b459bee747e8d175dbf53619cfe74b2a5636264163138013ca"},
-    {file = "nvidia_cufft_cu12-11.3.0.4-py3-none-win_amd64.whl", hash = "sha256:6048ebddfb90d09d2707efb1fd78d4e3a77cb3ae4dc60e19aab6be0ece2ae464"},
-]
-
-[package.dependencies]
-nvidia-nvjitlink-cu12 = "*"
-
-[[package]]
-name = "nvidia-cufile-cu12"
-version = "1.11.1.6"
-description = "cuFile GPUDirect libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cufile_cu12-1.11.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:cc23469d1c7e52ce6c1d55253273d32c565dd22068647f3aa59b3c6b005bf159"},
-    {file = "nvidia_cufile_cu12-1.11.1.6-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:8f57a0051dcf2543f6dc2b98a98cb2719c37d3cee1baba8965d57f3bbc90d4db"},
-]
-
-[[package]]
-name = "nvidia-curand-cu12"
-version = "10.3.7.77"
-description = "CURAND native runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:6e82df077060ea28e37f48a3ec442a8f47690c7499bff392a5938614b56c98d8"},
-    {file = "nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:a42cd1344297f70b9e39a1e4f467a4e1c10f1da54ff7a85c12197f6c652c8bdf"},
-    {file = "nvidia_curand_cu12-10.3.7.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:99f1a32f1ac2bd134897fc7a203f779303261268a65762a623bf30cc9fe79117"},
-    {file = "nvidia_curand_cu12-10.3.7.77-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:7b2ed8e95595c3591d984ea3603dd66fe6ce6812b886d59049988a712ed06b6e"},
-    {file = "nvidia_curand_cu12-10.3.7.77-py3-none-win_amd64.whl", hash = "sha256:6d6d935ffba0f3d439b7cd968192ff068fafd9018dbf1b85b37261b13cfc9905"},
-]
-
-[[package]]
-name = "nvidia-cusolver-cu12"
-version = "11.7.1.2"
-description = "CUDA solver native runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:0ce237ef60acde1efc457335a2ddadfd7610b892d94efee7b776c64bb1cac9e0"},
-    {file = "nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e9e49843a7707e42022babb9bcfa33c29857a93b88020c4e4434656a655b698c"},
-    {file = "nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux2014_x86_64.whl", hash = "sha256:6cf28f17f64107a0c4d7802be5ff5537b2130bfc112f25d5a30df227058ca0e6"},
-    {file = "nvidia_cusolver_cu12-11.7.1.2-py3-none-manylinux_2_27_aarch64.whl", hash = "sha256:dbbe4fc38ec1289c7e5230e16248365e375c3673c9c8bac5796e2e20db07f56e"},
-    {file = "nvidia_cusolver_cu12-11.7.1.2-py3-none-win_amd64.whl", hash = "sha256:6813f9d8073f555444a8705f3ab0296d3e1cb37a16d694c5fc8b862a0d8706d7"},
-]
-
-[package.dependencies]
-nvidia-cublas-cu12 = "*"
-nvidia-cusparse-cu12 = "*"
-nvidia-nvjitlink-cu12 = "*"
-
-[[package]]
-name = "nvidia-cusparse-cu12"
-version = "12.5.4.2"
-description = "CUSPARSE native runtime libraries"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:d25b62fb18751758fe3c93a4a08eff08effedfe4edf1c6bb5afd0890fe88f887"},
-    {file = "nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_aarch64.whl", hash = "sha256:7aa32fa5470cf754f72d1116c7cbc300b4e638d3ae5304cfa4a638a5b87161b1"},
-    {file = "nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:7556d9eca156e18184b94947ade0fba5bb47d69cec46bf8660fd2c71a4b48b73"},
-    {file = "nvidia_cusparse_cu12-12.5.4.2-py3-none-manylinux2014_x86_64.whl", hash = "sha256:23749a6571191a215cb74d1cdbff4a86e7b19f1200c071b3fcf844a5bea23a2f"},
-    {file = "nvidia_cusparse_cu12-12.5.4.2-py3-none-win_amd64.whl", hash = "sha256:4acb8c08855a26d737398cba8fb6f8f5045d93f82612b4cfd84645a2332ccf20"},
-]
-
-[package.dependencies]
-nvidia-nvjitlink-cu12 = "*"
-
-[[package]]
-name = "nvidia-cusparselt-cu12"
-version = "0.6.3"
-description = "NVIDIA cuSPARSELt"
-optional = true
-python-versions = "*"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_aarch64.whl", hash = "sha256:8371549623ba601a06322af2133c4a44350575f5a3108fb75f3ef20b822ad5f1"},
-    {file = "nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl", hash = "sha256:e5c8a26c36445dd2e6812f1177978a24e2d37cacce7e090f297a688d1ec44f46"},
-    {file = "nvidia_cusparselt_cu12-0.6.3-py3-none-win_amd64.whl", hash = "sha256:3b325bcbd9b754ba43df5a311488fca11a6b5dc3d11df4d190c000cf1a0765c7"},
-]
-
-[[package]]
-name = "nvidia-nccl-cu12"
-version = "2.26.2"
-description = "NVIDIA Collective Communication Library (NCCL) Runtime"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:5c196e95e832ad30fbbb50381eb3cbd1fadd5675e587a548563993609af19522"},
-    {file = "nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:694cf3879a206553cc9d7dbda76b13efaf610fdb70a50cba303de1b0d1530ac6"},
-]
-
-[[package]]
-name = "nvidia-nvjitlink-cu12"
-version = "12.6.85"
-description = "Nvidia JIT LTO Library"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_nvjitlink_cu12-12.6.85-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl", hash = "sha256:eedc36df9e88b682efe4309aa16b5b4e78c2407eac59e8c10a6a47535164369a"},
-    {file = "nvidia_nvjitlink_cu12-12.6.85-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:cf4eaa7d4b6b543ffd69d6abfb11efdeb2db48270d94dfd3a452c24150829e41"},
-    {file = "nvidia_nvjitlink_cu12-12.6.85-py3-none-win_amd64.whl", hash = "sha256:e61120e52ed675747825cdd16febc6a0730537451d867ee58bee3853b1b13d1c"},
-]
-
-[[package]]
-name = "nvidia-nvtx-cu12"
-version = "12.6.77"
-description = "NVIDIA Tools Extension"
-optional = true
-python-versions = ">=3"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:f44f8d86bb7d5629988d61c8d3ae61dddb2015dee142740536bc7481b022fe4b"},
-    {file = "nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl", hash = "sha256:adcaabb9d436c9761fca2b13959a2d237c5f9fd406c8e4b723c695409ff88059"},
-    {file = "nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:b90bed3df379fa79afbd21be8e04a0314336b8ae16768b58f2d34cb1d04cd7d2"},
-    {file = "nvidia_nvtx_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl", hash = "sha256:6574241a3ec5fdc9334353ab8c479fe75841dbe8f4532a8fc97ce63503330ba1"},
-    {file = "nvidia_nvtx_cu12-12.6.77-py3-none-win_amd64.whl", hash = "sha256:2fb11a4af04a5e6c84073e6404d26588a34afd35379f0855a99797897efa75c0"},
-]
-
-[[package]]
 name = "oauthlib"
 version = "3.2.2"
 description = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
 optional = true
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "oauthlib-3.2.2-py3-none-any.whl", hash = "sha256:8139f29aac13e25d502680e9e19963e83f16838d48a0d71c287fe40e7067fbca"},
     {file = "oauthlib-3.2.2.tar.gz", hash = "sha256:9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918"},
@@ -4400,7 +4178,7 @@ files = [
     {file = "parso-0.8.3-py2.py3-none-any.whl", hash = "sha256:c001d4636cd3aecdaf33cbb40aebb59b094be2a74c556778ef5576c175e19e75"},
     {file = "parso-0.8.3.tar.gz", hash = "sha256:8c07be290bb59f03588915921e29e8a50002acaf2cdc5fa0e0114f91709fafa0"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.extras]
 qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
@@ -4429,7 +4207,7 @@ files = [
     {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
     {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
 ]
-markers = {main = "sys_platform != \"win32\" and extra == \"true\"", dev = "sys_platform != \"win32\""}
+markers = {main = "sys_platform != \"win32\" and extra == \"johnsnowlabs\"", dev = "sys_platform != \"win32\""}
 
 [package.dependencies]
 ptyprocess = ">=0.5"
@@ -4445,7 +4223,7 @@ files = [
     {file = "pickleshare-0.7.5-py2.py3-none-any.whl", hash = "sha256:9649af414d74d4df115d5d718f82acb59c9d418196b7b4290ed47a12ce62df56"},
     {file = "pickleshare-0.7.5.tar.gz", hash = "sha256:87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [[package]]
 name = "pillow"
@@ -4645,7 +4423,7 @@ files = [
     {file = "prompt_toolkit-3.0.39-py3-none-any.whl", hash = "sha256:9dffbe1d8acf91e3de75f3b544e4842382fc06c6babe903ac9acb74dc6e08d88"},
     {file = "prompt_toolkit-3.0.39.tar.gz", hash = "sha256:04505ade687dc26dc4284b1ad19a83be2f2afe83e7a828ace0c72f3a1df72aac"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.dependencies]
 wcwidth = "*"
@@ -4806,7 +4584,7 @@ files = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
     {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
 ]
-markers = {main = "sys_platform != \"win32\" and extra == \"true\"", dev = "sys_platform != \"win32\""}
+markers = {main = "sys_platform != \"win32\" and extra == \"johnsnowlabs\"", dev = "sys_platform != \"win32\""}
 
 [[package]]
 name = "pure-eval"
@@ -4819,7 +4597,7 @@ files = [
     {file = "pure_eval-0.2.2-py3-none-any.whl", hash = "sha256:01eaab343580944bc56080ebe0a674b39ec44a945e6d09ba7db3cb8cec289350"},
     {file = "pure_eval-0.2.2.tar.gz", hash = "sha256:2b45320af6dfaa1750f543d714b6d1c520a1688dec6fd24d339063ce0aaa9ac3"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.extras]
 tests = ["pytest"]
@@ -4843,7 +4621,7 @@ description = "Enables Python programs to dynamically access arbitrary Java obje
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"true\""
+markers = "(extra == \"databricks\" or extra == \"johnsnowlabs\") and python_version >= \"3.10\" or extra == \"johnsnowlabs\""
 files = [
     {file = "py4j-0.10.9.7-py2.py3-none-any.whl", hash = "sha256:85defdfd2b2376eb3abf5ca6474b51ab7e0de341c75a02f46dc9b5976f5a5c1b"},
     {file = "py4j-0.10.9.7.tar.gz", hash = "sha256:0b6e5315bb3ada5cf62ac651d107bb2ebc02def3dee9d9548e3baac644ea8dbb"},
@@ -4856,7 +4634,7 @@ description = "Python library for Apache Arrow"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"mlflow\" or extra == \"true\""
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\") and python_version >= \"3.10\" or extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"mlflow\""
 files = [
     {file = "pyarrow-18.1.0-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:e21488d5cfd3d8b500b3238a6c4b075efabc18f0f6d80b29239737ebd69caa6c"},
     {file = "pyarrow-18.1.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:b516dad76f258a702f7ca0250885fc93d1fa5ac13ad51258e39d402bd9e2e1e4"},
@@ -5156,7 +4934,7 @@ files = [
     {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
     {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.extras]
 plugins = ["importlib-metadata ; python_version < \"3.8\""]
@@ -5168,7 +4946,7 @@ description = "JSON Web Token implementation in Python"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "PyJWT-2.8.0-py3-none-any.whl", hash = "sha256:59127c392cc44c2da5bb3192169a91f429924e17aff6534d70fdc02ab3e04320"},
     {file = "PyJWT-2.8.0.tar.gz", hash = "sha256:57e28d156e3d5c10088e0c68abb90bfac3df82b40a71bd0daa20c65ccd5c23de"},
@@ -5219,7 +4997,7 @@ description = "Apache Spark Python API"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "pyspark-3.4.0.tar.gz", hash = "sha256:167a23e11854adb37f8602de6fcc3a4f96fd5f1e323b9bb83325f38408c5aafd"},
 ]
@@ -5633,7 +5411,7 @@ description = "Python HTTP for Humans."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or python_version == \"3.9\") and (extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\")"
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"openai\" or extra == \"llms\" or extra == \"ollama-sdk\" or python_version == \"3.9\") and (extra == \"johnsnowlabs\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"spacy\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"metaflow\" or extra == \"mlflow\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\")"
 files = [
     {file = "requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"},
     {file = "requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"},
@@ -5998,7 +5776,7 @@ files = [
     {file = "setuptools-75.6.0-py3-none-any.whl", hash = "sha256:ce74b49e8f7110f9bf04883b730f4765b774ef3ef28f722cce7c273d253aaf7d"},
     {file = "setuptools-75.6.0.tar.gz", hash = "sha256:8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6"},
 ]
-markers = {main = "python_version < \"3.12\" and platform_system == \"Linux\" and platform_machine == \"x86_64\" and extra == \"transformers\" or extra == \"spacy\" and python_version == \"3.9\" or python_version < \"3.12\" and python_version >= \"3.10\" and (extra == \"spacy\" or extra == \"databricks\") or python_version >= \"3.12\" and (extra == \"transformers\" or extra == \"spacy\" or extra == \"databricks\")"}
+markers = {main = "python_version == \"3.9\" and extra == \"spacy\" or python_version < \"3.12\" and python_version >= \"3.10\" and (extra == \"databricks\" or extra == \"spacy\") or python_version >= \"3.12\" and (extra == \"transformers\" or extra == \"true\" or extra == \"spacy\" or extra == \"databricks\")"}
 
 [package.extras]
 check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1) ; sys_platform != \"cygwin\"", "ruff (>=0.7.0) ; sys_platform != \"cygwin\""]
@@ -6204,7 +5982,7 @@ description = "John Snow Labs Spark NLP is a natural language processing library
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "spark_nlp-6.0.4-py2.py3-none-any.whl", hash = "sha256:fb4e4207edce72e195d527263db7e5c56def2dfe492ca49b7f8895e67b4d0134"},
     {file = "spark_nlp-6.0.4.tar.gz", hash = "sha256:29daf034686ae428eaf83dd371ad095b42164dff40148039002cd3afa66389ee"},
@@ -6217,7 +5995,7 @@ description = "Visualization package for Spark NLP"
 optional = true
 python-versions = ">=2.7"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "spark-nlp-display-5.0.tar.gz", hash = "sha256:46faa77553d3eb3fc968eb434303752f7baf39b39b03f17cd0934466b6a86620"},
     {file = "spark_nlp_display-5.0-py3-none-any.whl", hash = "sha256:ede785f68cd4299d4a93e389d26be90eeb0e24372de99d30b107ad19464c87e0"},
@@ -6380,7 +6158,7 @@ files = [
     {file = "stack_data-0.6.2-py3-none-any.whl", hash = "sha256:cbb2a53eb64e5785878201a97ed7c7b94883f48b87bfb0bbe8b623c74679e4a8"},
     {file = "stack_data-0.6.2.tar.gz", hash = "sha256:32d2dd0376772d01b6cb9fc996f3c8b57a357089dec328ed4b6553d037eaf815"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.dependencies]
 asttokens = ">=2.1.0"
@@ -6417,7 +6195,7 @@ description = "A Python library to create SVG drawings."
 optional = true
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "extra == \"true\""
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "svgwrite-1.4-py3-none-any.whl", hash = "sha256:fa842fb3129a9399d19b5e9602a022fcc7f2f3f24713550e765c488ffafd743d"},
     {file = "svgwrite-1.4.zip", hash = "sha256:b38ac03b67f81c728d81a33e4711aaf3ab136a57156d721bb17f88525d9909bb"},
@@ -6430,7 +6208,7 @@ description = "Computer algebra system (CAS) in Python"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "extra == \"transformers\""
+markers = "extra == \"transformers\" or extra == \"true\""
 files = [
     {file = "sympy-1.14.0-py3-none-any.whl", hash = "sha256:e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5"},
     {file = "sympy-1.14.0.tar.gz", hash = "sha256:d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517"},
@@ -6487,7 +6265,7 @@ description = "Pretty-print tabular data"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"true\""
+markers = "(extra == \"databricks\" or extra == \"johnsnowlabs\") and python_version >= \"3.10\" or extra == \"johnsnowlabs\""
 files = [
     {file = "tabulate-0.9.0-py3-none-any.whl", hash = "sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f"},
     {file = "tabulate-0.9.0.tar.gz", hash = "sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"},
@@ -6710,37 +6488,39 @@ files = [
 
 [[package]]
 name = "torch"
-version = "2.7.1"
+version = "2.8.0+cpu"
 description = "Tensors and Dynamic neural networks in Python with strong GPU acceleration"
 optional = true
 python-versions = ">=3.9.0"
 groups = ["main"]
-markers = "extra == \"transformers\""
+markers = "extra == \"transformers\" or extra == \"true\""
 files = [
-    {file = "torch-2.7.1-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:a103b5d782af5bd119b81dbcc7ffc6fa09904c423ff8db397a1e6ea8fd71508f"},
-    {file = "torch-2.7.1-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:fe955951bdf32d182ee8ead6c3186ad54781492bf03d547d31771a01b3d6fb7d"},
-    {file = "torch-2.7.1-cp310-cp310-win_amd64.whl", hash = "sha256:885453d6fba67d9991132143bf7fa06b79b24352f4506fd4d10b309f53454162"},
-    {file = "torch-2.7.1-cp310-none-macosx_11_0_arm64.whl", hash = "sha256:d72acfdb86cee2a32c0ce0101606f3758f0d8bb5f8f31e7920dc2809e963aa7c"},
-    {file = "torch-2.7.1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:236f501f2e383f1cb861337bdf057712182f910f10aeaf509065d54d339e49b2"},
-    {file = "torch-2.7.1-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:06eea61f859436622e78dd0cdd51dbc8f8c6d76917a9cf0555a333f9eac31ec1"},
-    {file = "torch-2.7.1-cp311-cp311-win_amd64.whl", hash = "sha256:8273145a2e0a3c6f9fd2ac36762d6ee89c26d430e612b95a99885df083b04e52"},
-    {file = "torch-2.7.1-cp311-none-macosx_11_0_arm64.whl", hash = "sha256:aea4fc1bf433d12843eb2c6b2204861f43d8364597697074c8d38ae2507f8730"},
-    {file = "torch-2.7.1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:27ea1e518df4c9de73af7e8a720770f3628e7f667280bce2be7a16292697e3fa"},
-    {file = "torch-2.7.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:c33360cfc2edd976c2633b3b66c769bdcbbf0e0b6550606d188431c81e7dd1fc"},
-    {file = "torch-2.7.1-cp312-cp312-win_amd64.whl", hash = "sha256:d8bf6e1856ddd1807e79dc57e54d3335f2b62e6f316ed13ed3ecfe1fc1df3d8b"},
-    {file = "torch-2.7.1-cp312-none-macosx_11_0_arm64.whl", hash = "sha256:787687087412c4bd68d315e39bc1223f08aae1d16a9e9771d95eabbb04ae98fb"},
-    {file = "torch-2.7.1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:03563603d931e70722dce0e11999d53aa80a375a3d78e6b39b9f6805ea0a8d28"},
-    {file = "torch-2.7.1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:d632f5417b6980f61404a125b999ca6ebd0b8b4bbdbb5fbbba44374ab619a412"},
-    {file = "torch-2.7.1-cp313-cp313-win_amd64.whl", hash = "sha256:23660443e13995ee93e3d844786701ea4ca69f337027b05182f5ba053ce43b38"},
-    {file = "torch-2.7.1-cp313-cp313t-macosx_14_0_arm64.whl", hash = "sha256:0da4f4dba9f65d0d203794e619fe7ca3247a55ffdcbd17ae8fb83c8b2dc9b585"},
-    {file = "torch-2.7.1-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:e08d7e6f21a617fe38eeb46dd2213ded43f27c072e9165dc27300c9ef9570934"},
-    {file = "torch-2.7.1-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:30207f672328a42df4f2174b8f426f354b2baa0b7cca3a0adb3d6ab5daf00dc8"},
-    {file = "torch-2.7.1-cp313-cp313t-win_amd64.whl", hash = "sha256:79042feca1c634aaf6603fe6feea8c6b30dfa140a6bbc0b973e2260c7e79a22e"},
-    {file = "torch-2.7.1-cp313-none-macosx_11_0_arm64.whl", hash = "sha256:988b0cbc4333618a1056d2ebad9eb10089637b659eb645434d0809d8d937b946"},
-    {file = "torch-2.7.1-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:e0d81e9a12764b6f3879a866607c8ae93113cbcad57ce01ebde63eb48a576369"},
-    {file = "torch-2.7.1-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:8394833c44484547ed4a47162318337b88c97acdb3273d85ea06e03ffff44998"},
-    {file = "torch-2.7.1-cp39-cp39-win_amd64.whl", hash = "sha256:df41989d9300e6e3c19ec9f56f856187a6ef060c3662fe54f4b6baf1fc90bd19"},
-    {file = "torch-2.7.1-cp39-none-macosx_11_0_arm64.whl", hash = "sha256:a737b5edd1c44a5c1ece2e9f3d00df9d1b3fb9541138bee56d83d38293fb6c9d"},
+    {file = "torch-2.8.0+cpu-cp310-cp310-linux_s390x.whl", hash = "sha256:5d255d259fbc65439b671580e40fdb8faea4644761b64fed90d6904ffe71bbc1"},
+    {file = "torch-2.8.0+cpu-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:b2149858b8340aeeb1f3056e0bff5b82b96e43b596fe49a9dba3184522261213"},
+    {file = "torch-2.8.0+cpu-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:16d75fa4e96ea28a785dfd66083ca55eb1058b6d6c5413f01656ca965ee2077e"},
+    {file = "torch-2.8.0+cpu-cp310-cp310-win_amd64.whl", hash = "sha256:7cc4af6ba954f36c2163eab98cf113c137fc25aa8bbf1b06ef155968627beed2"},
+    {file = "torch-2.8.0+cpu-cp311-cp311-linux_s390x.whl", hash = "sha256:2bfc013dd6efdc8f8223a0241d3529af9f315dffefb53ffa3bf14d3f10127da6"},
+    {file = "torch-2.8.0+cpu-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:680129efdeeec3db5da3f88ee5d28c1b1e103b774aef40f9d638e2cce8f8d8d8"},
+    {file = "torch-2.8.0+cpu-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:cb06175284673a581dd91fb1965662ae4ecaba6e5c357aa0ea7bb8b84b6b7eeb"},
+    {file = "torch-2.8.0+cpu-cp311-cp311-win_amd64.whl", hash = "sha256:7631ef49fbd38d382909525b83696dc12a55d68492ade4ace3883c62b9fc140f"},
+    {file = "torch-2.8.0+cpu-cp311-cp311-win_arm64.whl", hash = "sha256:41e6fc5ec0914fcdce44ccf338b1d19a441b55cafdd741fd0bf1af3f9e4cfd14"},
+    {file = "torch-2.8.0+cpu-cp312-cp312-linux_s390x.whl", hash = "sha256:0e34e276722ab7dd0dffa9e12fe2135a9b34a0e300c456ed7ad6430229404eb5"},
+    {file = "torch-2.8.0+cpu-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:610f600c102386e581327d5efc18c0d6edecb9820b4140d26163354a99cd800d"},
+    {file = "torch-2.8.0+cpu-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:cb9a8ba8137ab24e36bf1742cb79a1294bd374db570f09fc15a5e1318160db4e"},
+    {file = "torch-2.8.0+cpu-cp312-cp312-win_amd64.whl", hash = "sha256:2be20b2c05a0cce10430cc25f32b689259640d273232b2de357c35729132256d"},
+    {file = "torch-2.8.0+cpu-cp312-cp312-win_arm64.whl", hash = "sha256:99fc421a5d234580e45957a7b02effbf3e1c884a5dd077afc85352c77bf41434"},
+    {file = "torch-2.8.0+cpu-cp313-cp313-linux_s390x.whl", hash = "sha256:8b5882276633cf91fe3d2d7246c743b94d44a7e660b27f1308007fdb1bb89f7d"},
+    {file = "torch-2.8.0+cpu-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:a5064b5e23772c8d164068cc7c12e01a75faf7b948ecd95a0d4007d7487e5f25"},
+    {file = "torch-2.8.0+cpu-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:8f81dedb4c6076ec325acc3b47525f9c550e5284a18eae1d9061c543f7b6e7de"},
+    {file = "torch-2.8.0+cpu-cp313-cp313-win_amd64.whl", hash = "sha256:e1ee1b2346ade3ea90306dfbec7e8ff17bc220d344109d189ae09078333b0856"},
+    {file = "torch-2.8.0+cpu-cp313-cp313-win_arm64.whl", hash = "sha256:64c187345509f2b1bb334feed4666e2c781ca381874bde589182f81247e61f88"},
+    {file = "torch-2.8.0+cpu-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:af81283ac671f434b1b25c95ba295f270e72db1fad48831eb5e4748ff9840041"},
+    {file = "torch-2.8.0+cpu-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:a9dbb6f64f63258bc811e2c0c99640a81e5af93c531ad96e95c5ec777ea46dab"},
+    {file = "torch-2.8.0+cpu-cp313-cp313t-win_amd64.whl", hash = "sha256:6d93a7165419bc4b2b907e859ccab0dea5deeab261448ae9a5ec5431f14c0e64"},
+    {file = "torch-2.8.0+cpu-cp39-cp39-linux_s390x.whl", hash = "sha256:5239ef35402000844b676a9b79ed76d5ae6b028a6762bbdfebdf8421a0f4d2aa"},
+    {file = "torch-2.8.0+cpu-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:eac8b7ef5c7ca106daec5e829dfa8ca56ca47601db13b402d2608861ad3ab926"},
+    {file = "torch-2.8.0+cpu-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:bda4f93d64dcd9ae5d51844bbccc6fcb7d603522bcc95d256b5fe3bdb9dccca3"},
+    {file = "torch-2.8.0+cpu-cp39-cp39-win_amd64.whl", hash = "sha256:e3c3fce24ebaac954b837d1498e36d484ad0d93e2a1ed5b6b0c55a02ea748fab"},
 ]
 
 [package.dependencies]
@@ -6748,28 +6528,19 @@ filelock = "*"
 fsspec = "*"
 jinja2 = "*"
 networkx = "*"
-nvidia-cublas-cu12 = {version = "12.6.4.1", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cuda-cupti-cu12 = {version = "12.6.80", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cuda-nvrtc-cu12 = {version = "12.6.77", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cuda-runtime-cu12 = {version = "12.6.77", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cudnn-cu12 = {version = "9.5.1.17", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cufft-cu12 = {version = "11.3.0.4", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cufile-cu12 = {version = "1.11.1.6", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-curand-cu12 = {version = "10.3.7.77", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cusolver-cu12 = {version = "11.7.1.2", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cusparse-cu12 = {version = "12.5.4.2", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-cusparselt-cu12 = {version = "0.6.3", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-nccl-cu12 = {version = "2.26.2", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-nvjitlink-cu12 = {version = "12.6.85", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
-nvidia-nvtx-cu12 = {version = "12.6.77", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
 setuptools = {version = "*", markers = "python_version >= \"3.12\""}
 sympy = ">=1.13.3"
-triton = {version = "3.3.1", markers = "platform_system == \"Linux\" and platform_machine == \"x86_64\""}
 typing-extensions = ">=4.10.0"
 
 [package.extras]
 opt-einsum = ["opt-einsum (>=3.3)"]
 optree = ["optree (>=0.13.0)"]
+pyyaml = ["pyyaml"]
+
+[package.source]
+type = "legacy"
+url = "https://download.pytorch.org/whl/cpu"
+reference = "pytorch-cpu"
 
 [[package]]
 name = "tornado"
@@ -6825,7 +6596,7 @@ files = [
     {file = "traitlets-5.9.0-py3-none-any.whl", hash = "sha256:9e6ec080259b9a5940c797d58b613b5e31441c2257b87c2e795c5228ae80d2d8"},
     {file = "traitlets-5.9.0.tar.gz", hash = "sha256:f6cde21a9c68cf756af02035f72d5a723bf607e862e7be33ece505abf4a3bad9"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
@@ -6905,31 +6676,6 @@ torch-vision = ["Pillow (>=10.0.1,<=15.0)", "torchvision"]
 torchhub = ["filelock", "huggingface-hub (>=0.34.0,<1.0)", "importlib_metadata", "numpy (>=1.17)", "packaging (>=20.0)", "protobuf", "regex (!=2019.12.17)", "requests", "sentencepiece (>=0.1.91,!=0.1.92)", "tokenizers (>=0.21,<0.22)", "torch (>=2.1)", "tqdm (>=4.27)"]
 video = ["av"]
 vision = ["Pillow (>=10.0.1,<=15.0)"]
-
-[[package]]
-name = "triton"
-version = "3.3.1"
-description = "A language and compiler for custom Deep Learning operations"
-optional = true
-python-versions = "*"
-groups = ["main"]
-markers = "platform_machine == \"x86_64\" and extra == \"transformers\" and platform_system == \"Linux\""
-files = [
-    {file = "triton-3.3.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b74db445b1c562844d3cfad6e9679c72e93fdfb1a90a24052b03bb5c49d1242e"},
-    {file = "triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b31e3aa26f8cb3cc5bf4e187bf737cbacf17311e1112b781d4a059353dfd731b"},
-    {file = "triton-3.3.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:9999e83aba21e1a78c1f36f21bce621b77bcaa530277a50484a7cb4a822f6e43"},
-    {file = "triton-3.3.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b89d846b5a4198317fec27a5d3a609ea96b6d557ff44b56c23176546023c4240"},
-    {file = "triton-3.3.1-cp313-cp313t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:a3198adb9d78b77818a5388bff89fa72ff36f9da0bc689db2f0a651a67ce6a42"},
-    {file = "triton-3.3.1-cp39-cp39-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:f6139aeb04a146b0b8e0fbbd89ad1e65861c57cfed881f21d62d3cb94a36bab7"},
-]
-
-[package.dependencies]
-setuptools = ">=40.8.0"
-
-[package.extras]
-build = ["cmake (>=3.20)", "lit"]
-tests = ["autopep8", "isort", "llnl-hatchet", "numpy", "pytest", "pytest-forked", "pytest-xdist", "scipy (>=1.7.1)"]
-tutorials = ["matplotlib", "pandas", "tabulate"]
 
 [[package]]
 name = "typer"
@@ -7209,7 +6955,7 @@ files = [
     {file = "wcwidth-0.2.6-py2.py3-none-any.whl", hash = "sha256:795b138f6875577cd91bba52baf9e445cd5118fd32723b460e30a0af30ea230e"},
     {file = "wcwidth-0.2.6.tar.gz", hash = "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"},
 ]
-markers = {main = "extra == \"true\""}
+markers = {main = "extra == \"johnsnowlabs\""}
 
 [[package]]
 name = "weasel"
@@ -7597,9 +7343,9 @@ ollama-sdk = ["langchain", "langchain-community", "ollama"]
 openai = ["langchain", "langchain-community", "langchain-openai", "openai"]
 spacy = ["spacy"]
 transformers = ["accelerate", "datasets", "torch", "transformers"]
-true = ["johnsnowlabs"]
+true = ["torch"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "fd9c4e0cdf8c0e73ac7fd0bbed6d2c5fd7fc6b41234f018c8f2ce8607a37ae19"
+content-hash = "f114f1d3eae93c54f9e73842f6ddd90dbc1e85ae31a49456739104b4b02efdfb"

@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
-          rm -rf .venv
+          rm -rf .venv/lib/python3.10/site-packages/pyspark/
           poetry install --with dev --all-extras
 
       - name: Check linting

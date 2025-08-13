@@ -49,6 +49,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
+          rm -rf .venv
           poetry install --with dev --all-extras
 
       - name: Check linting

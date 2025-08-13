@@ -75,7 +75,7 @@ ai21 = {version = "^1.1.0", optional = true}
 metaflow = {version = ">=2.9.0", optional = true}
 accelerate = {version = "^1.10.0", optional = true}
 seqeval = {version = "^1.2.0", optional = true}
-mlflow = {version = ">=3.1.0", optional = true}
+mlflow = {version = "3.1.1", optional = true}
 datasets = {version = ">=2.14.0", optional = true}
 matplotlib = {version = "^3.7.2", optional = true}
 tenacity = {version = "^8.2.2", optional = true}
@@ -93,6 +93,7 @@ langchain-ollama = {version = "^0.2.2", optional = true}
 ollama = {version = "^0.4.7", optional = true}
 databricks-langchain = {version = "0.5.1", optional = true, markers = "python_version >= '3.10' and python_version < '4.0'"}
 pyspark = "^3.3.1"
+scipy = {version = "1.13.1", optional = true}
 
 [tool.poetry.extras]
 transformers = ["transformers", "torch", "accelerate", "datasets"]
@@ -129,7 +130,7 @@ lint = "pflake8 langtest/"
 format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
-force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch) && pip install pyspark==3.5.0 --upgrade"
+force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch)"
 extra-lib = "python -m pip install openpyxl tables"
 
 

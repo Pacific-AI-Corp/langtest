@@ -57,7 +57,7 @@ exclude = 'langtest/errors.py'
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 pydantic = ">=2.10.0"
-johnsnowlabs = {version = "6.0.4", optional = true}
+johnsnowlabs = {version = "^6.0.4", optional = true}
 rouge-score = { version = "^0.1.2", optional = true }
 evaluate = { version = "^0.4.0", optional = true }
 transformers = "4.54.1"
@@ -128,7 +128,7 @@ lint = "pflake8 langtest/"
 format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
-force-cpu-torch = "pip cache purge && echo $(df -h) && echo $(pip show torch) && pip install pyspark==3.5.0 --upgrade"
+force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch) && pip install pyspark==3.5.0 --upgrade"
 extra-lib = "python -m pip install openpyxl tables"
 
 

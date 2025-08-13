@@ -128,7 +128,7 @@ lint = "pflake8 langtest/"
 format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
-force-cpu-torch = "pip cache purge && echo $(df -h) && echo $(pip show torch)"
+force-cpu-torch = "pip cache purge && echo $(df -h) && echo $(pip show torch) && pip install pyspark --upgrade"
 extra-lib = "python -m pip install openpyxl tables"
 
 

@@ -30,7 +30,7 @@ However, this approach encounters challenges when weak LLMs fail to provide answ
 - layer 2: If the initial evaluation using the direct comparison approach proves inadequate, we move to Layer 2. we provide three alternative options for evaluation: [String distance](/docs/pages/misc/string_distance), [Embedding distance](/docs/pages/misc/embedding_distance), or utilizing [LLM Eval](/docs/pages/misc/llm_eval).
 > This dual-layered approach enhances the robustness of our evaluation metric, allowing for adaptability in scenarios where direct comparisons may fall short.
 
-For a more in-depth exploration of these approaches, you can refer to this [notebook](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb) discussing these three methods.
+For a more in-depth exploration of these approaches, you can refer to this [notebook](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb) discussing these three methods.
 
 ## Bias
 

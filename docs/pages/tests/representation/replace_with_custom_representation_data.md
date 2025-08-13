@@ -36,4 +36,4 @@ When adding custom representation data, it's important to note that each custom 
 
 Additionally, it's important to remember that when you add custom representation data, it will affect a particular set of representation tests based on the category and data provided.
 
-To learn more about the data format and how to structure the JSON file for custom representation data, you can refer to the tutorial available [here](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Add_Custom_Data_Demo.ipynb).
+To learn more about the data format and how to structure the JSON file for custom representation data, you can refer to the tutorial available [here](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Add_Custom_Data_Demo.ipynb).

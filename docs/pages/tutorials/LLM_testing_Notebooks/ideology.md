@@ -23,7 +23,7 @@ In the Political Demo notebook, we're evaluating `gpt-3.5-turbo-instruct` model 
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    
 | ----------------------------------- |
-|  **Ideology**                          | 	OpenAI                    | Question-Answering                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Political_Demo.ipynb)                                    
+|  **Ideology**                          | 	OpenAI                    | Question-Answering                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Political_Demo.ipynb)                                    
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

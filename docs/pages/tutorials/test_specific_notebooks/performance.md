@@ -23,7 +23,7 @@ In this performance notebook, we are evaluating `dslim/bert-base-NER` model on P
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-| **Performance** | Huggingface                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/PerformanceTest_Notebook.ipynb)                                |
+| **Performance** | Huggingface                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/PerformanceTest_Notebook.ipynb)                                |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

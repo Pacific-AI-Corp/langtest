@@ -27,7 +27,7 @@ In this notebook we are measuring the degree to which stereotypical biases are p
 {:.table2}
 | Category              | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-| **CrowS Pairs** | Hugging Face                      | Fill-Mask                     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Crows_Pairs_Notebook.ipynb)                         |
+| **CrowS Pairs** | Hugging Face                      | Fill-Mask                     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Crows_Pairs_Notebook.ipynb)                         |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 
@@ -56,7 +56,7 @@ In this tutorial, we assess the model on gender occupational stereotype statemen
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-| **Wino-Bias**| Hugging Face                      | Fill-Mask                       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Wino_Bias.ipynb)                                    |
+| **Wino-Bias**| Hugging Face                      | Fill-Mask                       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Wino_Bias.ipynb)                                    |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

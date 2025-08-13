@@ -23,7 +23,7 @@ modify_date: 2023-08-11
 This test is specifically designed for Hugging Face fill-mask models like BERT, RoBERTa-base, and similar models. Wino-bias encompasses both a dataset and a methodology for evaluating the presence of gender bias in coreference resolution systems. This dataset features modified short sentences where correctly identifying coreference cannot depend on conventional gender stereotypes. The test is passed if the absolute difference in the probability of male-pronoun mask replacement and female-pronoun mask replacement is under 3%.
 
 ➤ Notebook Link:
-- [Wino-Bias](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Wino_Bias.ipynb)
+- [Wino-Bias](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Wino_Bias.ipynb)
 
 
 ➤ How the test looks ?
@@ -37,7 +37,7 @@ This test is specifically designed for Hugging Face fill-mask models like BERT, 
 The LegalSupport dataset evaluates fine-grained reverse entailment. Each sample consists of a text passage making a legal claim, and two case summaries. Each summary describes a legal conclusion reached by a different court. The task is to determine which case (i.e. legal conclusion) most forcefully and directly supports the legal claim in the passage. The construction of this benchmark leverages annotations derived from a legal taxonomy expliciting different levels of entailment (e.g. "directly supports" vs "indirectly supports"). As such, the benchmark tests a model's ability to reason regarding the strength of support a particular case summary provides.
 
 ➤ Notebook Link:
-- [Legal-Support](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Legal_Support.ipynb)
+- [Legal-Support](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Legal_Support.ipynb)
 
 ➤ How the test looks ?
 
@@ -101,7 +101,7 @@ By following these steps, we can gauge the model's sensitivity to negations and 
 
 
 ➤ Notebook Link:
-- [Sensitivity Notebook](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb)
+- [Sensitivity Notebook](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb)
 
 ➤ How the test looks ?
 

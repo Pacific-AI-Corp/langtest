@@ -37,7 +37,7 @@ We are delighted to announce remarkable enhancements and updates in our latest r
 
 Enhanced the QA evaluation capabilities of the LangTest library by introducing two categories of distance metrics: Embedding Distance Metrics and String Distance Metrics. These additions significantly broaden the toolkit for comparing embeddings and strings, empowering users to conduct more comprehensive QA evaluations. Users can now experiment with different evaluation strategies tailored to their specific use cases.
 
-**Link to Notebook** : [QA Evaluations](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb)
+**Link to Notebook** : [QA Evaluations](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb)
 
 #### Embedding Distance Metrics
 
@@ -87,13 +87,13 @@ Evaluating using OpenAI embeddings and Cosine similarity:
 - Important modification in the Harness class, updating the 'hub' parameter to accept "custom," simplifying configuration and improving user experience, making it more versatile and user-friendly, while catering to diverse requirements.
 
 
-**Link to Notebook** : [Custom Model API](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Custom_Hub_Notebook.ipynb)
+**Link to Notebook** : [Custom Model API](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Custom_Hub_Notebook.ipynb)
 
 ### Wino-Bias on LLMs
 
 In this update, we address gender bias assessment in LLMs using a revamped evaluation method. The initial testing of this dataset was conducted using the HuggingFace masked model. However, in this release, we address this testing process using LLMs (Large Language Models ) by transforming it into a Question-Answer (Q/A) format and requiring the models to complete the sentences by selecting gender-specific pronouns from multiple-choice questions (MCQs)
 
-**Link to Notebook** : [Wino-Bias on LLMs](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Wino_Bias_LLM.ipynb)
+**Link to Notebook** : [Wino-Bias on LLMs](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Wino_Bias_LLM.ipynb)
 
 ![Alt text](https://github-production-user-asset-6210df.s3.amazonaws.com/71117423/276153916-5802d085-0f45-44d2-b521-c42084921b59.png)
 
@@ -110,7 +110,7 @@ The blue highlighting effect draws attention to the relative success in handling
 ### StereoSet Integration
 With the addition of StereoSet as a new task and dataset within the LangTest library, designed to evaluate models by assessing the probabilities of alternative sentences, specifically stereotypic and anti-stereotypic variants, enhances the library's capabilities in addressing linguistic biases and stereotypes. This integration provides users with a valuable tool for model assessment and bias mitigation.
 
-**Link to Notebook** : [StereoSet](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/StereoSet_Notebook.ipynb)
+**Link to Notebook** : [StereoSet](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/StereoSet_Notebook.ipynb)
 
 #### Results:
 
@@ -156,10 +156,10 @@ You can check out the following LangTest articles:
 {:.table2}
 | New notebooks | Collab |
 |--------------|--------|
-|  Question-Answering Evaluation   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb)     |
-|Wino-Bias LLMs   |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Wino_Bias_LLM.ipynb)|
-|  Custom Model API   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Custom_Hub_Notebook.ipynb)     |
-|  FiQA Dataset   |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/dataset-notebooks/Fiqa_dataset.ipynb) |
+|  Question-Answering Evaluation   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb)     |
+|Wino-Bias LLMs   |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Wino_Bias_LLM.ipynb)|
+|  Custom Model API   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Custom_Hub_Notebook.ipynb)     |
+|  FiQA Dataset   |  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/dataset-notebooks/Fiqa_dataset.ipynb) |
 
 ## ⚒️ Previous Versions
 

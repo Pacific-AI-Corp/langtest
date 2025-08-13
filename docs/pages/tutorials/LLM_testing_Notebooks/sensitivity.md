@@ -23,7 +23,7 @@ In the Sensitivity notebook, the evaluation focuses on the `gpt-3.5-turbo-instru
 {:.table2}
 | Category               | Hub                           | Task                              |Dataset Used| Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-|  **Sensitivity**                          | 	OpenAI                    | Question-Answering                               | `NQ-open`, `OpenBookQA`, `wikiDataset`   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity.ipynb)                                    |
+|  **Sensitivity**                          | 	OpenAI                    | Question-Answering                               | `NQ-open`, `OpenBookQA`, `wikiDataset`   | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity.ipynb)                                    |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

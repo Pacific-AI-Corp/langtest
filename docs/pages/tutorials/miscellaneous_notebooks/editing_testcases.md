@@ -25,7 +25,7 @@ In the Editing Testcases notebook, `.edit_testcases()` method of harness is expl
 {:.table2}
 | Category                                                                                          | Hub          | Task | Open In Colab                                                                                                                                                                                               |
 | ------------------------------------------------------------------------------------------------- |
-| **Editing Testcases**  | Hugging Face | NER  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Editing_TestCases_Notebook.ipynb) |
+| **Editing Testcases**  | Hugging Face | NER  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Editing_TestCases_Notebook.ipynb) |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

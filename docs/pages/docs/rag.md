@@ -9,7 +9,7 @@ header: true
 ---
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/RAG/RAG_OpenAI.ipynb)                
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/RAG/RAG_OpenAI.ipynb)                
 
 It is divided into two main sections: constructing the RAG with LlamaIndex and assessing its performance using a combination of LlamaIndex and Langtest. Our primary focus is on the evaluation as a pivotal metric for gauging the accuracy and reliability of the RAG application across a variety of queries and data sources.
 

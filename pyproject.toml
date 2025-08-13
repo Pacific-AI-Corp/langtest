@@ -60,7 +60,7 @@ pydantic = ">=2.10.0"
 johnsnowlabs = {version = "^6.0.4", optional = true}
 rouge-score = { version = "^0.1.2", optional = true }
 evaluate = { version = "^0.4.0", optional = true }
-transformers = "4.54.1"
+transformers = "^4.52.4"
 huggingface_hub = { version = ">0.16.0", optional = true}
 spacy = { version = ">=3.0.0", optional = true }
 nest-asyncio = "^1.5.0"
@@ -94,6 +94,7 @@ ollama = {version = "^0.4.7", optional = true}
 databricks-langchain = {version = "0.5.1", optional = true, markers = "python_version >= '3.10' and python_version < '4.0'"}
 pyspark = "^3.3.1"
 scipy = {version = "1.13.1", optional = true}
+deprecated = "^1.2.18"
 
 [tool.poetry.extras]
 transformers = ["transformers", "torch", "accelerate", "datasets"]

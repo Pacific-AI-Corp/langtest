@@ -3370,7 +3370,7 @@ class ShuffleOptions(QASample):
     def shuffle(self, pattern: str = "\n|,"):
         """Shuffle the options in the question."""
         import random
-        
+
         random.seed(42)
 
         if not self.options:

@@ -83,19 +83,6 @@ class TestNERDataset:
             (
                 HuggingFaceDataset(
                     source_info={
-                        "data_source": "tner/wikiann",
-                        "subset": "ace",
-                        "feature_column": "tokens",
-                        "target_column": "tags",
-                        "split": "test",
-                    },
-                    task=TaskManager("ner"),
-                ),
-                {},
-            ),
-            (
-                HuggingFaceDataset(
-                    source_info={
                         "data_source": "unimelb-nlp/wikiann",
                         "subset": "ace",
                         "feature_column": "tokens",

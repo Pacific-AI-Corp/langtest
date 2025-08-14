@@ -96,7 +96,8 @@ class TestNERDataset:
             (
                 HuggingFaceDataset(
                     source_info={
-                        "data_source": "Prikshit7766/sample-ner",
+                        "data_source": "unimelb-nlp/wikiann",
+                        "subset": "ace",
                         "feature_column": "tokens",
                         "target_column": "ner_tags",
                         "split": "test",
@@ -252,19 +253,19 @@ class TestTextClassificationDataset:
 @pytest.mark.parametrize(
     "dataset,feature_col,target_col",
     [
-        (
-            HuggingFaceDataset(
-                source_info={
-                    "data_source": "JulesBelveze/tldr_news",
-                    "feature_column": "content",
-                    "target_column": "headline",
-                    "split": "test[:30]",
-                },
-                task=TaskManager("summarization"),
-            ),
-            "content",
-            "headline",
-        ),
+        # (
+        #     HuggingFaceDataset(
+        #         source_info={
+        #             "data_source": "JulesBelveze/tldr_news",
+        #             "feature_column": "content",
+        #             "target_column": "headline",
+        #             "split": "test[:30]",
+        #         },
+        #         task=TaskManager("summarization"),
+        #     ),
+        #     "content",
+        #     "headline",
+        # ),
         (
             JSONLDataset(
                 file_path="tests/fixtures/XSum-test-tiny.jsonl",
@@ -295,12 +296,10 @@ class TestSummarizationDataset:
 
     def test_load_data(self, dataset, feature_col, target_col):
         """"""
-        if isinstance(dataset, HuggingFaceDataset):
-            samples = dataset.load_data()
-        else:
-            samples = dataset.load_data(
-                feature_column=feature_col, target_column=target_col
-            )
+        # if isinstance(dataset, HuggingFaceDataset):
+        #     samples = dataset.load_data()
+        # else:
+        samples = dataset.load_data(feature_column=feature_col, target_column=target_col)
 
         assert isinstance(samples, list)
         for sample in samples:

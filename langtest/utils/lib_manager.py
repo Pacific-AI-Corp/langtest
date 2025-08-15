@@ -1,6 +1,8 @@
 import importlib
 import logging
 
+import traceback
+
 
 def try_import_lib(lib: str) -> bool:
     """Tries to import a Python library/module dynamically and returns True if successful, False otherwise.
@@ -16,10 +18,12 @@ def try_import_lib(lib: str) -> bool:
         log_verbosity_handler(lib)
         return True
     except ImportError:
+        # print(f"ImportError while importing {lib}:")
+        traceback.print_exc()  # prints full traceback of ImportError
         return False
-    except Exception as err:
-        print(f"Failure to import {lib}.")
-        print(err)
+    except Exception:
+        # print(f"Failure to import {lib}:")
+        return False
 
 
 def log_verbosity_handler(library: str, level: int = 50) -> None:

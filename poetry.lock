@@ -2028,7 +2028,7 @@ files = [
     {file = "filelock-3.18.0-py3-none-any.whl", hash = "sha256:c401f4f8377c4464e6db25fff06205fd89bdd83b65eb0488ed1b160f780e21de"},
     {file = "filelock-3.18.0.tar.gz", hash = "sha256:adbc88eabb99d2fec8c9c1b229b171f18afa655400173ddc653d5d01501fb9f2"},
 ]
-markers = {main = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"true\""}
+markers = {main = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\""}
 
 [package.extras]
 docs = ["furo (>=2024.8.6)", "sphinx (>=8.1.3)", "sphinx-autodoc-typehints (>=3)"]
@@ -2266,7 +2266,7 @@ description = "File-system specification"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\" or extra == \"true\""
+markers = "extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"huggingface-hub\""
 files = [
     {file = "fsspec-2024.6.1-py3-none-any.whl", hash = "sha256:3cb443f8bcd2efb31295a5b9fdb02aee81d8452c80d28f97a6d0959e6cee101e"},
     {file = "fsspec-2024.6.1.tar.gz", hash = "sha256:fad7d7e209dd4c1208e3bbfda706620e0da5142bebbd9c384afb95b07e798e49"},
@@ -3062,7 +3062,7 @@ description = "A very fast and expressive template engine."
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\" or extra == \"mlflow\""
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"mlflow\""
 files = [
     {file = "jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"},
     {file = "jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d"},
@@ -3922,7 +3922,7 @@ description = "Safely add untrusted strings to HTML/XML markup."
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"true\" or extra == \"mlflow\""
+markers = "(extra == \"databricks\" or extra == \"mlflow\" or extra == \"spacy\" or extra == \"transformers\") and python_version >= \"3.10\" or extra == \"spacy\" or extra == \"transformers\" or extra == \"mlflow\""
 files = [
     {file = "MarkupSafe-3.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:7e94c425039cde14257288fd61dcfb01963e658efbc0ff54f5306b06054700f8"},
     {file = "MarkupSafe-3.0.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9e2d922824181480953426608b81967de705c3cef4d1af983af849d7bd619158"},
@@ -4310,7 +4310,7 @@ description = "Python library for arbitrary-precision floating-point arithmetic"
 optional = true
 python-versions = "*"
 groups = ["main"]
-markers = "extra == \"transformers\" or extra == \"true\""
+markers = "extra == \"transformers\""
 files = [
     {file = "mpmath-1.3.0-py3-none-any.whl", hash = "sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"},
     {file = "mpmath-1.3.0.tar.gz", hash = "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f"},
@@ -4755,7 +4755,7 @@ description = "Python package for creating and manipulating graphs and networks"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "python_version == \"3.9\" and (extra == \"transformers\" or extra == \"true\")"
+markers = "python_version == \"3.9\" and extra == \"transformers\""
 files = [
     {file = "networkx-3.2.1-py3-none-any.whl", hash = "sha256:f18c69adc97877c42332c170849c96cefa91881c99a7cb3e95b7c659ebdc1ec2"},
     {file = "networkx-3.2.1.tar.gz", hash = "sha256:9f1bb5cf3409bf324e0a722c20bdb4c20ee39bf1c30ce8ae499c8502b0b5e0c6"},
@@ -4775,7 +4775,7 @@ description = "Python package for creating and manipulating graphs and networks"
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.10\" and (extra == \"transformers\" or extra == \"true\")"
+markers = "python_version == \"3.10\" and extra == \"transformers\""
 files = [
     {file = "networkx-3.4.2-py3-none-any.whl", hash = "sha256:df5d4365b724cf81b8c6a7312509d0c22386097011ad1abe274afd5e9d3bbc5f"},
     {file = "networkx-3.4.2.tar.gz", hash = "sha256:307c3669428c5362aab27c8a1260aa8f47c4e91d3891f48be0141738d8d053e1"},
@@ -4796,7 +4796,7 @@ description = "Python package for creating and manipulating graphs and networks"
 optional = true
 python-versions = ">=3.11"
 groups = ["main"]
-markers = "python_version >= \"3.11\" and (extra == \"transformers\" or extra == \"true\")"
+markers = "python_version >= \"3.11\" and extra == \"transformers\""
 files = [
     {file = "networkx-3.5-py3-none-any.whl", hash = "sha256:0030d386a9a06dee3565298b4a734b68589749a544acbb6c412dc9e2489ec6ec"},
     {file = "networkx-3.5.tar.gz", hash = "sha256:d4c6f9cf81f52d69230866796b82afbccdec3db7ae4fbd1b65ea750feed50037"},
@@ -5900,9 +5900,10 @@ files = [
 name = "py4j"
 version = "0.10.9.7"
 description = "Enables Python programs to dynamically access arbitrary Java objects"
-optional = false
+optional = true
 python-versions = "*"
 groups = ["main"]
+markers = "(extra == \"databricks\" or extra == \"johnsnowlabs\") and python_version >= \"3.10\" or extra == \"johnsnowlabs\""
 files = [
     {file = "py4j-0.10.9.7-py2.py3-none-any.whl", hash = "sha256:85defdfd2b2376eb3abf5ca6474b51ab7e0de341c75a02f46dc9b5976f5a5c1b"},
     {file = "py4j-0.10.9.7.tar.gz", hash = "sha256:0b6e5315bb3ada5cf62ac651d107bb2ebc02def3dee9d9548e3baac644ea8dbb"},
@@ -6291,9 +6292,10 @@ tomli = {version = "*", markers = "python_version < \"3.11\""}
 name = "pyspark"
 version = "3.4.0"
 description = "Apache Spark Python API"
-optional = false
+optional = true
 python-versions = ">=3.7"
 groups = ["main"]
+markers = "extra == \"johnsnowlabs\""
 files = [
     {file = "pyspark-3.4.0.tar.gz", hash = "sha256:167a23e11854adb37f8602de6fcc3a4f96fd5f1e323b9bb83325f38408c5aafd"},
 ]
@@ -7016,7 +7018,7 @@ description = "Easily download, build, install, upgrade, and uninstall Python pa
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "python_version == \"3.9\" and extra == \"spacy\" or python_version < \"3.12\" and python_version >= \"3.10\" and (extra == \"databricks\" or extra == \"spacy\") or python_version >= \"3.12\" and (extra == \"transformers\" or extra == \"true\" or extra == \"spacy\" or extra == \"databricks\")"
+markers = "python_version == \"3.9\" and extra == \"spacy\" or python_version < \"3.12\" and python_version >= \"3.10\" and (extra == \"databricks\" or extra == \"spacy\") or python_version >= \"3.12\" and (extra == \"transformers\" or extra == \"spacy\" or extra == \"databricks\")"
 files = [
     {file = "setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922"},
     {file = "setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"},
@@ -7637,7 +7639,7 @@ description = "Computer algebra system (CAS) in Python"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "extra == \"transformers\" or extra == \"true\""
+markers = "extra == \"transformers\""
 files = [
     {file = "sympy-1.14.0-py3-none-any.whl", hash = "sha256:e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5"},
     {file = "sympy-1.14.0.tar.gz", hash = "sha256:d3d3fe8df1e5a0b42f0e7bdf50541697dbe7d23746e894990c030e2b05e72517"},
@@ -8103,7 +8105,7 @@ description = "Tensors and Dynamic neural networks in Python with strong GPU acc
 optional = true
 python-versions = ">=3.9.0"
 groups = ["main"]
-markers = "extra == \"transformers\" or extra == \"true\""
+markers = "extra == \"transformers\""
 files = [
     {file = "torch-2.8.0+cpu-cp310-cp310-linux_s390x.whl", hash = "sha256:5d255d259fbc65439b671580e40fdb8faea4644761b64fed90d6904ffe71bbc1"},
     {file = "torch-2.8.0+cpu-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:b2149858b8340aeeb1f3056e0bff5b82b96e43b596fe49a9dba3184522261213"},
@@ -8990,9 +8992,8 @@ ollama-sdk = ["langchain", "langchain-community", "ollama"]
 openai = ["langchain", "langchain-community", "langchain-openai", "openai"]
 spacy = ["spacy"]
 transformers = ["accelerate", "datasets", "torch", "transformers"]
-true = ["torch"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "afe76dc8a2c9004cd2fcec27b19114b6cb0e6425a12e9bbf00da17595e38f337"
+content-hash = "d28505f9ceb132b5a43dfcf8afcf1f3dc8232f160b380cffb3cacbcc448f9f2f"

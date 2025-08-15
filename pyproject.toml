@@ -92,7 +92,6 @@ langchain-community = {version = "==0.3.9", optional = true}
 langchain-ollama = {version = "^0.2.2", optional = true}
 ollama = {version = "^0.4.7", optional = true}
 databricks-langchain = {version = "0.5.1", optional = true, markers = "python_version >= '3.10' and python_version < '4.0'"}
-pyspark = "^3.3.1"
 scipy = {version = "1.13.1", optional = true}
 deprecated = "^1.2.18"
 
@@ -131,7 +130,7 @@ lint = "pflake8 langtest/"
 format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
-force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch) && rm -rf ./.venv/lib/python3.10/site-packages/pyspark/ && pip install pyspark==3.5.6"
+force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch) && pip uninstall pyspark && pip install pyspark==3.5.6"
 extra-lib = "python -m pip install openpyxl tables"
 
 

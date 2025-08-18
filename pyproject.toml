@@ -130,7 +130,7 @@ lint = "pflake8 langtest/"
 format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
-force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch) && rm -rf ./.venv/lib/python*/site-packages/pyspark/ && pip install pyspark==3.5.6"
+force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch)"
 extra-lib = "python -m pip install openpyxl tables"
 
 

@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
-          rm -rf ./.venv/lib/python3.*/site-packages/pyspark/
+          pip uninstall pyspark && rm -rf ./.venv/lib/python*/site-packages/pyspark/
           poetry install --with dev --all-extras
           pip install pyspark==3.5.6
 

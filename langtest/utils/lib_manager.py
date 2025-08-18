@@ -19,7 +19,7 @@ def try_import_lib(lib: str) -> bool:
         return True
     except ImportError:
         # print(f"ImportError while importing {lib}:")
-        traceback.print_exc()  # prints full traceback of ImportError
+        # traceback.print_exc()  # prints full traceback of ImportError
         return False
     except Exception:
         # print(f"Failure to import {lib}:")

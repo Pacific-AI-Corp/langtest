@@ -240,19 +240,6 @@ class TestTextClassificationDataset:
 @pytest.mark.parametrize(
     "dataset,feature_col,target_col",
     [
-        # (
-        #     HuggingFaceDataset(
-        #         source_info={
-        #             "data_source": "JulesBelveze/tldr_news",
-        #             "feature_column": "content",
-        #             "target_column": "headline",
-        #             "split": "test[:30]",
-        #         },
-        #         task=TaskManager("summarization"),
-        #     ),
-        #     "content",
-        #     "headline",
-        # ),
         (
             JSONLDataset(
                 file_path="tests/fixtures/XSum-test-tiny.jsonl",

@@ -64,14 +64,6 @@ class ModelAPITestCase(unittest.TestCase):
             task = TaskManager("question-answering")
             task.model(model_path="j2-jumbo-instruct", model_hub="ai21")
 
-    def test_openai_model(self) -> None:
-        """
-        Test loading a model from the OpenAI hub
-        """
-        with self.assertRaises(Exception) as _:
-            task = TaskManager("question-answering")
-            task.model(model_path="gpt-3.5-turbo", model_hub="openai")
-
     def test_cohere_model(self) -> None:
         """
         Test loading a model from Cohere

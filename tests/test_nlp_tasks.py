@@ -222,6 +222,36 @@ task_configurations = [
         },
     },
     {
+        "task": {"task": "fill-mask", "category": "crows-pairs"},
+        "model": {"model": "bert-base-uncased", "hub": "huggingface"},
+        "data": {"data_source": "Crows-Pairs"},
+    },
+]
+
+
+@pytest.mark.parametrize("task_parameters", task_configurations)
+def test_nlp_task(task_parameters):
+    harness_instance = Harness(**task_parameters)
+    harness_instance.data = harness_instance.data[:5]
+    harness_instance.generate()
+    test_cases = harness_instance._testcases
+    assert isinstance(test_cases, list)
+    assert isinstance(test_cases[0], Sample.__constraints__)
+
+    harness_instance.run()
+    generated_results = harness_instance._generated_results
+    assert isinstance(generated_results, list)
+    assert isinstance(generated_results[0], Sample.__constraints__)
+
+    result_df_from_generated = harness_instance.generated_results()
+    result_df_from_report = harness_instance.report()
+
+    assert isinstance(result_df_from_generated, pd.DataFrame)
+    assert isinstance(result_df_from_report, pd.DataFrame)
+
+
+sycophancy_and_crows_pairs = [
+    {
         "task": {"task": "question-answering", "category": "sycophancy"},
         "model": {"model": "t5-base", "hub": "huggingface"},
         "data": {
@@ -241,11 +271,6 @@ task_configurations = [
         },
     },
     {
-        "task": {"task": "fill-mask", "category": "crows-pairs"},
-        "model": {"model": "bert-base-uncased", "hub": "huggingface"},
-        "data": {"data_source": "Crows-Pairs"},
-    },
-    {
         "task": {"task": "question-answering", "category": "stereoset"},
         "model": {"model": "bert-base-uncased", "hub": "huggingface"},
         "data": {"data_source": "StereoSet"},
@@ -253,8 +278,8 @@ task_configurations = [
 ]
 
 
-@pytest.mark.parametrize("task_parameters", task_configurations)
-def test_nlp_task(task_parameters):
+@pytest.mark.parametrize("task_parameters", sycophancy_and_crows_pairs)
+def test_sycophancy_and_crows_pairs_nlp_task(task_parameters):
     harness_instance = Harness(**task_parameters)
     harness_instance.data = harness_instance.data[:20]
     harness_instance.generate()

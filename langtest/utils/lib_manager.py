@@ -17,9 +17,8 @@ def try_import_lib(lib: str) -> bool:
         return True
     except ImportError:
         return False
-    except Exception as err:
-        print(f"Failure to import {lib}.")
-        print(err)
+    except Exception:
+        return False
 
 
 def log_verbosity_handler(library: str, level: int = 50) -> None:

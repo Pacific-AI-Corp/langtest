@@ -39,6 +39,11 @@ exclude = [
     "tests/"
 ]
 
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
 [tool.flake8]
 max-line-length = 90
 ignore = "E203,E501,W503"
@@ -52,26 +57,26 @@ exclude = 'langtest/errors.py'
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 pydantic = ">=2.10.0"
-johnsnowlabs = {version = "5.5.0", optional = true}
+johnsnowlabs = {version = "^6.0.4", optional = true}
 rouge-score = { version = "^0.1.2", optional = true }
 evaluate = { version = "^0.4.0", optional = true }
-transformers = "^4.44.2"
+transformers = "^4.52.4"
 huggingface_hub = { version = ">0.16.0", optional = true}
 spacy = { version = ">=3.0.0", optional = true }
 nest-asyncio = "^1.5.0"
 openai = "^1.61.1"
 jsonlines = ">=3.1.0"
-torch = { version = "^2.0.0", optional = true }
+torch = {version = "^2.8.0", optional = true, source = "pytorch-cpu"}
 pandas = "^2.0.3"
 pyyaml = "^6.0"
 tqdm = "^4.67.1"
 cohere = { version = "^4.10.0", optional = true}
 ai21 = {version = "^1.1.0", optional = true}
 metaflow = {version = ">=2.9.0", optional = true}
-accelerate = {version = "0.34.2", optional = true}
+accelerate = {version = "^1.10.0", optional = true}
 seqeval = {version = "^1.2.0", optional = true}
-mlflow = {version = ">=3.1.0", optional = true}
-datasets = {version = ">=2.14.0", optional = true}
+mlflow = {version = "3.1.1", optional = true}
+datasets = {version = ">=3.6.0", optional = true}
 matplotlib = {version = "^3.7.2", optional = true}
 tenacity = {version = "^8.2.2", optional = true}
 langchain = {version = "^0.3.15", optional = true}
@@ -87,6 +92,8 @@ langchain-community = {version = "==0.3.9", optional = true}
 langchain-ollama = {version = "^0.2.2", optional = true}
 ollama = {version = "^0.4.7", optional = true}
 databricks-langchain = {version = "0.5.1", optional = true, markers = "python_version >= '3.10' and python_version < '4.0'"}
+scipy = {version = "1.13.1", optional = true}
+deprecated = "^1.2.18"
 
 [tool.poetry.extras]
 transformers = ["transformers", "torch", "accelerate", "datasets"]
@@ -123,7 +130,7 @@ lint = "pflake8 langtest/"
 format = "black langtest/ tests/"
 check-docstrings = "pydocstyle langtest/ --add-select=D417 --add-ignore=D100,D104,D105,D400,D415 --convention=google"
 is-formatted = "black --check langtest/ tests/"
-force-cpu-torch = "python -m pip install torch --index-url https://download.pytorch.org/whl/cpu"
+force-cpu-torch = "echo $(java -version) && pip cache purge && echo $(df -h) && echo $(pip show torch)"
 extra-lib = "python -m pip install openpyxl tables"
 
 

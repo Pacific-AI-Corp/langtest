@@ -52,6 +52,7 @@ jobs:
         run: |
           poetry cache clear pypi --all -n
           poetry install --with dev --all-extras --no-cache
+          pip uninstall -y pyspark
           pip install pyspark==3.5.6
 
       - name: Check linting

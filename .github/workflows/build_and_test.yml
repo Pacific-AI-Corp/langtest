@@ -37,8 +37,7 @@ jobs:
         with:
           version: 2.1.3
           virtualenvs-create: true
-          virtualenvs-in-project: false
-          virtualenvs-path: ${{ matrix.python-version }}/virtualenvs/
+          virtualenvs-in-project: true
           installer-parallel: true
 
       - name: Load cached venv
@@ -51,7 +50,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
-          pip uninstall -y pyspark
+          poetry cache clear --all
           poetry install --with dev --all-extras
           pip install pyspark==3.5.6
 

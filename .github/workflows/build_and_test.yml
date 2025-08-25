@@ -37,7 +37,8 @@ jobs:
         with:
           version: 2.1.3
           virtualenvs-create: true
-          virtualenvs-in-project: true
+          virtualenvs-in-project: false
+          virtualenvs-path: ${{ matrix.python-version }}/virtualenvs/
           installer-parallel: true
 
       - name: Load cached venv

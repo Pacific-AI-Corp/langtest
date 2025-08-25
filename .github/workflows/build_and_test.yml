@@ -50,6 +50,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: |
+          poetry cache clear pypi --all -n
           poetry install --with dev --all-extras --no-cache
           pip install pyspark==3.5.6
 

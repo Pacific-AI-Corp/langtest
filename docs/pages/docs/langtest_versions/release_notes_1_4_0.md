@@ -84,7 +84,7 @@ Economic Axis: This axis assesses a person's economic and fiscal views, ranging 
 Social Axis: This axis evaluates a person's social and cultural views, spanning from authoritarian (support for strong government control and traditional values) to libertarian (advocating personal freedoms, civil liberties, and social progressivism).
 
 Tutorial Notebook:
-[Political NB](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Political_Demo.ipynb)
+[Political NB](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Political_Demo.ipynb)
 
 
 #### Adding support for disinformation test 
@@ -129,7 +129,7 @@ You can set the hub parameter to huggingface and choose any model from [HF model
 
 
 Tutorial Notebook:
-[Text Generation NB](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/HuggingFaceHub_QA_Summarization_Testing_Notebook.ipynb)
+[Text Generation NB](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/HuggingFaceHub_QA_Summarization_Testing_Notebook.ipynb)
 
 
 ## 📝 BlogPosts

@@ -25,7 +25,7 @@ This deep dive into the ner.dl model's performance isn't just to show off its go
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-| **Accuracy** | John Snow Labs                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Accuracy_Demo.ipynb)                                |
+| **Accuracy** | John Snow Labs                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Accuracy_Demo.ipynb)                                |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

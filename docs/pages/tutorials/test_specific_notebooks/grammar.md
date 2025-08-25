@@ -23,7 +23,7 @@ In the Grammar notebook, we're looking at how tough the `lvwerra/distilbert-imdb
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-|  **Grammar**    | Huggingface                    | Text-Classification                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Grammar_Demo.ipynb)                              |
+|  **Grammar**    | Huggingface                    | Text-Classification                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Grammar_Demo.ipynb)                              |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

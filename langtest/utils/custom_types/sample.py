@@ -17,6 +17,7 @@ from typing import (
 from copy import deepcopy
 from PIL.Image import Image
 
+from langtest.metrics.llm_eval import RatingEval
 from langtest.modelhandler.modelhandler import ModelAPI
 from ...errors import Errors
 from pydantic import BaseModel, ConfigDict, PrivateAttr, Field, field_validator
@@ -3529,6 +3530,126 @@ class ShuffleOptions(QASample):
             }
         )
         return result
+
+
+class SimplePrompt(BaseModel):
+    """
+    Simple prompt class to handle prompt and response.
+    """
+
+    prompt: str = None
+    expected_results: str = None
+    actual_results: str = None
+    dataset_name: str = None
+    task: Literal["question-answering"] = "question-answering"
+    category: str = None
+    test_type: str = None
+    state: str = None
+    ran_pass: bool = None
+    metric_name: str = "llm_eval"
+    config: Union[str, dict] = None
+    feedback: str = None
+    threshold: int = 0.5
+    __eval_model: str = PrivateAttr(default=None)
+
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        Converts the SimplePrompt object to a dictionary.
+
+        Returns:
+            Dict[str, Any]: A dictionary representation of the SimplePrompt object.
+        """
+        result = {
+            "category": self.category,
+            "test_type": self.test_type,
+            "prompt": self.prompt,
+        }
+
+        if self.expected_results is not None and self.actual_results is not None:
+            result.update(
+                {
+                    "expected_result": self.expected_results,
+                    "actual_result": self.actual_results,
+                    "feedback": self.feedback,
+                    "pass": self.is_pass(),
+                }
+            )
+
+        return result
+
+    def is_pass(self) -> bool:
+        """
+        Checks if the sample has passed the evaluation.
+
+        Returns:
+            bool: True if the sample passed the evaluation, False otherwise.
+        """
+        if self.ran_pass is not None:
+            return self.ran_pass
+        self.feedback = self.is_pass_eval()
+
+        if (self.feedback.get("rating", 0) or 0) >= self.threshold:
+            self.ran_pass = True
+            return True
+        return False
+
+    def is_pass_eval(self) -> bool:
+        """
+        Checks if the evaluation is valid.
+
+        Returns:
+            bool: True if the evaluation is valid, False otherwise.
+        """
+        if self.ran_pass is not None:
+            return self.ran_pass
+
+        if self.config is None:
+            from langtest.langtest import HARNESS_CONFIG as harness_config
+
+            self.config = harness_config
+
+        evaluation_model = self.config.get("evaluation", {}).get("model", None)
+        evaluation_hub = self.config.get("evaluation", {}).get("hub", None)
+        evalution_metric = self.config.get("evaluation", {}).get("metric", "llm_eval")
+
+        self.threshold = self.config.get("evaluation", {}).get("threshold", 0.5)
+        if self.threshold is None and evalution_metric == "llm_eval":
+            self.threshold = 5
+
+        if evalution_metric == "llm_eval":
+            from langtest.metrics.llm_eval import SummaryEval
+            from langtest.tasks import TaskManager
+
+            # model initialization
+            task = TaskManager("question-answering")
+
+            if evaluation_model and evaluation_hub:
+                self.__eval_model = task.model(
+                    evaluation_model,
+                    evaluation_hub,
+                    **self.config.get("model_parameters", {}),
+                )
+            else:
+                from langtest.langtest import EVAL_MODEL
+
+                self.__eval_model = EVAL_MODEL
+            # Evaluation logic
+            llm_eval = RatingEval(
+                llm=self.__eval_model,
+                eval_prompt="Evaluate the response based on the prompt and rate it from 1 to 10. Prompt: {prompt}\nResponse: {response}\nRating:",
+                input_variables=["prompt", "response"],
+            )
+
+            results = llm_eval.evaluate(
+                inputs={
+                    "prompt": self.prompt,
+                },
+                predictions={
+                    "response": self.actual_results,
+                },
+            )
+            # self.feedback = results
+        return results
 
 
 Sample = TypeVar(

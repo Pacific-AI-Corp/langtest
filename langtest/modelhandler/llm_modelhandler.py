@@ -1,6 +1,7 @@
 import importlib
 import inspect
 
+import os
 from typing import Any, List, Type, Union, TypeVar
 import langchain.llms as lc
 import langchain.chat_models as chat_models
@@ -198,6 +199,10 @@ class PretrainedModelForQA(ModelAPI):
         if "max_tokens" in kwargs and hub in cls.HUB_PARAM_MAPPING:
             new_tokens_key = cls.HUB_PARAM_MAPPING[hub]
             kwargs[new_tokens_key] = kwargs.pop("max_tokens")
+
+        if hub in ["openrouter"]:
+            kwargs["base_url"] = "https://openrouter.ai/api/v1"
+            kwargs["api_key"] = os.environ.get("OPENROUTER_API_KEY", "")
 
     @lru_cache(maxsize=102400)
     def predict(self, text: Union[str, dict], prompt: dict, *args, **kwargs):

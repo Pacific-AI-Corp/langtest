@@ -11,7 +11,7 @@ RENAME_HUBS = {
     "transformers": "huggingface",
 }
 
-INSTALLED_HUBS = ["custom", "lm-studio", "web"]
+INSTALLED_HUBS = ["custom", "lm-studio", "web", "openrouter"]
 
 libraries = [
     ("johnsnowlabs", "langtest.modelhandler.jsl_modelhandler"),
@@ -43,6 +43,8 @@ if "langchain" in INSTALLED_HUBS:
         ): hub
         for hub in langchain.llms.__all__
     }
+    LANGCHAIN_HUBS["openrouter"] = "openrouter"
+
     INSTALLED_HUBS += list(LANGCHAIN_HUBS.keys())
 else:
     LANGCHAIN_HUBS = {}

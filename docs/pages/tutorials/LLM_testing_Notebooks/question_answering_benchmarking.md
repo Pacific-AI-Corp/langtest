@@ -22,7 +22,7 @@ This notebook provides a comprehensive overview of benchmarking Language Models 
 {:.table2}
 | Category               | Hub                           | Task                              |  Datset Used                                                                                                                                                                                                                                   | Open In Colab |
 | ----------------------------------- |
-| **Robustness**, **Accuracy** | Hugging Face Inference API                            | Question-Answering  | `OpenBookQA` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Question-Answering.ipynb)               |
+| **Robustness**, **Accuracy** | Hugging Face Inference API                            | Question-Answering  | `OpenBookQA` | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Question-Answering.ipynb)               |
 
 <div class="main-docs" markdown="1">
 

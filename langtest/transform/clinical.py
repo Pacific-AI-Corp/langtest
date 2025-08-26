@@ -986,7 +986,9 @@ class MedFuzz(BaseClinical):
                 llm_target = TargetLLM(model)
 
                 # sample
-                med_sample = MedFuzzSample(**sample.model_dump())
+                med_sample = MedFuzzSample(
+                    **sample.model_dump(exclude_none=True, exclude_unset=True)
+                )
                 med_sample.test_type = "medfuzz"
                 med_sample.category = "clinical"
 

@@ -25,7 +25,7 @@ The Evaluation Metrics notebook demonstrates the configurability of the LangTest
 {:.table2}
 | Category                                                                                                                  | Hub    | Task               | Open In Colab                                                                                                                                                                                       |
 | ------------------------------------------------------------------------------------------------------------------------- |
-| **Evaluation Metrics** : In this section, we discussed different evatuation metrics for evauate Quetion-Answering models. | OpenAI | Question-Answering | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb) |
+| **Evaluation Metrics** : In this section, we discussed different evatuation metrics for evauate Quetion-Answering models. | OpenAI | Question-Answering | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Evaluation_Metrics.ipynb) |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

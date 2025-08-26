@@ -24,7 +24,7 @@ In this representation notebook, we are evaluating `ner.dl` model on representat
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-| **Representation** | John Snow Labs                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Representation_Demo.ipynb)                                |
+| **Representation** | John Snow Labs                    | NER                               | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Representation_Demo.ipynb)                                |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

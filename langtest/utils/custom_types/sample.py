@@ -409,21 +409,21 @@ class BaseQASample(BaseModel):
     test_type: Optional[str] = None
     perturbed_question: Optional[str] = None
     perturbed_context: Optional[str] = None
-    expected_results: Result = None
-    actual_results: Result = None
+    expected_results: Optional[Result] = None
+    actual_results: Optional[Result] = None
     dataset_name: Optional[str] = None
     category: Optional[str] = None
     state: Optional[str] = None
     # task: str = Field(default="question-answering", frozen=True)
     task: Literal["question-answering"] = "question-answering"
     test_case: Optional[str] = None
-    config: Mapping[str, Mapping] = None
-    distance_result: float = None
-    eval_model: Union[str, tuple] = None
-    ran_pass: bool = None
+    config: Optional[Mapping[str, Mapping]] = None
+    distance_result: Optional[float] = None
+    eval_model: Optional[Union[str, tuple]] = None
+    ran_pass: Optional[bool] = None
     metric_name: Optional[str] = None
     gender: Optional[str] = None
-    loaded_fields: Dict[str, Any] = None
+    loaded_fields: Optional[Dict[str, Any]] = None
     feedback: Optional[str] = None
 
     def __init__(self, **data):

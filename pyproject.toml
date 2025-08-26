@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "langtest"
 version = "2.6.0"
-description = "John Snow Labs provides a library for delivering safe & effective NLP models."
-authors = ["John Snow Labs <support@johnsnowlabs.com>"]
+description = "Pacific AI provides a library for delivering safe & effective NLP models."
+authors = ["Pacific AI <support@johnsnowlabs.com>"]
 readme = "README.md"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -18,7 +18,7 @@ classifiers = [
 ]
 license = "Apache-2.0"
 homepage = "https://www.langtest.org"
-repository = "https://github.com/JohnSnowLabs/langtest/"
+repository = "https://github.com/Pacific-AI-Corp/langtest/"
 documentation = "https://langtest.org/docs/pages/docs/install"
 keywords = [
     "LLM",

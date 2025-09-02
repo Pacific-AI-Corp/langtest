@@ -4,6 +4,7 @@ import string
 from textwrap import dedent
 from typing import List, Mapping, Optional, Tuple
 from ..utils.custom_types.helpers import HashableDict
+from .eval_prompts import MENTAL_HEALTH_EVAL_PROMPT, MHCEvaluation
 
 template = """You are a teacher grading a quiz.
 You are given a question, the student's answer, and the true answer, and are asked to score the student answer as either CORRECT or INCORRECT.
@@ -344,7 +345,7 @@ class RatingEval:
     def __init__(
         self,
         llm,
-        eval_prompt: str,
+        eval_prompt: str = MENTAL_HEALTH_EVAL_PROMPT,
         input_variables: List[str] = ["prompt", "response"],
         include_groundtruth: bool = False,
     ):
@@ -422,6 +423,9 @@ class RatingEval:
                 **{
                     "template": self.eval_prompt,
                     "input_variables": self.input_variables,
+                    "partial_variables": {
+                        "output_format": MHCEvaluation.model_json_schema(),
+                    }
                 }
             ),
             text=HashableDict(

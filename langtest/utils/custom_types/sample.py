@@ -17,6 +17,7 @@ from typing import (
 from copy import deepcopy
 from PIL.Image import Image
 
+from langtest.metrics.eval_prompts import MENTAL_HEALTH_EVAL_PROMPT
 from langtest.metrics.llm_eval import RatingEval
 from langtest.modelhandler.modelhandler import ModelAPI
 from ...errors import Errors
@@ -3591,6 +3592,14 @@ class SimplePrompt(BaseModel):
         if (self.feedback.get("rating", 0) or 0) >= self.threshold:
             self.ran_pass = True
             return True
+        elif (self.feedback.get("metrics", {}) ):
+            # average of all metrics
+            total = sum(self.feedback.get("metrics", {}).values())
+            avg = round(total / len(self.feedback.get("metrics", {})), 2)
+            if avg >= self.threshold:
+                self.ran_pass = True
+                return True
+
         return False
 
     def is_pass_eval(self) -> bool:
@@ -3636,7 +3645,7 @@ class SimplePrompt(BaseModel):
             # Evaluation logic
             llm_eval = RatingEval(
                 llm=self.__eval_model,
-                eval_prompt="Evaluate the response based on the prompt and rate it from 1 to 10. Prompt: {prompt}\nResponse: {response}\nRating:",
+                eval_prompt=MENTAL_HEALTH_EVAL_PROMPT,
                 input_variables=["prompt", "response"],
             )
 

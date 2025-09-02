@@ -1247,6 +1247,9 @@ class MentalHealth(BaseClinical):
         """Transform method for the MentalHealth class"""
         from datasets import load_dataset
         from langtest.utils.custom_types.sample import SimplePrompt
+        import random
+
+        random.seed(42)
 
         sample_size = kwargs.get("sample_size", 50)
         include_ground_truth = kwargs.get("include_ground_truth", True)
@@ -1255,7 +1258,7 @@ class MentalHealth(BaseClinical):
 
         transformed_samples = []
 
-        for each_row in df.iloc[:sample_size].to_dict(orient="records"):
+        for each_row in df.sample(sample_size).to_dict(orient="records"):
             sample = SimplePrompt()
             sample.prompt = each_row["input"]
             if include_ground_truth:

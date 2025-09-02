@@ -393,7 +393,7 @@ class RatingEval:
             if scores:
                 return {"rating": float(scores[0]), "reasoning": text.strip()}
 
-        except Exception as e:
+        except Exception:
             pass
 
         return {
@@ -425,7 +425,7 @@ class RatingEval:
                     "input_variables": self.input_variables,
                     "partial_variables": {
                         "output_format": MHCEvaluation.model_json_schema(),
-                    }
+                    },
                 }
             ),
             text=HashableDict(

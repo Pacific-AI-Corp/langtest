@@ -3592,7 +3592,7 @@ class SimplePrompt(BaseModel):
         if (self.feedback.get("rating", 0) or 0) >= self.threshold:
             self.ran_pass = True
             return True
-        elif (self.feedback.get("metrics", {}) ):
+        elif self.feedback.get("metrics", {}):
             # average of all metrics
             total = sum(self.feedback.get("metrics", {}).values())
             avg = round(total / len(self.feedback.get("metrics", {})), 2)
@@ -3626,7 +3626,6 @@ class SimplePrompt(BaseModel):
             self.threshold = 5
 
         if evalution_metric == "llm_eval":
-            from langtest.metrics.llm_eval import SummaryEval
             from langtest.tasks import TaskManager
 
             # model initialization

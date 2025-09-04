@@ -23,7 +23,7 @@ In the Translation section, we're delving into the details of testing translatio
 {:.table2}
 | Category               | Hub                           | Task                              | Open In Colab                                                                                                                                                                                                                                    |
 | ----------------------------------- |
-| **Translation** :  | Hugging Face/John Snow Labs       | Translation                       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Translation_Notebook.ipynb)                         |
+| **Translation** :  | Hugging Face/John Snow Labs       | Translation                       | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Translation_Notebook.ipynb)                         |
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

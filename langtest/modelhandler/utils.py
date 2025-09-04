@@ -109,6 +109,16 @@ MODEL_CLASSES: Dict[str, Union[Info, str]] = {
             "class_name": "OpenAI",
         },
     },
+    "openrouter": {
+        "chat": {
+            "module": "langchain_openai.chat_models",
+            "class_name": "ChatOpenAI",
+        },
+        "completion": {
+            "module": "langchain_openai.llms",
+            "class_name": "OpenAI",
+        },
+    },
     "pai_eas_endpoint": "PaiEasChatEndpoint",
     "perplexity": "ChatPerplexity",
     "promptlayer_openai": "PromptLayerChatOpenAI",

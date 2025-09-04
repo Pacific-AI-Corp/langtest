@@ -235,7 +235,7 @@ This test evaluates the model's political orientation. There is one default data
 {:.table2}
 | Dataset                        | Source                                                                                  | Description                                                      |Notebook        |   
 | ------------------------------ | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |----------------|
-| **Ideology Compass Questions** | [3 Axis Political Compass Test](https://github.com/SapplyValues/SapplyValues.github.io) | Political Compass questions, containing 40 questions for 2 axes. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/test-specific-notebooks/Political_Demo.ipynb) |
+| **Ideology Compass Questions** | [3 Axis Political Compass Test](https://github.com/SapplyValues/SapplyValues.github.io) | Political Compass questions, containing 40 questions for 2 axes. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/test-specific-notebooks/Political_Demo.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 
@@ -262,7 +262,7 @@ The Factuality Test is designed to evaluate the ability of LLMs to determine the
 {:.table2}
 | Dataset                   | Source                                                                                                                                                                                             | Description                                             | Notebook        |   
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |-------------|
-| **Factual-Summary-Pairs** | [LLAMA-2 is about as factually accurate as GPT-4 for summaries and is 30x cheaper](https://www.anyscale.com/blog/llama-2-is-about-as-factually-accurate-as-gpt-4-for-summaries-and-is-30x-cheaper) | Factual-Summary-Pairs, containing 371 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Factuality_Test.ipynb) |
+| **Factual-Summary-Pairs** | [LLAMA-2 is about as factually accurate as GPT-4 for summaries and is 30x cheaper](https://www.anyscale.com/blog/llama-2-is-about-as-factually-accurate-as-gpt-4-for-summaries-and-is-30x-cheaper) | Factual-Summary-Pairs, containing 371 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Factuality_Test.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 
@@ -290,7 +290,7 @@ The Legal test assesses LLMs' ability to discern the level of support provided b
 {:.table2}
 | Dataset                   | Source                                                                                                                                                                                             | Description                                             | Notebook        |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |-------------|
-| **legal-support** | [legal Support Scenario](https://github.com/stanford-crfm/helm/blob/main/src/helm/benchmark/scenarios/legal_support_scenario.py) | The legal-support dataset includes 100 labeled examples designed to evaluate models' performance in discerning the level of support provided by different case summaries for a given legal claim. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Legal_Support.ipynb) |
+| **legal-support** | [legal Support Scenario](https://github.com/stanford-crfm/helm/blob/main/src/helm/benchmark/scenarios/legal_support_scenario.py) | The legal-support dataset includes 100 labeled examples designed to evaluate models' performance in discerning the level of support provided by different case summaries for a given legal claim. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Legal_Support.ipynb) |
 
 
 </div><div class="h3-box" markdown="1">
@@ -319,9 +319,9 @@ The Sensitivity Test comprises two distinct evaluations: one focusing on assessi
 
 | Test Name | Supported Dataset                                                               |       split         | Notebook                                                                                                                                                                                                   |
 | --------- | ------------------------------------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Add Toxic Words](/docs/pages/tests/sensitivity#add-toxic-words)  | [wikiDataset](https://huggingface.co/datasets/wikitext)                              |  test, test-tiny | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb) |
-| [Add Negation](/docs/pages/tests/sensitivity#add-negation)  | [NQ-open](https://aclanthology.org/Q19-1026/) | test, test-tiny, combined  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb) |
-| [Add Negation](/docs/pages/tests/sensitivity#add-negation)  | [OpenBookQA](https://arxiv.org/abs/1809.02789) | test, test-tiny | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb) |
+| [Add Toxic Words](/docs/pages/tests/sensitivity#add-toxic-words)  | [wikiDataset](https://huggingface.co/datasets/wikitext)                              |  test, test-tiny | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb) |
+| [Add Negation](/docs/pages/tests/sensitivity#add-negation)  | [NQ-open](https://aclanthology.org/Q19-1026/) | test, test-tiny, combined  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb) |
+| [Add Negation](/docs/pages/tests/sensitivity#add-negation)  | [OpenBookQA](https://arxiv.org/abs/1809.02789) | test, test-tiny | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sensitivity_Test.ipynb) |
 
 #### Passing a Sensitivity Test Dataset to the Harness
 
@@ -344,7 +344,7 @@ StereoSet test is designed to evaluate the ability of LLMs to measure stereotypi
 {:.table2}
 | Dataset                   | Source                                                                                                                                                                                             | Description                                             | Notebook        |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |-------------|
-| **StereoSet** | [StereoSet: Measuring stereotypical bias in pretrained language models](https://paperswithcode.com/dataset/stereoset) | StereoSet dataset contains 4229 samples. This dataset uses pairs of sentences, where one of them is more stereotypic and the other one is anti-stereotypic. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/StereoSet_Notebook.ipynb) |
+| **StereoSet** | [StereoSet: Measuring stereotypical bias in pretrained language models](https://paperswithcode.com/dataset/stereoset) | StereoSet dataset contains 4229 samples. This dataset uses pairs of sentences, where one of them is more stereotypic and the other one is anti-stereotypic. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/StereoSet_Notebook.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 
@@ -376,8 +376,8 @@ Sycophancy is an undesirable behavior where models tailor their responses to ali
 {:.table2}
 | Test Name       | Supported Dataset    | Notebook                                                                                                                                                                                                  |
 | --------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| sycophancy_math | sycophancy-math-data | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy_test.ipynb) |
-| sycophancy_nlp  | sycophancy-nlp-data  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy_test.ipynb) |
+| sycophancy_math | sycophancy-math-data | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy_test.ipynb) |
+| sycophancy_nlp  | sycophancy-nlp-data  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Sycophancy_test.ipynb) |
 
 #### Passing a Sycophancy Math Dataset to the Harness
 
@@ -458,8 +458,8 @@ Stereotype tests play a crucial role in assessing the performance of models when
 {:.table2}
 | Test Name       | Supported Dataset    | Notebook                                                                                                                                                                                                  |
 | --------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| wino-bias | Wino-test | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Wino_Bias.ipynb) |
-| crows-pairs  | Crows-Pairs  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Crows_Pairs_Notebook.ipynb) |
+| wino-bias | Wino-test | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Wino_Bias.ipynb) |
+| crows-pairs  | Crows-Pairs  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Crows_Pairs_Notebook.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 #### Passing a Wino Bias Dataset to the Harness
@@ -518,9 +518,9 @@ Clinical test assesses LLMs' capability to detect demographic bias, which involv
 {:.table2}
 | Dataset                   | Source                                                                                                                                                                                             | Description                                             | Notebook        |   
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |-------------|
-| **Medical-files** | curated dataset | Medical-files, containing 49 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Clinical_Tests.ipynb) |
-| **Gastroenterology-files** | curated dataset | Gastroenterology-files, containing 49 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Clinical_Tests.ipynb) |
-| **Oromaxillofacial-files** | curated dataset | Oromaxillofacial-files, containing 49 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Clinical_Tests.ipynb) |
+| **Medical-files** | curated dataset | Medical-files, containing 49 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Clinical_Tests.ipynb) |
+| **Gastroenterology-files** | curated dataset | Gastroenterology-files, containing 49 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Clinical_Tests.ipynb) |
+| **Oromaxillofacial-files** | curated dataset | Oromaxillofacial-files, containing 49 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Clinical_Tests.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 
@@ -551,7 +551,7 @@ This test evaluates the model's disinformation generation capability. Users shou
 {:.table2}
 | Dataset               | Source                                                                                                                                            | Notebook    |Description                                                |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------ |
-| **Narrative-Wedging** | [Truth, Lies, and Automation How Language Models Could Change Disinformation](https://cset.georgetown.edu/publication/truth-lies-and-automation/) | Narrative-Wedging dataset, containing 26 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Disinformation_Test.ipynb) |
+| **Narrative-Wedging** | [Truth, Lies, and Automation How Language Models Could Change Disinformation](https://cset.georgetown.edu/publication/truth-lies-and-automation/) | Narrative-Wedging dataset, containing 26 labeled examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Disinformation_Test.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 
@@ -579,7 +579,7 @@ The Security Test assesses LLMs' capability to identify and mitigate prompt inje
 {:.table2}
 | Dataset                   | Source                                                                                                                                                                                             | Description                                             | Notebook        |   
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |-------------|
-| **Prompt-Injection-Attack** | curated dataset |Prompt-Injection-Attack, containing 17 examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Prompt_Injections_Tests.ipynb) |
+| **Prompt-Injection-Attack** | curated dataset |Prompt-Injection-Attack, containing 17 examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Prompt_Injections_Tests.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 
@@ -610,7 +610,7 @@ This test checks the toxicity of the completion., the user is meant to select a 
 {:.table2}
 | Dataset                | Source                                                                     | Description                                                                   |  Notebook  |
 | ---------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------|
-| **Toxicity** | [Real Toxicity Prompts](https://aclanthology.org/2020.findings-emnlp.301/) | Truncated set from the Real Toxicity Prompts Dataset, containing 80 examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb)|
+| **Toxicity** | [Real Toxicity Prompts](https://aclanthology.org/2020.findings-emnlp.301/) | Truncated set from the Real Toxicity Prompts Dataset, containing 80 examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Toxicity_NB.ipynb)|
 
 </div><div class="h3-box" markdown="1">
 
@@ -638,7 +638,7 @@ harness = Harness(task={"task":"text-generation", "category":"toxicity"},
 {:.table2}
 | Dataset                   | Source                                                                                                                                                                                             | Description                                             | Notebook        |   
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |-------------|
-| **Translation** | [Massively Multilingual Sentence Embeddings for Zero-Shot Cross-Lingual Transfer and Beyond](https://paperswithcode.com/dataset/tatoeba) | Translation, containing 4400 examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/task-specific-notebooks/Translation_Notebook.ipynb) |
+| **Translation** | [Massively Multilingual Sentence Embeddings for Zero-Shot Cross-Lingual Transfer and Beyond](https://paperswithcode.com/dataset/tatoeba) | Translation, containing 4400 examples. |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/task-specific-notebooks/Translation_Notebook.ipynb) |
 
 </div><div class="h3-box" markdown="1">
 

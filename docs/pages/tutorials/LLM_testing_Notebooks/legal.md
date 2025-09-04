@@ -23,7 +23,7 @@ The Legal Benchmark Test evaluates a model's legal reasoning and comprehension, 
 {:.table2}
 | Category               | Hub       | Task               | Dataset Used | Open In Colab                                                                                                                                                                          |
 |------------------------|-----------|--------------------|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                 |
-| **Legal-Tests** | OpenAI                            | Question-Answering   | Legal-Support | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Legal_Support.ipynb)                                          |                                
+| **Legal-Tests** | OpenAI                            | Question-Answering   | Legal-Support | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Legal_Support.ipynb)                                          |                                
 
 <div class="main-docs" markdown="1"><div class="h3-box" markdown="1">
 

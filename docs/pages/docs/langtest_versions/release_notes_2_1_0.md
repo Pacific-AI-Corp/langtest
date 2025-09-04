@@ -29,7 +29,7 @@ John Snow Labs is thrilled to announce the release of LangTest 2.1.0! This updat
 ## 🔥 Key Enhancements:
 
 ### **🔗 Streamlined Integration and Enhanced Functionality for API-Based Large Language Models:**
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Generic_API-Based_Model_Testing_Demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Generic_API-Based_Model_Testing_Demo.ipynb)
 
 This feature empowers you to seamlessly integrate virtually any language model hosted on an external API platform. Whether you prefer OpenAI, Hugging Face, or even custom vLLM solutions, LangTest now adapts to your workflow. `input_processor` and `output_parser` functions are not required for openai api compatible server.
 
@@ -135,7 +135,7 @@ harness = Harness(
 harness.generate().run().report()
 ```
 ### 📊 Multi-Dataset Handling and Evaluation
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb)
 
 This feature empowers you to efficiently benchmark your language models across a wider range of datasets.
 
@@ -186,7 +186,7 @@ harness.generate().run().report()
 ![image](https://github.com/JohnSnowLabs/langtest/assets/23481244/0d48be2f-e5bc-4971-b0a1-2756a10d3f24)
 
 ### 🖥️ Streamlined Evaluation Workflows with Enhanced CLI Commands
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Langtest_Cli_Eval_Command.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Langtest_Cli_Eval_Command.ipynb)
 
 LangTest's evaluation capabilities, focusing on report management and leaderboards. These enhancements empower you to:
 
@@ -287,9 +287,9 @@ langtest show-leaderboard
 {:.table2}
 | Notebooks          | Colab Link |
 |--------------------|-------------|
-| Generic API-based Model Testing         | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/llm_notebooks/Generic_API-Based_Model_Testing_Demo.ipynb)|
-| Multi-Dataset     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb) |
-| Langtest Eval Cli Command     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JohnSnowLabs/langtest/blob/main/demo/tutorials/benchmarks/Langtest_Cli_Eval_Command.ipynb) |
+| Generic API-based Model Testing         | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/llm_notebooks/Generic_API-Based_Model_Testing_Demo.ipynb)|
+| Multi-Dataset     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/misc/Multiple_dataset.ipynb) |
+| Langtest Eval Cli Command     | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Pacific-AI-Corp/langtest/blob/main/demo/tutorials/benchmarks/Langtest_Cli_Eval_Command.ipynb) |
 
 
 ## 🐛 Fixes

@@ -25,6 +25,7 @@ if try_import_lib("langchain"):
         ): hub
         for hub in langchain.llms.__all__
     }
+    LANGCHAIN_HUBS["openrouter"] = "openrouter"
 else:
     LANGCHAIN_HUBS = {}
 

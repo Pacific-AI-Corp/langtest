@@ -3538,20 +3538,20 @@ class SimplePrompt(BaseModel):
     Simple prompt class to handle prompt and response.
     """
 
-    prompt: str = None
-    expected_results: str = None
-    actual_results: str = None
-    dataset_name: str = None
+    prompt: Optional[str] = None
+    expected_results: Optional[str] = None
+    actual_results: Optional[str] = None
+    dataset_name: Optional[str] = None
     task: Literal["question-answering"] = "question-answering"
-    category: str = None
-    test_type: str = None
-    state: str = None
-    ran_pass: bool = None
-    metric_name: str = "llm_eval"
-    config: Union[str, dict] = None
-    feedback: str = None
-    threshold: int = 0.5
-    __eval_model: str = PrivateAttr(default=None)
+    category: Optional[str] = None
+    test_type: Optional[str] = None
+    state: Optional[str] = None
+    ran_pass: Optional[bool] = None
+    metric_name: Optional[str] = "llm_eval"
+    config: Optional[Union[str, dict]] = None
+    feedback: Optional[str] = None
+    threshold: Optional[int] = 0.5
+    __eval_model: Optional[str] = PrivateAttr(default=None)
 
     def to_dict(self) -> Dict[str, Any]:
         """
@@ -3587,7 +3587,9 @@ class SimplePrompt(BaseModel):
         """
         if self.ran_pass is not None:
             return self.ran_pass
-        self.feedback = self.is_pass_eval()
+
+        if self.feedback is None:
+            self.feedback = self.is_pass_eval()
 
         if (self.feedback.get("rating", 0) or 0) >= self.threshold:
             self.ran_pass = True

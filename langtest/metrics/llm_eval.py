@@ -4,6 +4,7 @@ import string
 from textwrap import dedent
 from typing import List, Mapping, Optional, Tuple
 from ..utils.custom_types.helpers import HashableDict
+from .eval_prompts import MENTAL_HEALTH_EVAL_PROMPT, MHCEvaluation
 
 template = """You are a teacher grading a quiz.
 You are given a question, the student's answer, and the true answer, and are asked to score the student answer as either CORRECT or INCORRECT.
@@ -335,4 +336,126 @@ class SummaryEval:
         for input_example, prediction_example in zip(inputs, predictions):
             result = self.evaluate(input_example, prediction_example)
             results.append(result)
+        return results
+
+
+class RatingEval:
+    """RatingEval for evaluating responses with customizable rating prompts."""
+
+    def __init__(
+        self,
+        llm,
+        eval_prompt: str = MENTAL_HEALTH_EVAL_PROMPT,
+        input_variables: List[str] = ["prompt", "response"],
+        include_groundtruth: bool = False,
+    ):
+        """
+        Initialize RatingEval with custom evaluation prompt.
+
+        Args:
+            llm: The language model for evaluation
+            eval_prompt: Custom prompt template for evaluation
+            input_variables: Variables expected in the input
+            include_groundtruth: Whether to include groundtruth in evaluation
+        """
+        self.llm = llm
+        self.eval_prompt = eval_prompt
+        self.input_variables = input_variables
+        self.include_groundtruth = include_groundtruth
+
+    def _parse_rating_output(self, text: str) -> dict:
+        """
+        Parse the rating output from the model response.
+
+        Args:
+            text: The model's response text
+
+        Returns:
+            dict: Parsed rating results
+        """
+        try:
+            # Try to extract JSON/dict format
+            match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
+            if match:
+                dict_str = match.group(1)
+                result_dict = ast.literal_eval(dict_str)
+                return result_dict
+
+            # Try to parse as direct dict string
+            if text.strip().startswith("{") and text.strip().endswith("}"):
+                result_dict = ast.literal_eval(text.strip())
+                return result_dict
+
+            # Extract numeric scores if present
+            score_pattern = r"(\d+(?:\.\d+)?)"
+            scores = re.findall(score_pattern, text)
+
+            if scores:
+                return {"rating": float(scores[0]), "reasoning": text.strip()}
+
+        except Exception:
+            pass
+
+        return {
+            "rating": None,
+            "reasoning": text.strip(),
+            "error": "Could not parse rating",
+        }
+
+    def evaluate(self, inputs: dict, predictions: dict) -> List[dict]:
+        """
+        Evaluate a single prompt-response pair.
+
+        Args:
+            prompt: The input prompt
+            response: The model's response
+            groundtruth: Optional ground truth answer
+
+        Returns:
+            dict: Evaluation results
+        """
+        prompt = inputs.get("prompt", "")
+        response = predictions.get("response", "")
+        groundtruth = inputs.get("groundtruth") if self.include_groundtruth else None
+
+        output = self.llm.predict(
+            prompt=HashableDict(
+                **{
+                    "template": self.eval_prompt,
+                    "input_variables": self.input_variables,
+                    "partial_variables": {
+                        "output_format": MHCEvaluation.model_json_schema(),
+                    },
+                }
+            ),
+            text=HashableDict(
+                **{
+                    "prompt": prompt,
+                    "response": response,
+                    "groundtruth": groundtruth,
+                }
+            ),
+        )
+
+        return self._parse_rating_output(output)
+
+    def evaluate_batch(self, examples: List[dict]) -> List[dict]:
+        """
+        Evaluate a batch of examples.
+
+        Args:
+            examples: List of dicts with 'prompt', 'response', and optionally 'groundtruth'
+
+        Returns:
+            List[dict]: List of evaluation results
+        """
+        results = []
+        for example in examples:
+            prompt = example.get("prompt", "")
+            response = example.get("response", "")
+            groundtruth = example.get("groundtruth") if self.include_groundtruth else None
+
+            result = self.evaluate(prompt, response, groundtruth)
+            results.append(result)
+
         return results

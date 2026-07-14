@@ -308,7 +308,7 @@ description = "High-level concurrency and networking framework on top of asyncio
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"mlflow\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"ollama-sdk\" or extra == \"mlflow\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"mlflow\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"mlflow\""
 files = [
     {file = "anyio-4.14.1-py3-none-any.whl", hash = "sha256:4e5533c5b8ff0a24f5d7a176cbe6877129cd183893f66b537f8f227d10527d72"},
     {file = "anyio-4.14.1.tar.gz", hash = "sha256:8d648a3544c1a700e3ff78615cd679e4c5c3f149904287e73687b2596963629e"},
@@ -1699,7 +1699,7 @@ description = "Distro - an OS platform information API"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2"},
     {file = "distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed"},
@@ -2595,7 +2595,7 @@ description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"mlflow\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"ollama-sdk\" or extra == \"mlflow\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"mlflow\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"mlflow\""
 files = [
     {file = "h11-0.16.0-py3-none-any.whl", hash = "sha256:63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86"},
     {file = "h11-0.16.0.tar.gz", hash = "sha256:4e35b956cf45792e4caa5885e69fba00bdbc6ffafbfa020300e549b208ee5ff1"},
@@ -2647,7 +2647,7 @@ description = "A minimal low-level HTTP client."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "httpcore-1.0.9-py3-none-any.whl", hash = "sha256:2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55"},
     {file = "httpcore-1.0.9.tar.gz", hash = "sha256:6e34463af53fd2ab5d807f399a9b45ea31c3dfa2276f15a2c3f00afff6e176e8"},
@@ -2670,7 +2670,7 @@ description = "The next generation HTTP client."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"spacy\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "httpx-0.28.1-py3-none-any.whl", hash = "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad"},
     {file = "httpx-0.28.1.tar.gz", hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc"},
@@ -3182,7 +3182,7 @@ description = "Apply JSON-Patches (RFC 6902)"
 optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "jsonpatch-1.33-py2.py3-none-any.whl", hash = "sha256:0ae28c0cd062bbd8b8ecc26d7d164fbbea9652a1a3693f3b956c1eae5145dade"},
     {file = "jsonpatch-1.33.tar.gz", hash = "sha256:9fcd4009c41e6d12348b4a0ff2563ba56a2923a7dfee731d004e212e1ee5030c"},
@@ -3198,7 +3198,7 @@ description = "Identify specific nodes in a JSON document (RFC 6901) "
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "jsonpointer-3.1.1-py3-none-any.whl", hash = "sha256:8ff8b95779d071ba472cf5bc913028df06031797532f08a7d5b602d8b2a488ca"},
     {file = "jsonpointer-3.1.1.tar.gz", hash = "sha256:0b801c7db33a904024f6004d526dcc53bbb8a4a0f4e32bfd10beadf60adf1900"},
@@ -3379,19 +3379,19 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "1.3.11"
+version = "1.3.13"
 description = "Building applications with LLMs through composability"
 optional = true
 python-versions = "<4.0.0,>=3.10.0"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"true\") or extra == \"true\""
 files = [
-    {file = "langchain-1.3.11-py3-none-any.whl", hash = "sha256:7ae011f95a09b22feea1e8ae4e43f0b6164aebf4c61b8ad845b45f72ff3a90a2"},
-    {file = "langchain-1.3.11.tar.gz", hash = "sha256:f3cf9cd4d2329b1a03eb8fd92b9d73e4e58a4d52570d67725fc77fbe0f104b32"},
+    {file = "langchain-1.3.13-py3-none-any.whl", hash = "sha256:20a8fe4b1dea7db74356f7d2b5455c4970099b9f7f53c2122ea97f115c907fbd"},
+    {file = "langchain-1.3.13.tar.gz", hash = "sha256:bcf874680f31e9970f0db2264509df5bc2115d9680e9d651d537eb49bf1a7d8a"},
 ]
 
 [package.dependencies]
-langchain-core = ">=1.4.7,<2.0.0"
+langchain-core = ">=1.4.9,<2.0.0"
 langgraph = ">=1.2.5,<1.3.0"
 pydantic = ">=2.7.4,<3.0.0"
 
@@ -3407,6 +3407,7 @@ google-genai = ["langchain-google-genai"]
 google-vertexai = ["langchain-google-vertexai"]
 groq = ["langchain-groq"]
 huggingface = ["langchain-huggingface"]
+meta = ["langchain-meta"]
 mistralai = ["langchain-mistralai"]
 ollama = ["langchain-ollama"]
 openai = ["langchain-openai"]
@@ -3486,15 +3487,15 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<10.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "1.4.8"
+version = "1.4.9"
 description = "Building applications with LLMs through composability"
 optional = true
 python-versions = "<4.0.0,>=3.10.0"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
-    {file = "langchain_core-1.4.8-py3-none-any.whl", hash = "sha256:d84c28b05e3ba8d4271d0827aad5b592ccdaaf986e76768c23503f0a2045e8aa"},
-    {file = "langchain_core-1.4.8.tar.gz", hash = "sha256:5bf1f8411077c904182ad8f975943d36adcbf579c4e017b3a118b719229ebf9a"},
+    {file = "langchain_core-1.4.9-py3-none-any.whl", hash = "sha256:28e3909e2a10cc81504952d795ac0a9e014c0018121ef89d48dd396fa09ec624"},
+    {file = "langchain_core-1.4.9.tar.gz", hash = "sha256:f8078901145bed0466755277500a5a22822a7b628808c4c0a28d4fc88895fcf2"},
 ]
 
 [package.dependencies]
@@ -3550,7 +3551,7 @@ description = "Python bindings for the LangChain agent streaming protocol"
 optional = true
 python-versions = "<4.0.0,>=3.10.0"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "langchain_protocol-0.0.18-py3-none-any.whl", hash = "sha256:70b53a86fbf9cedc863555effe44da192ab02d556ddbf2cf95b8873adcf41b5a"},
     {file = "langchain_protocol-0.0.18.tar.gz", hash = "sha256:ec3e11782f1ed0c9db38e5a9ed01b0e7a0d3fba406faa8aef6594b73c56a63e6"},
@@ -3582,7 +3583,7 @@ description = "Building stateful, multi-actor applications with LLMs"
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"true\") or extra == \"true\""
 files = [
     {file = "langgraph-1.2.7-py3-none-any.whl", hash = "sha256:249349a5d6a32cb0aa2304a8fb6529bd0cf56db8780d21db9e086e5383668f89"},
     {file = "langgraph-1.2.7.tar.gz", hash = "sha256:dcdf5b441bf8c7c7c154e603b302c9dbfbfd2d11e1b7ae7d93a5aba979dc87bd"},
@@ -3603,7 +3604,7 @@ description = "Library with base interfaces for LangGraph checkpoint savers."
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"true\") or extra == \"true\""
 files = [
     {file = "langgraph_checkpoint-4.1.1-py3-none-any.whl", hash = "sha256:25d29144b082827218e7bc3f1e9b0566a4bb007895cd6cc26f66a8428739f56e"},
     {file = "langgraph_checkpoint-4.1.1.tar.gz", hash = "sha256:6c2bdb530c91f91d7d9c1bd100925d0fc4f498d418c17f3587d1526279482a25"},
@@ -3620,7 +3621,7 @@ description = "Library with high-level APIs for creating and executing LangGraph
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"true\") or extra == \"true\""
 files = [
     {file = "langgraph_prebuilt-1.1.0-py3-none-any.whl", hash = "sha256:51e311747d755b751d5c6b39b0c1446124d3a7643d2515017e6714b323508fc9"},
     {file = "langgraph_prebuilt-1.1.0.tar.gz", hash = "sha256:3c579cf6eed2d17f9c157c2d0fcaddcd8688524e7022d3b22b37a3bf4589d528"},
@@ -3637,7 +3638,7 @@ description = "SDK for interacting with LangGraph API"
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"true\") or extra == \"true\""
 files = [
     {file = "langgraph_sdk-0.4.2-py3-none-any.whl", hash = "sha256:75fa5096c1177ce39c847096a8fe3745ffd480ddb412995f836e9f5f884c43dd"},
     {file = "langgraph_sdk-0.4.2.tar.gz", hash = "sha256:b88f0f5f6328ac0680d6790614a905b2bcfa257f2276dba4e38f0e86db0aa738"},
@@ -3657,7 +3658,7 @@ description = "Client library to connect to the LangSmith Observability and Eval
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "langsmith-0.9.7-py3-none-any.whl", hash = "sha256:a5ff9179b77eb0c3a0129294d30924eab13e51e2720f374372dbbc014c892911"},
     {file = "langsmith-0.9.7.tar.gz", hash = "sha256:40f8a66a466a7abd991a9df1b50de0a9d30c48ee0d3da46ce00516b68e41c9d7"},
@@ -4979,7 +4980,7 @@ description = "Fast, correct Python JSON library supporting dataclasses, datetim
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (platform_python_implementation != \"PyPy\" or extra == \"databricks\" or extra == \"true\") and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or (extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\") and (platform_python_implementation != \"PyPy\" or extra == \"true\") and python_version >= \"3.13\""
 files = [
     {file = "orjson-3.11.9-cp310-cp310-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl", hash = "sha256:135869ef917b8704ea0a94e01620e0c05021c15c52036e4663baffe75e72f8ce"},
     {file = "orjson-3.11.9-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:115ab5f5f4a0f203cc2a5f0fb09aee503a3f771aa08392949ab5ca230c4fbdbd"},
@@ -5064,7 +5065,7 @@ description = "Fast, correct Python msgpack library supporting dataclasses, date
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"true\") or extra == \"true\""
 files = [
     {file = "ormsgpack-1.12.2-cp310-cp310-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:c1429217f8f4d7fcb053523bbbac6bed5e981af0b85ba616e6df7cce53c19657"},
     {file = "ormsgpack-1.12.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5f13034dc6c84a6280c6c33db7ac420253852ea233fc3ee27c8875f8dd651163"},
@@ -6703,7 +6704,7 @@ description = "A utility belt for advanced users of python-requests"
 optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "requests-toolbelt-1.0.0.tar.gz", hash = "sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6"},
     {file = "requests_toolbelt-1.0.0-py2.py3-none-any.whl", hash = "sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06"},
@@ -7061,7 +7062,7 @@ description = "Sniff out which async library your code is running under"
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2"},
     {file = "sniffio-1.3.1.tar.gz", hash = "sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc"},
@@ -8190,7 +8191,7 @@ description = "Fast, drop-in replacement for Python's uuid module, powered by Ru
 optional = true
 python-versions = ">=3.10"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "uuid_utils-0.16.2-cp310-cp310-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:89a627f74cb55aa508809592ab9149806649e4ee37f4bc91b60c7ec10929f0eb"},
     {file = "uuid_utils-0.16.2-cp310-cp310-macosx_10_12_x86_64.whl", hash = "sha256:e92875a315f3cc4fe7a2324c17b3c7ac5e3fd0e24b14fc4deb28370431fe6a2b"},
@@ -8402,7 +8403,7 @@ description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "websockets-15.0.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d63efaa0cd96cf0c5fe4d581521d9fa87744540d4bc999ae6e08595a1014b45b"},
     {file = "websockets-15.0.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:ac60e3b188ec7574cb761b08d50fcedf9d77f1530352db4eef1707fe9dee7205"},
@@ -8604,7 +8605,7 @@ description = "Python binding for xxHash"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\" or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\") or extra == \"evaluate\" or extra == \"transformers\" or extra == \"datasets\" or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "xxhash-3.8.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a2289857ab90ebb2408d4ac2b7cf7e9ff29bba9d2cb21020c9d11fbbaef78eea"},
     {file = "xxhash-3.8.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:d211cfa927a107df09359d1f31070883a11121ddc88fd6dd27eda3a497a88f3d"},
@@ -8943,7 +8944,7 @@ description = "Zstandard bindings for Python"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"llms\" or extra == \"ollama-sdk\") or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"huggingface-hub\" or extra == \"databricks\" or extra == \"llms\" or extra == \"ollama-sdk\""
+markers = "python_version == \"3.12\" and (extra == \"databricks\" or extra == \"openai\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"llms\" or extra == \"ollama-sdk\" or extra == \"true\") or extra == \"openai\" or extra == \"databricks\" or extra == \"llms\" or extra == \"cohere\" or extra == \"ai21\" or extra == \"ollama-sdk\" or extra == \"true\""
 files = [
     {file = "zstandard-0.25.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:e59fdc271772f6686e01e1b3b74537259800f57e24280be3f29c8a0deb1904dd"},
     {file = "zstandard-0.25.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:4d441506e9b372386a5271c64125f72d5df6d2a8e8a2a45a0ae09b03cb781ef7"},
@@ -9065,8 +9066,9 @@ ollama-sdk = ["langchain", "langchain-community"]
 openai = ["langchain", "langchain-community", "langchain-openai", "openai"]
 spacy = ["spacy"]
 transformers = ["accelerate", "datasets", "torch", "transformers"]
+true = ["langchain"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<3.15"
-content-hash = "28c2167bf2c74f64c76b6670e79bdb386616ce8132bf9d19a38c03e876cf69b5"
+content-hash = "fc423643b331209441ba28d356f28d6cadb72870ba24e1f9363389bfb5e96663"

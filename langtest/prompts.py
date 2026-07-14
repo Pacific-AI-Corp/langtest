@@ -126,7 +126,7 @@ class PromptConfig(BaseModel):
     def prompt_style(self):
         """Generate a prompt based on the prompt type."""
         if self.prompt_type in ["chat", "instruct"]:
-            from langchain.prompts import (
+            from langchain_core.prompts import (
                 ChatPromptTemplate,
                 FewShotChatMessagePromptTemplate,
             )
@@ -149,7 +149,7 @@ class PromptConfig(BaseModel):
             return final_prompt
 
         elif self.prompt_type == "completion":
-            from langchain.prompts import FewShotPromptTemplate, PromptTemplate
+            from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate
 
             template = "".join(v for _, v in self.get_template)
             template = f"{template.replace('Answer:', '')}"

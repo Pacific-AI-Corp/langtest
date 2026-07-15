@@ -562,7 +562,10 @@ class DataRetriever:
         df = self.filter(self.criteria, case_id=case_id, question_id=question_id)
         if section_id:
             df = df[df["section_id"] == section_id]
-        return [float(score.replace(",", ".")) for score in df["criteria_score_possible"]]
+        return [
+            float(score.replace(",", ".")) if isinstance(score, str) else score
+            for score in df["criteria_score_possible"]
+        ]
 
     @lru_cache(maxsize=4)
     def load_csv(self, filename) -> pd.DataFrame:
@@ -572,7 +575,7 @@ class DataRetriever:
         )
         try:
             # save the csv file into `~/.langtest/` directory
-            location_path = os.path.expanduser(f"~/.langtest/amgea/{filename}")
+            location_path = os.path.expanduser(f"~/.langtest/amega/{filename}")
             os.makedirs(os.path.dirname(location_path), exist_ok=True)
             if not os.path.exists(location_path):
                 import requests
@@ -582,7 +585,7 @@ class DataRetriever:
                 with open(location_path, "wb") as f:
                     f.write(response.content)
 
-            return pd.read_csv(location_path, delimiter=";")
+            return pd.read_csv(location_path, delimiter=",")
         except (FileNotFoundError, pd.errors.ParserError) as e:
             print(f"Error loading {filename}: {e}")
             return pd.DataFrame()
@@ -603,7 +606,7 @@ class DataRetriever:
         for case_id in cases_ids:
 
             case_branch = self.cases[self.cases["case_id"] == case_id][
-                "case_brunch"
+                "case_branch"
             ].values[0]
             case_title = self.cases[self.cases["case_id"] == case_id][
                 "case_title"
@@ -937,7 +940,7 @@ class ResponseEvaluator:
         """
         # Get case info
         case_data = benchmark_data.get_case_data(case_id=self.case_id)[0]
-        case_brunch = case_data["case_brunch"]
+        case_branch = case_data["case_branch"]
 
         # Prepare base aggregated data
         aggregated_data = {
@@ -945,7 +948,7 @@ class ResponseEvaluator:
             "generator_type": self.generator_type,
             "evaluator_model_name_or_path": self.model,
             "case_id": self.case_id,
-            "case_brunch": case_brunch,
+            "case_branch": case_branch,
         }
 
         # Initialize per-question fields
@@ -976,7 +979,7 @@ class ResponseEvaluator:
             results_list.append(
                 [
                     aggregated_data["case_id"],
-                    aggregated_data["case_brunch"],
+                    aggregated_data["case_branch"],
                     q_id,
                     question_possible,
                     question_initial,
@@ -1001,7 +1004,7 @@ class ResponseEvaluator:
         results_list.append(
             [
                 self.case_id,
-                aggregated_data["case_brunch"],
+                aggregated_data["case_branch"],
                 "total",
                 aggregated_data["case_possible_score"],
                 aggregated_data["case_initial_score"],

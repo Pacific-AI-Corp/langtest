@@ -32,7 +32,8 @@ class MessageType(BaseModel):
         order_less = []
 
         sorted_fields = sorted(
-            self.__dict__.keys(), key=lambda x: self.__field_order.index(x.lower())
+            (k for k in self.__dict__.keys() if k.lower() in self.__field_order),
+            key=lambda x: self.__field_order.index(x.lower()),
         )
 
         for field in sorted_fields:

@@ -291,3 +291,71 @@ class HuggingFacePipeline:
             text_generations.append(text)
 
         return text_generations
+
+
+class ParaphraseModel:
+    _instance = None
+    _device = "cpu"
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+
+    def __init__(self):
+        from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+        if not self._initialized:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                "humarin/chatgpt_paraphraser_on_T5_base"
+            )
+            self.model = AutoModelForSeq2SeqLM.from_pretrained(
+                "humarin/chatgpt_paraphraser_on_T5_base"
+            ).to(self._device)
+            self._initialized = True
+
+
+def paraphrase(
+    text: str,
+    num_beams=5,
+    num_beam_groups=5,
+    num_return_sequences=1,
+    repetition_penalty=10.0,
+    diversity_penalty=3.0,
+    no_repeat_ngram_size=2,
+    temperature=0.7,
+    max_length=128,
+    device="cpu",
+):
+    # Use ParaphraseModel singleton if model and tokenizer not provided
+    # if model is None or tokenizer is None:
+    paraphrase_model = ParaphraseModel()
+    model = paraphrase_model.model
+    tokenizer = paraphrase_model.tokenizer
+    device = paraphrase_model._device
+
+    input_ids = tokenizer(
+        f"paraphrase: {text}",
+        return_tensors="pt",
+        padding="longest",
+        max_length=max_length,
+        truncation=True,
+    ).input_ids.to(device)
+
+    outputs = model.generate(
+        input_ids,
+        temperature=temperature,
+        repetition_penalty=repetition_penalty,
+        num_return_sequences=num_return_sequences,
+        no_repeat_ngram_size=no_repeat_ngram_size,
+        num_beams=num_beams,
+        num_beam_groups=num_beam_groups,
+        max_length=max_length,
+        diversity_penalty=diversity_penalty,
+        trust_remote_code=True,
+    )
+
+    res = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+
+    return res

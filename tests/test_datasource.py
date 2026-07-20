@@ -202,7 +202,7 @@ class TestNERDataset:
         (
             HuggingFaceDataset(
                 source_info={
-                    "data_source": "dbrd",
+                    "data_source": "benjaminvdb/dbrd",
                     "feature_column": "text",
                     "target_column": "label",
                     "split": "test[:30]",

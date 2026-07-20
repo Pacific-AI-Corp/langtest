@@ -492,7 +492,7 @@ class PretrainedModelForTranslation(ModelAPI):
     ) -> TranslationOutput:
         """
         Perform predictions on the input text. Wraps kwargs to enable LRU caching.
-        
+
         Args:
             text (str): Input text to perform translation on.
             source_lang (Optional[str]): Source language for translation. Defaults to the instance's source_lang.

@@ -1393,7 +1393,7 @@ class SynteticDataset(BaseDataset):
             task (str): Task to be evaluated on.
         """
         self.dataset_name = dataset["data_source"]
-        self.sub_name = dataset.get("subset", "gpt3mix/sst2")
+        self.sub_name = dataset.get("subset", "SetFit/sst2")
         self.task = task
 
     @staticmethod

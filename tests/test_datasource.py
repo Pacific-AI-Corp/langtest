@@ -382,7 +382,7 @@ class TestQADataset:
     "dataset_config",
     [
         {"data_source": "synthetic-math-data"},
-        {"data_source": "synthetic-nlp-data", "subset": "gpt3mix/sst2"},
+        {"data_source": "synthetic-nlp-data", "subset": "SetFit/sst2"},
     ],
 )
 class TestSynteticData:

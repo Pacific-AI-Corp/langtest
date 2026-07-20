@@ -156,7 +156,8 @@ class HuggingFacePipeline:
 
     To use, you should have the ``transformers`` python package installed.
 
-    Only supports `text-generation`, `text2text-generation` and `summarization` for now.
+    Supports `text-generation` for both causal and encoder-decoder models
+    (compatible with Transformers v5+ task consolidation).
     """
 
     def __init__(
@@ -176,6 +177,7 @@ class HuggingFacePipeline:
         self.pipeline: Pipeline = None
         self.model_type = kwargs.get("model_type", None)
         self.chat_template = kwargs.get("chat_template", None)
+
         if pipeline:
             self.pipeline = pipeline
         else:
@@ -201,27 +203,40 @@ class HuggingFacePipeline:
                 AutoModelForCausalLM,
                 AutoModelForSeq2SeqLM,
                 AutoTokenizer,
+                AutoConfig,
             )
             from transformers import pipeline as hf_pipeline
         except ImportError:
             raise ValueError(Errors.E085())
 
+        # Map deprecated v4 tasks to the unified v5 text-generation task
+        if task in ("text2text-generation", "summarization"):
+            logging.info(
+                f"Task '{task}' is deprecated in transformers v5. Automatically mapping to 'text-generation'."
+            )
+            task = "text-generation"
+
+        if task != "text-generation":
+            raise ValueError(Errors.E086(task=task))
+
         tokenizer = AutoTokenizer.from_pretrained(model_id)
+        config = AutoConfig.from_pretrained(model_id)
 
         # remove the unnecessary kwargs
         kwargs.pop("model_type", None)
 
-        # Set the pad_token_id for the tokenizer
-        tokenizer.pad_token_id = tokenizer.eos_token_id
+        # Set the pad_token_id for the tokenizer if not already set
+        if tokenizer.pad_token_id is None:
+            tokenizer.pad_token_id = tokenizer.eos_token_id
 
         try:
-            if task == "text-generation":
-                model = AutoModelForCausalLM.from_pretrained(model_id)
-            elif task in ("text2text-generation", "summarization"):
+            # Dynamically determine the correct model class based strictly on architecture
+            if config.is_encoder_decoder:
                 model = AutoModelForSeq2SeqLM.from_pretrained(model_id)
             else:
-                raise ValueError(Errors.E086(task=task))
-        except ImportError as e:
+                model = AutoModelForCausalLM.from_pretrained(model_id)
+
+        except Exception as e:
             raise ValueError(Errors.E087(task=task)) from e
 
         if (
@@ -242,7 +257,7 @@ class HuggingFacePipeline:
             if device < 0 and cuda_device_count > 0:
                 logging.warning(Warnings.W016(cuda_device_count=cuda_device_count))
 
-        # renove the unnecessary kwargs
+        # remove the unnecessary kwargs
         kwargs.pop("chat_template", None)
 
         return hf_pipeline(
@@ -272,11 +287,9 @@ class HuggingFacePipeline:
             ):
                 self.pipeline.tokenizer.chat_template = self.chat_template
 
-            # return_full_text = False is available in transformers>=4.11.0
-            if self.pipeline.task == "text-generation":
-                response = self.pipeline(prompt, return_full_text=False)
-            else:
-                response = self.pipeline(prompt)
+            # return_full_text = False prevents the prompt from being prepended to the response
+            # Works cleanly now that all tasks are routed through text-generation
+            response = self.pipeline(prompt, return_full_text=False)
 
             if isinstance(response, list):
                 response = response[0]

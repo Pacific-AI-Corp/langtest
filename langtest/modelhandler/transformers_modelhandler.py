@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 import logging
 import numpy as np
 from functools import lru_cache
@@ -407,62 +407,138 @@ class PretrainedModelForTextClassification(ModelAPI):
 
 
 class PretrainedModelForTranslation(ModelAPI):
-    """Transformers pretrained model for translation tasks
+    """Transformers pretrained model for translation tasks.
 
     Args:
-        model (transformers.pipeline.Pipeline): Pretrained HuggingFace translation pipeline for predictions.
+        tokenizer: Pretrained HuggingFace tokenizer.
+        model: Pretrained HuggingFace sequence-to-sequence or causal LM model.
+        source_lang (str): Default source language for translation.
+        target_lang (str): Default target language for translation.
+        is_encoder_decoder (bool): Whether the loaded model is an encoder-decoder type.
     """
 
-    def __init__(self, model):
-        """Constructor method
-
-        Args:
-            model (transformers.pipeline.Pipeline): Pretrained HuggingFace NER pipeline for predictions.
-        """
-        assert isinstance(model, Pipeline), ValueError(
-            Errors.E079(Pipeline=Pipeline, type_model=type(model))
-        )
+    def __init__(
+        self,
+        tokenizer: AutoTokenizer,
+        model: Any,
+        source_lang: str = "English",
+        target_lang: str = "German",
+        is_encoder_decoder: bool = True,
+    ):
+        self.tokenizer = tokenizer
         self.model = model
+        self.source_lang = source_lang
+        self.target_lang = target_lang
+        self.is_encoder_decoder = is_encoder_decoder
 
     @classmethod
-    def load_model(cls, path: str, *args, **kwargs) -> "Pipeline":
-        """Load the Translation model into the `model` attribute.
+    def load_model(cls, path: str, *args, **kwargs) -> "PretrainedModelForTranslation":
+        """Load the Translation model into the `model` attribute."""
+        from transformers import (
+            AutoTokenizer,
+            AutoModelForSeq2SeqLM,
+            AutoModelForCausalLM,
+            AutoConfig,
+        )
 
-        Args:
-            path (str):
-                path to model or model name
+        source_lang = kwargs.pop("source_language", None)
+        target_lang = kwargs.pop("target_language", None)
 
-        Returns:
-            'Pipeline':
-        """
-        from ..langtest import HARNESS_CONFIG as harness_config
+        # Fallback to langtest configurations if not explicitly provided
+        if not source_lang or not target_lang:
+            try:
+                from langtest import HARNESS_CONFIG
 
-        config = harness_config["model_parameters"]
-        tgt_lang = config.get("target_language") or kwargs.get("target_language")
+                config_harness = HARNESS_CONFIG.get("model_parameters", {})
+                source_lang = source_lang or config_harness.get(
+                    "source_language", "English"
+                )
+                target_lang = target_lang or config_harness.get(
+                    "target_language", "German"
+                )
+            except ImportError:
+                source_lang = source_lang or "English"
+                target_lang = target_lang or "German"
 
-        if "t5" in path:
-            return cls(pipeline(f"translation_en_to_{tgt_lang}", model=path))
+        tokenizer_loaded = AutoTokenizer.from_pretrained(path)
+        model_config = AutoConfig.from_pretrained(path)
+        is_enc_dec = model_config.is_encoder_decoder
+
+        # Pass remaining args/kwargs (like device_map) to the model loading
+        if is_enc_dec:
+            model_loaded = AutoModelForSeq2SeqLM.from_pretrained(path, *args, **kwargs)
         else:
-            return cls(pipeline(model=path, src_lang="en", tgt_lang=tgt_lang))
+            print(
+                f"Warning: Model '{path}' is not an encoder-decoder model. "
+                "Loading as AutoModelForCausalLM. Performance may vary."
+            )
+            model_loaded = AutoModelForCausalLM.from_pretrained(path, *args, **kwargs)
+
+        return cls(
+            tokenizer_loaded,
+            model_loaded,
+            source_lang,
+            target_lang,
+            is_encoder_decoder=is_enc_dec,
+        )
 
     @lru_cache(maxsize=102400)
-    def predict(self, text: str, **kwargs) -> TranslationOutput:
-        """Perform predictions on the input text.
-
+    def predict(
+        self,
+        text: str,
+        source_lang: Optional[str] = None,
+        target_lang: Optional[str] = None,
+        **kwargs,
+    ) -> TranslationOutput:
+        """
+        Perform predictions on the input text. Wraps kwargs to enable LRU caching.
+        
         Args:
             text (str): Input text to perform translation on.
-            kwargs: Additional keyword arguments.
-
+            source_lang (Optional[str]): Source language for translation. Defaults to the instance's source_lang.
+            target_lang (Optional[str]): Target language for translation. Defaults to the instance's target_lang.
 
         Returns:
-            TranslationOutput: Output model for translation tasks
+            TranslationOutput: Translated text from the input text.
         """
-        prediction = self.model(text, **kwargs)[0]["translation_text"]
+        # Convert kwargs to a hashable frozenset to prevent TypeError in lru_cache
+        current_source = source_lang or self.source_lang
+        current_target = target_lang or self.target_lang
+
+        input_text = f"translate {current_source} to {current_target}: {text}"
+        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.model.device)
+
+        # Safely extract and construct generation arguments
+        gen_kwargs = {
+            "max_length": kwargs.pop("max_length", 512),
+            "num_beams": kwargs.pop("num_beams", 1),
+            **kwargs,
+        }
+
+        # Hugging Face crashes if diversity_penalty is set without num_beam_groups > 1
+        num_beam_groups = kwargs.pop("num_beam_groups", 1)
+        if num_beam_groups > 1:
+            gen_kwargs["num_beam_groups"] = num_beam_groups
+            gen_kwargs["diversity_penalty"] = kwargs.pop("diversity_penalty", 0.0)
+
+        # Generate tokens
+        output_tokens = self.model.generate(**inputs, **gen_kwargs)
+
+        # Decode based on architecture
+        if self.is_encoder_decoder:
+            prediction = self.tokenizer.decode(output_tokens[0], skip_special_tokens=True)
+        else:
+            # For Causal LMs, strip the input prompt from the output
+            input_length = inputs["input_ids"].shape[1]
+            prediction = self.tokenizer.decode(
+                output_tokens[0][input_length:], skip_special_tokens=True
+            )
+
         return TranslationOutput(translation_text=prediction)
 
     def __call__(self, text: str, *args, **kwargs) -> TranslationOutput:
         """Alias of the 'predict' method"""
-        return self.predict(text=text, **kwargs)
+        return self.predict(text=text, *args, **kwargs)
 
 
 class PretrainedModelForWinoBias(ModelAPI):

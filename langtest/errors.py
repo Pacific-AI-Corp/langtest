@@ -276,6 +276,8 @@ class Errors(metaclass=ErrorsWithCodes):
     E095 = ("Failed to make API request: {e}")
     E096 = ("Failed to generate the templates in Augmentation: {msg}")
     E097 = ("Failed to load openai. Please install it using `pip install openai`")
+    E098 = ("Invalid model architecture! "
+            "Expected model types are: {model_arch}, but got: {type_model}")
 
 
 class ColumnNameError(Exception):

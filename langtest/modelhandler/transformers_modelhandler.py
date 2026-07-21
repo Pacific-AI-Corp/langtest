@@ -2,7 +2,6 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import logging
 import numpy as np
 from functools import lru_cache
-from transformers import Pipeline, pipeline, AutoModelForCausalLM, AutoTokenizer
 from .modelhandler import ModelAPI
 from ..utils.custom_types import (
     NEROutput,
@@ -17,6 +16,16 @@ from ..utils.custom_types.helpers import (
     default_llm_chat_prompt,
 )
 from ..utils.hf_utils import HuggingFacePipeline
+
+from transformers import (
+    AutoConfig,
+    AutoModelForSeq2SeqLM,
+    Pipeline,
+    pipeline,
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    PretrainedConfig,
+)
 
 
 class PretrainedModelForNER(ModelAPI):
@@ -424,25 +433,44 @@ class PretrainedModelForTranslation(ModelAPI):
         source_lang: str = "English",
         target_lang: str = "German",
         is_encoder_decoder: bool = True,
+        prompt: Optional[str] = None,
+        **kwargs,
     ):
+        # Extract the base architecture string names from the model's config
+        model_architectures = (
+            getattr(model, "config", PretrainedConfig()).architectures or []
+        )
+
+        is_supported = any(
+            "CausalLM" in arch
+            or "Seq2SeqLM" in arch
+            or "ConditionalGeneration" in arch
+            or "MTModel" in arch
+            for arch in model_architectures
+        )
+
+        assert is_supported, ValueError(
+            Errors.E098(
+                model_arch=(AutoModelForSeq2SeqLM, AutoModelForCausalLM),
+                type_model=type(model),
+            )
+        )
+
         self.tokenizer = tokenizer
         self.model = model
         self.source_lang = source_lang
         self.target_lang = target_lang
         self.is_encoder_decoder = is_encoder_decoder
+        self.prompt: Optional[str] = prompt
+        self.kwargs = kwargs
 
     @classmethod
     def load_model(cls, path: str, *args, **kwargs) -> "PretrainedModelForTranslation":
         """Load the Translation model into the `model` attribute."""
-        from transformers import (
-            AutoTokenizer,
-            AutoModelForSeq2SeqLM,
-            AutoModelForCausalLM,
-            AutoConfig,
-        )
 
         source_lang = kwargs.pop("source_language", None)
         target_lang = kwargs.pop("target_language", None)
+        prompt = kwargs.pop("prompt", None)
 
         # Fallback to langtest configurations if not explicitly provided
         if not source_lang or not target_lang:
@@ -466,13 +494,17 @@ class PretrainedModelForTranslation(ModelAPI):
 
         # Pass remaining args/kwargs (like device_map) to the model loading
         if is_enc_dec:
-            model_loaded = AutoModelForSeq2SeqLM.from_pretrained(path, *args, **kwargs)
+            model_loaded = AutoModelForSeq2SeqLM.from_pretrained(
+                path, device_map="auto", *args, **kwargs
+            )
         else:
             print(
                 f"Warning: Model '{path}' is not an encoder-decoder model. "
                 "Loading as AutoModelForCausalLM. Performance may vary."
             )
-            model_loaded = AutoModelForCausalLM.from_pretrained(path, *args, **kwargs)
+            model_loaded = AutoModelForCausalLM.from_pretrained(
+                path, device_map="auto", *args, **kwargs
+            )
 
         return cls(
             tokenizer_loaded,
@@ -480,6 +512,7 @@ class PretrainedModelForTranslation(ModelAPI):
             source_lang,
             target_lang,
             is_encoder_decoder=is_enc_dec,
+            prompt=prompt,
         )
 
     @lru_cache(maxsize=102400)

@@ -202,7 +202,7 @@ class TestNERDataset:
         (
             HuggingFaceDataset(
                 source_info={
-                    "data_source": "dbrd",
+                    "data_source": "benjaminvdb/dbrd",
                     "feature_column": "text",
                     "target_column": "label",
                     "split": "test[:30]",
@@ -382,7 +382,7 @@ class TestQADataset:
     "dataset_config",
     [
         {"data_source": "synthetic-math-data"},
-        {"data_source": "synthetic-nlp-data", "subset": "sst2"},
+        {"data_source": "synthetic-nlp-data", "subset": "SetFit/sst2"},
     ],
 )
 class TestSynteticData:

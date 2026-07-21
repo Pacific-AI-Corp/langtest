@@ -177,21 +177,18 @@ class Paraphrase(BaseGrammar):
         sample_list: List[Sample], prob: Optional[float] = 1.0, *args, **kwargs
     ):
         if try_import_lib("transformers"):
-            from transformers import pipeline
+            from langtest.utils.hf_utils import paraphrase
 
-            pipe = pipeline(
-                "text2text-generation", model="humarin/chatgpt_paraphraser_on_T5_base"
-            )
             for idx, sample in enumerate(sample_list):
                 if isinstance(sample, str):
-                    test_case = pipe(sample, max_length=11000, num_return_sequences=1)[0][
-                        "generated_text"
-                    ]
+                    test_case = paraphrase(
+                        sample, max_length=11000, num_return_sequences=1
+                    )[0]
                     sample_list[idx] = test_case
                 else:
-                    test_case = pipe(
+                    test_case = paraphrase(
                         sample.original, max_length=1000, num_return_sequences=1
-                    )[0]["generated_text"]
+                    )[0]
                     sample.test_case = test_case
                     sample.category = "grammar"
 

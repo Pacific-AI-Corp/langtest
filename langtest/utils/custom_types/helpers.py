@@ -425,8 +425,8 @@ def llm_prompt_eval(
         bool: True if the model's prediction passes the LLM evaluation, False otherwise.
 
     """
-    from langchain.evaluation.qa import QAEvalChain
-    from langchain.prompts import PromptTemplate
+    from langchain_classic.evaluation.qa import QAEvalChain
+    from langchain_core.prompts import PromptTemplate
 
     PROMPT = PromptTemplate(
         input_variables=["query", "answer", "result"],

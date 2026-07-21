@@ -20,7 +20,7 @@ class TranslationTestCase(unittest.TestCase):
         # configure the harness
         self.harness.configure(
             {
-                "model_parameters": {"target_language": "de"},
+                "model_parameters": {"target_language": "German"},
                 "tests": {
                     "defaults": {"min_pass_rate": 1.0},
                     "robustness": {

@@ -519,8 +519,6 @@ class PretrainedModelForTranslation(ModelAPI):
     def predict(
         self,
         text: str,
-        source_lang: Optional[str] = None,
-        target_lang: Optional[str] = None,
         **kwargs,
     ) -> TranslationOutput:
         """
@@ -528,20 +526,27 @@ class PretrainedModelForTranslation(ModelAPI):
 
         Args:
             text (str): Input text to perform translation on.
-            source_lang (Optional[str]): Source language for translation. Defaults to the instance's source_lang.
-            target_lang (Optional[str]): Target language for translation. Defaults to the instance's target_lang.
 
         Returns:
             TranslationOutput: Translated text from the input text.
         """
-        # Convert kwargs to a hashable frozenset to prevent TypeError in lru_cache
-        current_source = source_lang or self.source_lang
-        current_target = target_lang or self.target_lang
+        model_type = getattr(self.model.config, "model_type", "").lower()
 
-        input_text = f"translate {current_source} to {current_target}: {text}"
+        # 1. Handle Prompting for T5 or Custom Prompts
+        if self.prompt:
+            input_text = self.prompt.format(text=text)
+        elif "t5" in model_type:
+            input_text = f"translate {self.source_lang} to {self.target_lang}: {text}"
+        else:
+            input_text = text
+
+        # 2. Set source language for multilingual tokenizers (NLLB, M2M100, mBART)
+        if hasattr(self.tokenizer, "src_lang"):
+            self.tokenizer.src_lang = self.source_lang
+
         inputs = self.tokenizer(input_text, return_tensors="pt").to(self.model.device)
 
-        # Safely extract and construct generation arguments
+        # 3. Safely extract and construct generation arguments
         gen_kwargs = {
             "max_length": kwargs.pop("max_length", 512),
             "num_beams": kwargs.pop("num_beams", 1),
@@ -553,6 +558,32 @@ class PretrainedModelForTranslation(ModelAPI):
         if num_beam_groups > 1:
             gen_kwargs["num_beam_groups"] = num_beam_groups
             gen_kwargs["diversity_penalty"] = kwargs.pop("diversity_penalty", 0.0)
+
+        # 4. Handle Target Language tokens (forced_bos_token_id)
+        if "forced_bos_token_id" not in gen_kwargs:
+            # Primary strategy: Direct vocabulary lookup (NLLB uses this)
+            if hasattr(self.tokenizer, "convert_tokens_to_ids"):
+                token_id = self.tokenizer.convert_tokens_to_ids(self.target_lang)
+                # Ensure it didn't return an unknown token (meaning target_lang isn't formatted correctly)
+                if token_id is not None and token_id != self.tokenizer.unk_token_id:
+                    gen_kwargs["forced_bos_token_id"] = token_id
+
+            # Fallback strategies for mBART or M2M100
+            if "forced_bos_token_id" not in gen_kwargs:
+                if (
+                    hasattr(self.tokenizer, "lang_code_to_id")
+                    and self.target_lang in self.tokenizer.lang_code_to_id
+                ):
+                    gen_kwargs["forced_bos_token_id"] = self.tokenizer.lang_code_to_id[
+                        self.target_lang
+                    ]
+                elif hasattr(self.tokenizer, "get_lang_id"):
+                    try:
+                        gen_kwargs["forced_bos_token_id"] = self.tokenizer.get_lang_id(
+                            self.target_lang
+                        )
+                    except Exception:
+                        pass
 
         # Generate tokens
         output_tokens = self.model.generate(**inputs, **gen_kwargs)

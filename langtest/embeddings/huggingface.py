@@ -13,6 +13,9 @@ class HuggingfaceEmbeddings:
         model (transformers.AutoModel): The transformer model used for sentence embeddings.
     """
 
+    model = None
+    tokenizer = None
+
     def __init__(
         self,
         model: str = "sentence-transformers/all-mpnet-base-v2",
@@ -20,11 +23,20 @@ class HuggingfaceEmbeddings:
         """Constructor method
 
         Args:
-            model_name (str): The name of the model to be loaded. By default, it uses the multilingual MiniLM model.
+            model (str): The name of the model to be loaded. By default, it uses the all-mpnet-base-v2 model.
         """
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.tokenizer = AutoTokenizer.from_pretrained(model)
-        self.model = AutoModel.from_pretrained(model).to(self.device)
+
+        # Load model and tokenizer if not already loaded or if model name differs
+        model_loaded = (
+            HuggingfaceEmbeddings.model is not None
+            and HuggingfaceEmbeddings.tokenizer is not None
+            and HuggingfaceEmbeddings.model.config.name_or_path == model
+        )
+
+        if not model_loaded:
+            HuggingfaceEmbeddings.model = AutoModel.from_pretrained(model).to(self.device)
+            HuggingfaceEmbeddings.tokenizer = AutoTokenizer.from_pretrained(model)
 
     def mean_pooling(
         self, model_output: Tuple[torch.Tensor], attention_mask: torch.Tensor

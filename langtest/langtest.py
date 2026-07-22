@@ -1539,7 +1539,7 @@ class Harness:
                         setattr(sample, "expected_results", v(sample.original))
                         for sample in m_data
                     ]
-                    (testcases[k]) = TestFactory.transform(
+                    testcases[k] = TestFactory.transform(
                         self.task, dataset, tests, m_data=m_data
                     )
 
@@ -1556,7 +1556,7 @@ class Harness:
                     testcases = DataFactory.filter_curated_bias(tests_to_filter, dataset)
                     if len(tests.keys()) > 2:
                         tests = {k: v for k, v in tests.items() if k != "bias"}
-                        (other_testcases) = TestFactory.transform(
+                        other_testcases = TestFactory.transform(
                             self.task, dataset, tests, m_data=m_data
                         )
                         testcases.extend(other_testcases)

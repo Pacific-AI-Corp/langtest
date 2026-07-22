@@ -1,8 +1,7 @@
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 import logging
 import numpy as np
 from functools import lru_cache
-from transformers import Pipeline, pipeline, AutoModelForCausalLM, AutoTokenizer
 from .modelhandler import ModelAPI
 from ..utils.custom_types import (
     NEROutput,
@@ -17,6 +16,16 @@ from ..utils.custom_types.helpers import (
     default_llm_chat_prompt,
 )
 from ..utils.hf_utils import HuggingFacePipeline
+
+from transformers import (
+    AutoConfig,
+    AutoModelForSeq2SeqLM,
+    Pipeline,
+    pipeline,
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    PretrainedConfig,
+)
 
 
 class PretrainedModelForNER(ModelAPI):
@@ -407,62 +416,193 @@ class PretrainedModelForTextClassification(ModelAPI):
 
 
 class PretrainedModelForTranslation(ModelAPI):
-    """Transformers pretrained model for translation tasks
+    """Transformers pretrained model for translation tasks.
 
     Args:
-        model (transformers.pipeline.Pipeline): Pretrained HuggingFace translation pipeline for predictions.
+        tokenizer: Pretrained HuggingFace tokenizer.
+        model: Pretrained HuggingFace sequence-to-sequence or causal LM model.
+        source_lang (str): Default source language for translation.
+        target_lang (str): Default target language for translation.
+        is_encoder_decoder (bool): Whether the loaded model is an encoder-decoder type.
     """
 
-    def __init__(self, model):
-        """Constructor method
-
-        Args:
-            model (transformers.pipeline.Pipeline): Pretrained HuggingFace NER pipeline for predictions.
-        """
-        assert isinstance(model, Pipeline), ValueError(
-            Errors.E079(Pipeline=Pipeline, type_model=type(model))
+    def __init__(
+        self,
+        tokenizer: AutoTokenizer,
+        model: Any,
+        source_lang: str = "English",
+        target_lang: str = "German",
+        is_encoder_decoder: bool = True,
+        prompt: Optional[str] = None,
+        **kwargs,
+    ):
+        # Extract the base architecture string names from the model's config
+        model_architectures = (
+            getattr(model, "config", PretrainedConfig()).architectures or []
         )
+
+        is_supported = any(
+            "CausalLM" in arch
+            or "Seq2SeqLM" in arch
+            or "ConditionalGeneration" in arch
+            or "MTModel" in arch
+            for arch in model_architectures
+        )
+
+        assert is_supported, ValueError(
+            Errors.E098(
+                model_arch=(AutoModelForSeq2SeqLM, AutoModelForCausalLM),
+                type_model=type(model),
+            )
+        )
+
+        self.tokenizer = tokenizer
         self.model = model
+        self.source_lang = source_lang
+        self.target_lang = target_lang
+        self.is_encoder_decoder = is_encoder_decoder
+        self.prompt: Optional[str] = prompt
+        self.kwargs = kwargs
 
     @classmethod
-    def load_model(cls, path: str, *args, **kwargs) -> "Pipeline":
-        """Load the Translation model into the `model` attribute.
+    def load_model(cls, path: str, *args, **kwargs) -> "PretrainedModelForTranslation":
+        """Load the Translation model into the `model` attribute."""
 
-        Args:
-            path (str):
-                path to model or model name
+        source_lang = kwargs.pop("source_language", None)
+        target_lang = kwargs.pop("target_language", None)
+        prompt = kwargs.pop("prompt", None)
 
-        Returns:
-            'Pipeline':
-        """
-        from ..langtest import HARNESS_CONFIG as harness_config
+        # Fallback to langtest configurations if not explicitly provided
+        if not source_lang or not target_lang:
+            try:
+                from langtest import HARNESS_CONFIG
 
-        config = harness_config["model_parameters"]
-        tgt_lang = config.get("target_language") or kwargs.get("target_language")
+                config_harness = HARNESS_CONFIG.get("model_parameters", {})
+                source_lang = source_lang or config_harness.get(
+                    "source_language", "English"
+                )
+                target_lang = target_lang or config_harness.get(
+                    "target_language", "German"
+                )
+            except ImportError:
+                source_lang = source_lang or "English"
+                target_lang = target_lang or "German"
 
-        if "t5" in path:
-            return cls(pipeline(f"translation_en_to_{tgt_lang}", model=path))
+        tokenizer_loaded = AutoTokenizer.from_pretrained(path)
+        model_config = AutoConfig.from_pretrained(path)
+        is_enc_dec = model_config.is_encoder_decoder
+
+        # Pass remaining args/kwargs (like device_map) to the model loading
+        if is_enc_dec:
+            model_loaded = AutoModelForSeq2SeqLM.from_pretrained(
+                path, device_map="auto", *args, **kwargs
+            )
         else:
-            return cls(pipeline(model=path, src_lang="en", tgt_lang=tgt_lang))
+            print(
+                f"Warning: Model '{path}' is not an encoder-decoder model. "
+                "Loading as AutoModelForCausalLM. Performance may vary."
+            )
+            model_loaded = AutoModelForCausalLM.from_pretrained(
+                path, device_map="auto", *args, **kwargs
+            )
+
+        return cls(
+            tokenizer_loaded,
+            model_loaded,
+            source_lang,
+            target_lang,
+            is_encoder_decoder=is_enc_dec,
+            prompt=prompt,
+        )
 
     @lru_cache(maxsize=102400)
-    def predict(self, text: str, **kwargs) -> TranslationOutput:
-        """Perform predictions on the input text.
+    def predict(
+        self,
+        text: str,
+        **kwargs,
+    ) -> TranslationOutput:
+        """
+        Perform predictions on the input text. Wraps kwargs to enable LRU caching.
 
         Args:
             text (str): Input text to perform translation on.
-            kwargs: Additional keyword arguments.
-
 
         Returns:
-            TranslationOutput: Output model for translation tasks
+            TranslationOutput: Translated text from the input text.
         """
-        prediction = self.model(text, **kwargs)[0]["translation_text"]
+        model_type = getattr(self.model.config, "model_type", "").lower()
+
+        # 1. Handle Prompting for T5 or Custom Prompts
+        if self.prompt:
+            input_text = self.prompt.format(text=text)
+        elif "t5" in model_type:
+            input_text = f"translate {self.source_lang} to {self.target_lang}: {text}"
+        else:
+            input_text = text
+
+        # 2. Set source language for multilingual tokenizers (NLLB, M2M100, mBART)
+        if hasattr(self.tokenizer, "src_lang"):
+            self.tokenizer.src_lang = self.source_lang
+
+        inputs = self.tokenizer(input_text, return_tensors="pt").to(self.model.device)
+
+        # 3. Safely extract and construct generation arguments
+        gen_kwargs = {
+            "max_length": kwargs.pop("max_length", 512),
+            "num_beams": kwargs.pop("num_beams", 1),
+            **kwargs,
+        }
+
+        # Hugging Face crashes if diversity_penalty is set without num_beam_groups > 1
+        num_beam_groups = kwargs.pop("num_beam_groups", 1)
+        if num_beam_groups > 1:
+            gen_kwargs["num_beam_groups"] = num_beam_groups
+            gen_kwargs["diversity_penalty"] = kwargs.pop("diversity_penalty", 0.0)
+
+        # 4. Handle Target Language tokens (forced_bos_token_id)
+        if "forced_bos_token_id" not in gen_kwargs:
+            # Primary strategy: Direct vocabulary lookup (NLLB uses this)
+            if hasattr(self.tokenizer, "convert_tokens_to_ids"):
+                token_id = self.tokenizer.convert_tokens_to_ids(self.target_lang)
+                # Ensure it didn't return an unknown token (meaning target_lang isn't formatted correctly)
+                if token_id is not None and token_id != self.tokenizer.unk_token_id:
+                    gen_kwargs["forced_bos_token_id"] = token_id
+
+            # Fallback strategies for mBART or M2M100
+            if "forced_bos_token_id" not in gen_kwargs:
+                if (
+                    hasattr(self.tokenizer, "lang_code_to_id")
+                    and self.target_lang in self.tokenizer.lang_code_to_id
+                ):
+                    gen_kwargs["forced_bos_token_id"] = self.tokenizer.lang_code_to_id[
+                        self.target_lang
+                    ]
+                elif hasattr(self.tokenizer, "get_lang_id"):
+                    try:
+                        gen_kwargs["forced_bos_token_id"] = self.tokenizer.get_lang_id(
+                            self.target_lang
+                        )
+                    except Exception:
+                        pass
+
+        # Generate tokens
+        output_tokens = self.model.generate(**inputs, **gen_kwargs)
+
+        # Decode based on architecture
+        if self.is_encoder_decoder:
+            prediction = self.tokenizer.decode(output_tokens[0], skip_special_tokens=True)
+        else:
+            # For Causal LMs, strip the input prompt from the output
+            input_length = inputs["input_ids"].shape[1]
+            prediction = self.tokenizer.decode(
+                output_tokens[0][input_length:], skip_special_tokens=True
+            )
+
         return TranslationOutput(translation_text=prediction)
 
     def __call__(self, text: str, *args, **kwargs) -> TranslationOutput:
         """Alias of the 'predict' method"""
-        return self.predict(text=text, **kwargs)
+        return self.predict(text=text, *args, **kwargs)
 
 
 class PretrainedModelForWinoBias(ModelAPI):

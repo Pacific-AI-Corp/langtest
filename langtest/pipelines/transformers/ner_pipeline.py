@@ -126,7 +126,7 @@ class NEREnd2EndPipeline(FlowSpec):
             model=self.model,
             args=TrainingArguments(output_dir=self.output_dir, **self.training_args),
             train_dataset=self.train_dataset,
-            tokenizer=self.tokenizer,
+            processing_class=self.tokenizer,
         )
         trainer.train()
         self.model.save_pretrained(self.output_dir)
@@ -215,7 +215,7 @@ class NEREnd2EndPipeline(FlowSpec):
             ),
             train_dataset=self.augmented_train_dataset,
             eval_dataset=self.eval_dataset,
-            tokenizer=self.tokenizer,
+            processing_class=self.tokenizer,
         )
         trainer.train()
         self.model.save_pretrained(f"augmented_{self.output_dir}")

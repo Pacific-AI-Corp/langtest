@@ -170,7 +170,11 @@ class HarnessTestCase(unittest.TestCase):
         tc_harness = Harness(
             task="text-classification",
             model={"model": "aychang/roberta-base-imdb", "hub": "huggingface"},
-            data={"data_source": "imdb", "source": "huggingface"},
+            data={
+                "data_source": "stanfordnlp/imdb",
+                "source": "huggingface",
+                "split": "test",
+            },
         )
         tc_harness.data = tc_harness.data[:10]
         tc_harness.generate()

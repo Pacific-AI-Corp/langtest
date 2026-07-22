@@ -3,7 +3,6 @@ from typing import Any, Dict, List
 # from pkg_resources import resource_filename
 from importlib import resources
 
-
 LLM_DEFAULTS_CONFIG = {
     "azure-openai": str(
         resources.files("langtest").joinpath(

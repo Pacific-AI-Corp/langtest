@@ -34,7 +34,6 @@ from ..utils.custom_types import Sample, Span, Transformation
 from ..utils.number_to_word import ConvertNumberToWord
 from collections import defaultdict
 
-
 inverted_ocr_typo_dict = defaultdict(list)
 for k, v in ocr_typo_dict.items():
     inverted_ocr_typo_dict[v].append(k)

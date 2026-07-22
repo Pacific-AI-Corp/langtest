@@ -958,8 +958,7 @@ class MedFuzz(BaseClinical):
             else:
                 from textwrap import dedent
 
-                error_message = dedent(
-                    """
+                error_message = dedent("""
                     Attack model information is not provided in Configuration. Please provide the attack model information.
                     {
                         "medfuzz": {
@@ -970,8 +969,7 @@ class MedFuzz(BaseClinical):
                             }
                         }
                     }
-                """
-                ).strip()
+                """).strip()
 
                 raise ValueError(error_message)
 

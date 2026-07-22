@@ -116,7 +116,7 @@ ipdb = "^0.13.13"
 pytest = "^7.4.0"
 taskipy = "^1.11.0"
 en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz" }
-black = "^24.10.0"
+black = ">=26.3.1"
 pyproject-flake8 = "^7.0.0"
 pre-commit = "^3.3.3"
 pydocstyle = "^6.3.0"

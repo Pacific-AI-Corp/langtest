@@ -222,8 +222,7 @@ class AbsoluteGrading:
             The prompt for the model.
         """
         s, f = self.get_score_rubric()
-        prompt = dedent(
-            """
+        prompt = dedent("""
         ###Task Description:
         An instruction (might include an Input inside it), a response to evaluate, a reference answer that gets from {formatted_criteria_keys}, and a score rubric representing a evaluation criteria are given.
         1. Write a detailed feedback that assess the quality of the response strictly based on the given score rubric, not evaluating in general.
@@ -244,8 +243,7 @@ class AbsoluteGrading:
         {score_rubric}
 
         ###Feedback:
-        """
-        )
+        """)
         return prompt.format(
             instruction=self.instruction,
             response=self.response,
@@ -302,8 +300,7 @@ class RelativeGrading:
             The prompt for the model.
         """
         s, f = self.get_score_rubric()
-        prompt = dedent(
-            """
+        prompt = dedent("""
         ###Task Description:
         An instruction (might include an Input inside it), a response to evaluate, and a score rubric representing a evaluation criteria are given.
         1. Write a detailed feedback that assess the quality of two responses strictly based on the given score rubric, not evaluating in general.
@@ -327,8 +324,7 @@ class RelativeGrading:
         {score_rubric}
 
         ###Feedback:
-        """
-        )
+        """)
         return prompt.format(
             instruction=self.instruction,
             response_a=self.response_a,

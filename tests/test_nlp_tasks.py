@@ -3,7 +3,6 @@ import pandas as pd
 from langtest import Harness
 from langtest.utils.custom_types import Sample
 
-
 task_configurations = [
     {
         "task": "ner",

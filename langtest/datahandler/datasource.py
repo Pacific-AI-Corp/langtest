@@ -6,6 +6,8 @@ import re
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from typing import Dict, List, Union
+
+from langtest.datahandler.predefined import PREDEFINED_DATASETS
 from .dataset_info import datasets_info
 import jsonlines
 import pandas as pd
@@ -237,6 +239,9 @@ class DataFactory:
             ):
                 self.file_ext = "jsonl"
                 self._file_path = file_path.get("data_source")
+            elif self._file_path.lower() in PREDEFINED_DATASETS:
+                self.file_ext = "MedExQA"
+                self._file_path = file_path.get("data_source")
             else:
                 self._file_path = self._load_dataset(self._custom_label)
                 _, self.file_ext = os.path.splitext(self._file_path)
@@ -266,6 +271,9 @@ class DataFactory:
             self.init_cls = self.data_sources[self.file_ext.replace(".", "")](
                 self._custom_label, task=self.task, **self.kwargs
             )
+        elif self._file_path.lower() in PREDEFINED_DATASETS:
+            return PREDEFINED_DATASETS[self._file_path.lower()](**self.kwargs)
+
         elif self._file_path in self.CURATED_BIAS_DATASETS and self.task in (
             "question-answering",
             "summarization",

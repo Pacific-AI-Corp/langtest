@@ -240,7 +240,13 @@ class DataFactory:
                 self.file_ext = "jsonl"
                 self._file_path = file_path.get("data_source")
             elif self._file_path.lower() in PREDEFINED_DATASETS:
-                self.file_ext = "MedExQA"
+                self.file_ext = self._file_path.lower()
+                kwargs.update(
+                    {
+                        "subset": file_path.get("subset", "all"),
+                        "split": file_path.get("split", None),
+                    }
+                )
                 self._file_path = file_path.get("data_source")
             else:
                 self._file_path = self._load_dataset(self._custom_label)

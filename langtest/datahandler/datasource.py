@@ -277,7 +277,10 @@ class DataFactory:
             self.init_cls = self.data_sources[self.file_ext.replace(".", "")](
                 self._custom_label, task=self.task, **self.kwargs
             )
-        elif self._file_path.lower() in PREDEFINED_DATASETS:
+        elif (
+            isinstance(self._file_path, str)
+            and self._file_path.lower() in PREDEFINED_DATASETS
+        ):
             return PREDEFINED_DATASETS[self._file_path.lower()](**self.kwargs)
 
         elif self._file_path in self.CURATED_BIAS_DATASETS and self.task in (

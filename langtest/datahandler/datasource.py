@@ -243,7 +243,7 @@ class DataFactory:
                 self.file_ext = self._file_path.lower()
                 kwargs.update(
                     {
-                        "subset": file_path.get("subset", "all"),
+                        "subset": file_path.get("subset", None),
                         "split": file_path.get("split", None),
                     }
                 )

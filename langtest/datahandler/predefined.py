@@ -1,4 +1,5 @@
 import os
+import json
 from typing import TYPE_CHECKING, Callable, Dict, List
 
 import pandas as pd
@@ -85,37 +86,54 @@ def headqa(*args, **kwargs) -> List["Sample"]:
     """Load the HeadQA dataset."""
     from langtest.utils.custom_types import QASample
 
+    headqa_dir = os.path.join(os.path.expanduser("~"), ".langtest", "datasets", "headqa")
+
     ensure_download_and_unzip(
         "https://huggingface.co/datasets/dvilares/head_qa/resolve/main/data/head-qa-es-en-pdfs.zip",
-        extract_to=os.path.join(
-            os.path.expanduser("~"), ".langtest", "datasets", "headqa"
-        ),
+        extract_to=headqa_dir,
     )
 
-    df = pd.read_json(
-        os.path.join(
-            os.path.expanduser("~"),
-            ".langtest",
-            "datasets",
-            "headqa",
-            "HEAD_EN",
-            "test_HEAD_EN.json",
-        ),
-        orient="records",
+    file_path = os.path.join(headqa_dir, "HEAD_EN", "test_HEAD_EN.json")
+
+    with open(
+        file_path,
+        "r",
+        encoding="utf-8",
+    ) as f:
+        head_qa = json.load(f)
+
+    def clean_answers(answers):
+        return "\n".join(
+            f"{chr(answer['aid'] + 64)}) {answer['atext'].strip()}" for answer in answers
+        )
+
+    df = (
+        pd.DataFrame.from_dict(head_qa["exams"], orient="index")
+        .reset_index(drop=True)
+        .assign(
+            exam_id=lambda x: x.index,
+            name=lambda x: x["name"].str.strip(),
+            year=lambda x: x["year"].str.strip(),
+            category=lambda x: x["category"].str.strip(),
+        )
+        .pipe(
+            lambda x: pd.json_normalize(
+                x.to_dict("records"),
+                record_path="data",
+                meta=["exam_id", "name", "year", "category"],
+            )
+        )
+        .assign(
+            qid=lambda x: x["qid"].str.strip().astype(int),
+            qtext=lambda x: x["qtext"].str.strip(),
+            ra=lambda x: x["ra"].str.strip().astype(int),
+            options=lambda x: x["answers"].apply(clean_answers),
+        )
+        .query("ra != 0")
+        .assign(
+            answer=lambda x: x["ra"].map(lambda value: chr(value + 64)),
+        )[["qid", "qtext", "options", "answer"]]
     )
-    # 1. Define the specific files and URL internally
-    # df = load_dataset("alesi12/head_qa_v2", subset, split="train").to_pandas()
-
-    # 2. skip the where ra is 0
-    df = df[df["ra"] != 0]
-
-    # 3. Create the 'options' column by joining the answers
-    df["options"] = df["answers"].apply(
-        lambda x: "\n".join(f"{chr(item["aid"] + 64)}) {item["atext"]}" for item in x)
-    )
-
-    # 4. Create the 'answer' column by converting the 'ra' to corresponding letters
-    df["answer"] = df["ra"].apply(lambda x: chr(x + 64))
 
     transformed_samples = []
 

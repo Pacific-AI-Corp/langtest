@@ -1,6 +1,10 @@
+import os
+import json
 from typing import TYPE_CHECKING, Callable, Dict, List
 
 import pandas as pd
+
+from langtest.datahandler.utils import ensure_download_and_unzip
 
 if TYPE_CHECKING:
     from langtest.utils.custom_types.sample import Sample
@@ -70,6 +74,75 @@ def medexqa(subset="all", *args, **kwargs) -> List["Sample"]:
             original_context="-",
             original_question=sample[1]["question"],
             options="\n".join([f"{k}. {v}" for k, v in sample[1]["options"].items()]),
+            expected_results=sample[1]["answer"],
+        )
+
+        transformed_samples.append(sample)
+    return transformed_samples
+
+
+@register_predefined_dataset("headqa")
+def headqa(*args, **kwargs) -> List["Sample"]:
+    """Load the HeadQA dataset."""
+    from langtest.utils.custom_types import QASample
+
+    headqa_dir = os.path.join(os.path.expanduser("~"), ".langtest", "datasets", "headqa")
+
+    ensure_download_and_unzip(
+        "https://huggingface.co/datasets/dvilares/head_qa/resolve/main/data/head-qa-es-en-pdfs.zip",
+        extract_to=headqa_dir,
+    )
+
+    file_path = os.path.join(headqa_dir, "HEAD_EN", "test_HEAD_EN.json")
+
+    with open(
+        file_path,
+        "r",
+        encoding="utf-8",
+    ) as f:
+        head_qa = json.load(f)
+
+    def clean_answers(answers):
+        return "\n".join(
+            f"{chr(answer['aid'] + 64)}) {answer['atext'].strip()}" for answer in answers
+        )
+
+    df = (
+        pd.DataFrame.from_dict(head_qa["exams"], orient="index")
+        .reset_index(drop=True)
+        .assign(
+            exam_id=lambda x: x.index,
+            name=lambda x: x["name"].str.strip(),
+            year=lambda x: x["year"].str.strip(),
+            category=lambda x: x["category"].str.strip(),
+        )
+        .pipe(
+            lambda x: pd.json_normalize(
+                x.to_dict("records"),
+                record_path="data",
+                meta=["exam_id", "name", "year", "category"],
+            )
+        )
+        .assign(
+            qid=lambda x: x["qid"].str.strip().astype(int),
+            qtext=lambda x: x["qtext"].str.strip(),
+            ra=lambda x: x["ra"].str.strip().astype(int),
+            options=lambda x: x["answers"].apply(clean_answers),
+        )
+        .query("ra != 0")
+        .assign(
+            answer=lambda x: x["ra"].map(lambda value: chr(value + 64)),
+        )[["qid", "qtext", "options", "answer"]]
+    )
+
+    transformed_samples = []
+
+    for sample in df.iterrows():
+        sample = QASample(
+            dataset_name="headqa",
+            original_context="-",
+            original_question=sample[1]["qtext"],
+            options=sample[1]["options"],
             expected_results=sample[1]["answer"],
         )
 

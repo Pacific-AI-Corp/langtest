@@ -114,3 +114,47 @@ def process_document(doc):
     }
 
     return json_output
+
+
+def ensure_download_and_unzip(url: str, extract_to: str):
+    """
+    Ensures that a file is downloaded from the given URL
+    and unzipped to the specified directory.
+
+    Args:
+        url (str): The URL of the file to download.
+        extract_to (str): The directory where the file should be extracted.
+
+    This function checks if the specified directory exists. If it does not exist,
+    it creates the directory, downloads the file from the given URL, and extracts its contents into the directory.
+
+
+    """
+    import requests
+    import zipfile
+    import io
+    import os
+
+    try:
+        # 1. Critical Check: Exit early if the path already exists
+        if os.path.exists(extract_to):
+            print(f"Skipping download. Path '{extract_to}' already exists.")
+
+        else:
+            # 2. Download the file (Removed stream=True since response.content reads all at once)
+            response = requests.get(url)
+            response.raise_for_status()
+
+            # 3. Create the folder structure
+            os.makedirs(extract_to, exist_ok=True)
+
+            # 4. Unzip directly from memory
+            with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+                zip_ref.extractall(extract_to)
+
+            print(f"Successfully downloaded and extracted to {extract_to}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading {url}: {e}")
+    except zipfile.BadZipFile:
+        print("Error: The downloaded file is not a valid ZIP file.")

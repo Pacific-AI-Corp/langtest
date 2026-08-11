@@ -116,7 +116,9 @@ def process_document(doc):
     return json_output
 
 
-def ensure_download_and_unzip(url: str, extract_to: str):
+def ensure_download_and_unzip(
+    url: str, extract_to: str, max_retries: int = 3, timeout: int = 30
+):
     """
     Ensures that a file is downloaded from the given URL
     and unzipped to the specified directory.
@@ -124,37 +126,75 @@ def ensure_download_and_unzip(url: str, extract_to: str):
     Args:
         url (str): The URL of the file to download.
         extract_to (str): The directory where the file should be extracted.
+        max_retries (int): Maximum number of retry attempts. Defaults to 3.
+        timeout (int): Request timeout in seconds. Defaults to 30.
+
+    Returns:
+        bool: True if download and extraction succeeded, False otherwise.
+
+    Raises:
+        Exception: Re-raises exceptions after logging them.
 
     This function checks if the specified directory exists. If it does not exist,
     it creates the directory, downloads the file from the given URL, and extracts its contents into the directory.
 
 
     """
-    import requests
-    import zipfile
     import io
     import os
+    import requests
+    import zipfile
+    from requests.adapters import HTTPAdapter
+    from urllib3.util.retry import Retry
 
     try:
         # 1. Critical Check: Exit early if the path already exists
         if os.path.exists(extract_to):
             print(f"Skipping download. Path '{extract_to}' already exists.")
+            return True
 
         else:
-            # 2. Download the file (Removed stream=True since response.content reads all at once)
-            response = requests.get(url)
+            # 2. Download the file with retries and timeout
+            session = requests.Session()
+            retry_strategy = Retry(
+                total=max_retries,
+                backoff_factor=1,
+                status_forcelist=[429, 500, 502, 503, 504],
+                allowed_methods=["GET"],
+            )
+            adapter = HTTPAdapter(max_retries=retry_strategy)
+            session.mount("http://", adapter)
+            session.mount("https://", adapter)
+
+            response = session.get(url, timeout=timeout)
             response.raise_for_status()
+
+            # Validate response content
+            if not response.content:
+                raise ValueError("Downloaded file is empty")
 
             # 3. Create the folder structure
             os.makedirs(extract_to, exist_ok=True)
 
             # 4. Unzip directly from memory
             with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+                # Validate ZIP file integrity
+                if zip_ref.testzip() is not None:
+                    raise zipfile.BadZipFile("ZIP file failed integrity check")
                 zip_ref.extractall(extract_to)
 
             print(f"Successfully downloaded and extracted to {extract_to}")
+            return True
 
+    except requests.exceptions.Timeout as e:
+        print(f"Timeout error downloading {url}: {e}")
+        raise e
     except requests.exceptions.RequestException as e:
         print(f"Error downloading {url}: {e}")
-    except zipfile.BadZipFile:
+        raise e
+    except zipfile.BadZipFile as e:
         print("Error: The downloaded file is not a valid ZIP file.")
+        raise e
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        raise e

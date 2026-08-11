@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "langtest"
-version = "2.7.0"
+version = "2.8.0"
 description = "Pacific AI provides a library for delivering safe & effective NLP models."
 authors = ["Pacific AI <support@johnsnowlabs.com>"]
 readme = "README.md"

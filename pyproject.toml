@@ -113,7 +113,7 @@ ollama_sdk = ["langchain", "langchain-community", "ollama"]
 
 [tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.13"
-pytest = "^7.4.0"
+pytest = ">=9.0.3"
 taskipy = "^1.11.0"
 en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz" }
 black = ">=26.3.1"

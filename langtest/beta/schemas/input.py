@@ -68,11 +68,6 @@ class Input(SchemaBase):
 
     items: list[InputItem] = Field(default_factory=list)
 
-    # Useful for stateful APIs such as OpenAI Responses.
-    previous_response_id: str | None = None
-
-    conversation_id: str | None = None
-
     # Optional metadata for LangTest.
     metadata: dict[str, Any] = Field(default_factory=dict)
 

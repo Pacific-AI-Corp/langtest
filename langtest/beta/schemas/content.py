@@ -29,7 +29,7 @@ class TextContent(SchemaBase):
 
 
 class ImageContent(SchemaBase):
-    type: Literal["image", "image_url"] = "image"
+    type: Literal["image", "image_url", "input_image"] = "image"
 
     image_url: str | dict | None = None
     data: str | None = None

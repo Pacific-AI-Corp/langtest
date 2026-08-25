@@ -1,8 +1,6 @@
 from __future__ import annotations
-
 from typing import Any, Literal, Union
-
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class SchemaBase(BaseModel):
@@ -31,16 +29,22 @@ class TextContent(SchemaBase):
 
 
 class ImageContent(SchemaBase):
-    type: Literal[
-        "image",
-        "input_image",
-        "image_url",
-    ] = "image"
+    type: Literal["image", "image_url"] = "image"
 
-    image_url: str | None = None
+    image_url: str | dict | None = None
     data: str | None = None
     media_type: str | None = None
     detail: str | None = None
+
+    @model_validator(mode="after")
+    def validate_source(self):
+        if self.image_url is None and self.data is None:
+            raise ValueError("ImageContent requires either " "'url' or 'data'.")
+
+        if self.data is not None and self.media_type is None:
+            raise ValueError("'media_type' is required when " "'data' is provided.")
+
+        return self
 
 
 class AudioContent(SchemaBase):

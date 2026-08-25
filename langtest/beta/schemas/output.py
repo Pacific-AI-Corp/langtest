@@ -37,7 +37,7 @@ class ReasoningItem(SchemaBase):
 
     id: str | None = None
 
-    summary: list[Any] = Field(default_factory=list)
+    summary: list[str] = Field(default_factory=list)
 
     encrypted_content: str | None = None
 

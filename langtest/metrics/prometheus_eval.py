@@ -163,13 +163,7 @@ class PrometheusEval:
         Returns:
             A list of tuples of feedback and score.
         """
-        queries = [entry.get("query", None) for entry in entries]
-        results = [entry.get("result", None) for entry in entries]
-        answers = [entry.get("answer", None) for entry in entries]
-        return [
-            self.evaluate_response(query, result, answer)
-            for query, result, answer in zip(queries, results, answers)
-        ]
+        return [self.evaluate_response(entry) for entry in entries]
 
     def evaluate(
         self,

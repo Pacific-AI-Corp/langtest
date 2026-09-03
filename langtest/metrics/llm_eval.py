@@ -478,11 +478,13 @@ class RatingEval:
         """
         results = []
         for example in examples:
-            prompt = example.get("prompt", "")
-            response = example.get("response", "")
-            groundtruth = example.get("groundtruth") if self.include_groundtruth else None
+            inputs = {
+                "prompt": example.get("prompt", ""),
+                "groundtruth": example.get("groundtruth"),
+            }
+            predictions = {"response": example.get("response", "")}
 
-            result = self.evaluate(prompt, response, groundtruth)
+            result = self.evaluate(inputs, predictions)
             results.append(result)
 
         return results
